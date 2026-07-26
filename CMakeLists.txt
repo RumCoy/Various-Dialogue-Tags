@@ -33,4 +33,4 @@ install(TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION "SKSE/Plugins"
     LIBRARY DESTINATION "SKSE/Plugins"
 )
-install(FILES config/VariousDialogueTags_InternalData.ini DESTINATION "SKSE/Plugins")
+install(FILES "Package Source - MAKE EDITS HERE/Data/SKSE/Plugins/VariousDialogueTags_InternalData.ini" DESTINATION "SKSE/Plugins")

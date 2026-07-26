@@ -73,13 +73,28 @@ jobs:
         env:
           VCPKG_ROOT: ${{ github.workspace }}\vcpkg
         run: |
+          $packageSource = "Package Source - MAKE EDITS HERE/Data"
+          $descriptorSource = Join-Path $packageSource "aaaRumCoy_DESC.ini"
+          $userConfigSource = Join-Path $packageSource "SKSE/Plugins/VariousDialogueTags_UserConfig.ini"
+
           cmake --install build/release --config Release --prefix package/Data
           if (!(Test-Path package/Data/SKSE/Plugins/00_VariousDialogueTags.dll)) {
             throw "Expected packaged DLL was not produced: 00_VariousDialogueTags.dll"
           }
+          if (!(Test-Path package/Data/SKSE/Plugins/VariousDialogueTags_InternalData.ini)) {
+            throw "Expected internal-data file was not packaged: VariousDialogueTags_InternalData.ini"
+          }
 
+          if (!(Test-Path -LiteralPath $descriptorSource)) {
+            throw "Expected descriptor file was not found: $descriptorSource"
+          }
+          Copy-Item -LiteralPath $descriptorSource -Destination package/Data/aaaRumCoy_DESC.ini
+
+          if (!(Test-Path -LiteralPath $userConfigSource)) {
+            throw "Expected user-config template was not found: $userConfigSource"
+          }
           New-Item -ItemType Directory -Force -Path user-config-package/Data/SKSE/Plugins | Out-Null
-          Copy-Item config/VariousDialogueTags_UserConfig.ini user-config-package/Data/SKSE/Plugins/VariousDialogueTags_UserConfig.ini
+          Copy-Item -LiteralPath $userConfigSource -Destination user-config-package/Data/SKSE/Plugins/VariousDialogueTags_UserConfig.ini
 
       - name: Upload ready-to-install mod package
         uses: actions/upload-artifact@v6

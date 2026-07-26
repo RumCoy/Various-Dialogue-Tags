@@ -1,2 +1,8 @@
 docs/
-release/
+*.zip
+build/
+package/
+user-config-package/
+vcpkg/
+vcpkg-binary-cache/
+Package Source - MAKE EDITS HERE/Data/SKSE/Plugins/00_VariousDialogueTags.dll
