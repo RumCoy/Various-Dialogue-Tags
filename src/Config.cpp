@@ -27,6 +27,17 @@ namespace
         return value;
     }
 
+    std::string NormalizeTag(std::string value)
+    {
+        value = Trim(std::move(value));
+        if (value.empty() || (value.front() == '[' && value.back() == ']')) {
+            return value;
+        }
+        value.insert(value.begin(), '[');
+        value.push_back(']');
+        return value;
+    }
+
     bool ParseBool(std::string value, bool fallback)
     {
         value = Lower(Trim(std::move(value)));
@@ -170,7 +181,7 @@ namespace VariousDialogueTags
             }
 
             if (key == "tag") {
-                activeRule->tag = std::move(value);
+                activeRule->tag = NormalizeTag(std::move(value));
             } else if (key == "includeforms") {
                 ParseFormList(std::move(value), activeRule->includeForms);
             } else if (key == "excludeforms") {
