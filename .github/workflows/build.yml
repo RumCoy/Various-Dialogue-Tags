@@ -75,9 +75,9 @@ jobs:
         env:
           VCPKG_ROOT: ${{ github.workspace }}\vcpkg
         run: |
-          $packageSource = "zz. Mod Data - EDIT FILES HERE (Symlinked to MO2)/Data"
-          $descriptorSource = Join-Path $packageSource "aaaRumCoy_DESC.ini"
-          $userConfigSource = Join-Path $packageSource "SKSE/Plugins/VariousDialogueTags_UserConfig.ini"
+          $resourceSource = "resources"
+          $descriptorSource = Join-Path $resourceSource "aaaRumCoy_DESC.ini"
+          $userConfigSource = Join-Path $resourceSource "VariousDialogueTags_UserConfig.ini"
 
           cmake --install build/release --config Release --prefix package/Data
           if (!(Test-Path package/Data/SKSE/Plugins/00_VariousDialogueTags.dll)) {

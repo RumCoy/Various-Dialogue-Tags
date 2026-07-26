@@ -16,7 +16,7 @@ if(NOT COMMAND add_commonlibsse_plugin)
 endif()
 
 set(VDT_INTERNAL_DATA_SOURCE_PATH
-    "${CMAKE_CURRENT_SOURCE_DIR}/zz. Mod Data - EDIT FILES HERE (Symlinked to MO2)/VariousDialogueTags_InternalData.ini")
+    "${CMAKE_CURRENT_SOURCE_DIR}/resources/VariousDialogueTags_InternalData.ini")
 set(VDT_INTERNAL_DATA_PATH "${CMAKE_CURRENT_BINARY_DIR}/VariousDialogueTags_InternalData.ini")
 set(VDT_RESOURCE_HEADER_PATH "${CMAKE_CURRENT_SOURCE_DIR}/src/Resource.h")
 configure_file("${VDT_INTERNAL_DATA_SOURCE_PATH}" "${VDT_INTERNAL_DATA_PATH}" COPYONLY)
