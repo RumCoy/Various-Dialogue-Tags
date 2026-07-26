@@ -20,18 +20,20 @@ env:
 
 jobs:
   build-windows:
-    name: Windows / MSVC 2022
-    runs-on: windows-2022
+    name: Windows / MSVC 2026
+    runs-on: windows-2025-vs2026
 
     steps:
       - name: Check out project
         uses: actions/checkout@v6
+        with:
+          submodules: recursive
 
       - name: Check out vcpkg
         uses: actions/checkout@v6
         with:
           repository: microsoft/vcpkg
-          ref: aa2d37682e3318d93aef87efa7b0e88e81cd3d59
+          ref: ee12231b20c95013c6638d845d04c91559a1d1ff
           path: vcpkg
 
       - name: Bootstrap vcpkg
@@ -43,7 +45,7 @@ jobs:
         uses: actions/cache/restore@v6
         with:
           path: vcpkg-binary-cache
-          key: vcpkg-${{ runner.os }}-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json') }}
+          key: vcpkg-${{ runner.os }}-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json', '.gitmodules', 'lib/commonlibsse-ng/vcpkg.json') }}
 
       - name: Ensure vcpkg binary cache directory exists
         shell: pwsh
@@ -89,6 +91,20 @@ jobs:
             throw "Expected descriptor file was not found: $descriptorSource"
           }
           Copy-Item -LiteralPath $descriptorSource -Destination package/Data/aaaRumCoy_DESC.ini
+
+          Copy-Item -LiteralPath LICENSE -Destination package/LICENSE
+          Copy-Item -LiteralPath COPYING -Destination package/COPYING
+          Copy-Item -LiteralPath lib/commonlibsse-ng/EXCEPTIONS.md -Destination package/COMMONLIBSSE-NG-EXCEPTIONS.md
+          New-Item -ItemType Directory -Force -Path package/LICENSES | Out-Null
+          Copy-Item -LiteralPath build/release/vcpkg_installed/x64-windows-static-md/share/directxmath/copyright -Destination package/LICENSES/DirectXMath.txt
+          Copy-Item -LiteralPath build/release/vcpkg_installed/x64-windows-static-md/share/directxtk/copyright -Destination package/LICENSES/DirectXTK.txt
+          Copy-Item -LiteralPath build/release/vcpkg_installed/x64-windows-static-md/share/fmt/copyright -Destination package/LICENSES/fmt.txt
+          Copy-Item -LiteralPath build/release/vcpkg_installed/x64-windows-static-md/share/rapidcsv/copyright -Destination package/LICENSES/rapidcsv.txt
+          Copy-Item -LiteralPath build/release/vcpkg_installed/x64-windows-static-md/share/spdlog/copyright -Destination package/LICENSES/spdlog.txt
+          @(
+            "Corresponding source: https://github.com/RumCoy/Various-Dialogue-Tags"
+            "CommonLibSSE-NG v5.1.0 source: https://github.com/alandtse/CommonLibSSE-NG/tree/v5.1.0"
+          ) | Set-Content -Path package/SOURCE.txt
 
           if (!(Test-Path -LiteralPath $userConfigSource)) {
             throw "Expected user-config template was not found: $userConfigSource"

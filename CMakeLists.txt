@@ -1,11 +1,19 @@
 cmake_minimum_required(VERSION 3.24)
+if(NOT DEFINED VCPKG_TARGET_TRIPLET)
+    set(VCPKG_TARGET_TRIPLET "x64-windows-static-md" CACHE STRING "")
+endif()
 project(VariousDialogueTags VERSION 0.1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-find_package(CommonLibSSE CONFIG REQUIRED)
+set(BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(COMMONLIB_PREBUILT_MULTICONFIG ON CACHE BOOL "" FORCE)
+add_subdirectory(lib/commonlibsse-ng EXCLUDE_FROM_ALL)
+if(NOT COMMAND add_commonlibsse_plugin)
+    include(lib/commonlibsse-ng/cmake/CommonLibSSE.cmake)
+endif()
 
 add_commonlibsse_plugin(${PROJECT_NAME}
     NAME "Various Dialogue Tags"

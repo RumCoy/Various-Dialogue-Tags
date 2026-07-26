@@ -4,6 +4,7 @@
 #include "FormOrigin.h"
 
 #include <SKSE/SKSE.h>
+#include <SKSE/Translation.h>
 
 #include <array>
 #include <cctype>
@@ -202,13 +203,23 @@ namespace VariousDialogueTags
                         }
                     }
 
-                    if (!tag.empty() && !HasPrefix(output, tag)) {
-                        output.reserve(tag.size() + 1 + currentText.size());
-                        output.assign(tag);
-                        output.push_back(' ');
-                        output.append(currentText);
-                        SKSE::log::debug("Tagged {}|{:X}: {}", tagIdentity->filename,
-                            tagIdentity->localFormID, currentText);
+                    if (!tag.empty()) {
+                        std::string displayText = currentText;
+                        if (currentText.starts_with('$') &&
+                            !SKSE::Translation::Translate(currentText, displayText)) {
+                            SKSE::log::debug("Deferred unresolved localization token: {}", currentText);
+                            continue;
+                        }
+
+                        output = displayText;
+                        if (!HasPrefix(output, tag)) {
+                            output.reserve(tag.size() + 1 + displayText.size());
+                            output.assign(tag);
+                            output.push_back(' ');
+                            output.append(displayText);
+                            SKSE::log::debug("Tagged {}|{:X}: {}", tagIdentity->filename,
+                                tagIdentity->localFormID, displayText);
+                        }
                     }
                 }
 
