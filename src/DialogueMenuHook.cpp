@@ -131,7 +131,7 @@ namespace VariousDialogueTags
         }
 
         const auto& config = Config::GetSingleton();
-        const bool globalModPluginTags = config.GlobalModPluginTags();
+        const bool globalPluginNameFallback = config.GlobalPluginNameFallback();
         if (config.Enabled() && topicManager && topicManager->dialogueList) {
             for (auto iterator = topicManager->dialogueList->begin();
                  iterator != topicManager->dialogueList->end(); ++iterator) {
@@ -191,7 +191,7 @@ namespace VariousDialogueTags
                         if (rule->Allows(tagIdentity->localFormID)) {
                             tag = rule->tag;
                         }
-                    } else if (globalModPluginTags) {
+                    } else if (globalPluginNameFallback) {
                         for (std::size_t index = 0; index < candidateCount; ++index) {
                             fallbackTag = MakeFallbackTag(candidates[index]->filename);
                             if (!fallbackTag.empty()) {

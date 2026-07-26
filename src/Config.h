@@ -27,14 +27,14 @@ namespace VariousDialogueTags
         bool Load(const std::filesystem::path& internalDataPath,
             const std::filesystem::path& userConfigPath);
         [[nodiscard]] bool Enabled() const noexcept;
-        [[nodiscard]] bool GlobalModPluginTags() const noexcept;
+        [[nodiscard]] bool GlobalPluginNameFallback() const noexcept;
         [[nodiscard]] const Rule* FindRule(std::string_view pluginName) const;
 
     private:
         bool LoadFile(const std::filesystem::path& path, bool optional);
 
         bool enabled_{ true };
-        bool globalModPluginTags_{ false };
+        bool globalPluginNameFallback_{ false };
         std::unordered_map<std::string, Rule> rules_;
     };
 }

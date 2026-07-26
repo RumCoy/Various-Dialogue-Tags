@@ -89,15 +89,15 @@ namespace VariousDialogueTags
     {
         rules_.clear();
         enabled_ = true;
-        globalModPluginTags_ = false;
+        globalPluginNameFallback_ = false;
 
         const bool loadedInternalData = LoadFile(internalDataPath, false);
         const bool loadedUserConfig = LoadFile(userConfigPath, true);
 
         SKSE::log::info(
             "Configuration complete: {} dialogue-tag rule(s); enabled={}; "
-            "globalModPluginTags={}; internalData={}; userConfig={}",
-            rules_.size(), enabled_, globalModPluginTags_, loadedInternalData, loadedUserConfig);
+            "globalPluginNameFallback={}; internalData={}; userConfig={}",
+            rules_.size(), enabled_, globalPluginNameFallback_, loadedInternalData, loadedUserConfig);
         return loadedInternalData || loadedUserConfig;
     }
 
@@ -159,8 +159,8 @@ namespace VariousDialogueTags
             if (activeSection == Section::kGeneral) {
                 if (key == "enabled") {
                     enabled_ = ParseBool(value, enabled_);
-                } else if (key == "globalmodplugintags") {
-                    globalModPluginTags_ = ParseBool(value, globalModPluginTags_);
+                } else if (key == "globalpluginnamefallback") {
+                    globalPluginNameFallback_ = ParseBool(value, globalPluginNameFallback_);
                 }
                 continue;
             }
@@ -206,9 +206,9 @@ namespace VariousDialogueTags
         return enabled_;
     }
 
-    bool Config::GlobalModPluginTags() const noexcept
+    bool Config::GlobalPluginNameFallback() const noexcept
     {
-        return globalModPluginTags_;
+        return globalPluginNameFallback_;
     }
 
     const Rule* Config::FindRule(std::string_view pluginName) const
