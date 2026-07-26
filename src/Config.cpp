@@ -95,35 +95,38 @@ namespace VariousDialogueTags
         return instance;
     }
 
-    bool Config::Load(const std::filesystem::path& internalDataPath,
+    bool Config::Load(std::string_view embeddedInternalData,
         const std::filesystem::path& userConfigPath)
     {
         rules_.clear();
         enabled_ = true;
         globalPluginNameFallback_ = false;
 
-        const bool loadedInternalData = LoadFile(internalDataPath, false);
-        const bool loadedUserConfig = LoadFile(userConfigPath, true);
+        std::istringstream internalDataInput{ std::string(embeddedInternalData) };
+        const bool loadedEmbeddedData = embeddedInternalData.empty() ?
+            false : LoadStream(internalDataInput, "embedded internal data", false);
+        const bool loadedUserConfig = LoadUserFile(userConfigPath);
 
         SKSE::log::info(
             "Configuration complete: {} dialogue-tag rule(s); enabled={}; "
-            "globalPluginNameFallback={}; internalData={}; userConfig={}",
-            rules_.size(), enabled_, globalPluginNameFallback_, loadedInternalData, loadedUserConfig);
-        return loadedInternalData || loadedUserConfig;
+            "globalPluginNameFallback={}; embeddedData={}; userConfig={}",
+            rules_.size(), enabled_, globalPluginNameFallback_, loadedEmbeddedData, loadedUserConfig);
+        return loadedEmbeddedData || loadedUserConfig;
     }
 
-    bool Config::LoadFile(const std::filesystem::path& path, bool optional)
+    bool Config::LoadUserFile(const std::filesystem::path& path)
     {
         std::ifstream input(path);
         if (!input) {
-            if (optional) {
-                SKSE::log::info("Optional user configuration not found: {}", path.string());
-            } else {
-                SKSE::log::warn("Internal-data configuration not found: {}", path.string());
-            }
+            SKSE::log::info("Optional user configuration not found: {}", path.string());
             return false;
         }
 
+        return LoadStream(input, path.filename().string(), true);
+    }
+
+    bool Config::LoadStream(std::istream& input, std::string sourceName, bool userOverride)
+    {
         std::unordered_map<std::string, Rule> fileRules;
         enum class Section { kOther, kGeneral, kPlugin };
         Section activeSection = Section::kOther;
@@ -160,7 +163,7 @@ namespace VariousDialogueTags
             const auto separator = line.find('=');
             if (separator == std::string::npos) {
                 SKSE::log::warn("Ignored malformed line {} in {}",
-                    lineNumber, path.filename().string());
+                    lineNumber, sourceName);
                 continue;
             }
 
@@ -194,8 +197,8 @@ namespace VariousDialogueTags
         for (auto& [pluginName, rule] : fileRules) {
             if (rule.tag.empty()) {
                 SKSE::log::warn("Ignored rule without Tag for [{}] in {}",
-                    pluginName, path.filename().string());
-                if (optional && rules_.erase(pluginName) > 0) {
+                    pluginName, sourceName);
+                if (userOverride && rules_.erase(pluginName) > 0) {
                     ++overridden;
                 }
                 continue;
@@ -208,7 +211,7 @@ namespace VariousDialogueTags
         }
 
         SKSE::log::info("Loaded {} rule(s) from {}; {} override(s)",
-            loaded, path.filename().string(), overridden);
+            loaded, sourceName, overridden);
         return true;
     }
 

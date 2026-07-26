@@ -83,8 +83,14 @@ jobs:
           if (!(Test-Path package/Data/SKSE/Plugins/00_VariousDialogueTags.dll)) {
             throw "Expected packaged DLL was not produced: 00_VariousDialogueTags.dll"
           }
-          if (!(Test-Path package/Data/SKSE/Plugins/VariousDialogueTags_InternalData.ini)) {
-            throw "Expected internal-data file was not packaged: VariousDialogueTags_InternalData.ini"
+          $dllBytes = [System.IO.File]::ReadAllBytes(
+            "package/Data/SKSE/Plugins/00_VariousDialogueTags.dll")
+          $dllText = [System.Text.Encoding]::Latin1.GetString($dllBytes)
+          if (!$dllText.Contains("[Plugin:018Auri.esp]")) {
+            throw "Embedded internal-data marker was not found in 00_VariousDialogueTags.dll"
+          }
+          if (Test-Path package/Data/SKSE/Plugins/VariousDialogueTags_InternalData.ini) {
+            throw "Internal data must be embedded in the DLL, not packaged as a separate INI"
           }
 
           if (!(Test-Path -LiteralPath $descriptorSource)) {

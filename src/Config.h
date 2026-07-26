@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <filesystem>
+#include <iosfwd>
 #include <optional>
 #include <string>
 #include <string_view>
@@ -24,14 +25,15 @@ namespace VariousDialogueTags
     public:
         static Config& GetSingleton();
 
-        bool Load(const std::filesystem::path& internalDataPath,
+        bool Load(std::string_view embeddedInternalData,
             const std::filesystem::path& userConfigPath);
         [[nodiscard]] bool Enabled() const noexcept;
         [[nodiscard]] bool GlobalPluginNameFallback() const noexcept;
         [[nodiscard]] const Rule* FindRule(std::string_view pluginName) const;
 
     private:
-        bool LoadFile(const std::filesystem::path& path, bool optional);
+        bool LoadUserFile(const std::filesystem::path& path);
+        bool LoadStream(std::istream& input, std::string sourceName, bool userOverride);
 
         bool enabled_{ true };
         bool globalPluginNameFallback_{ false };

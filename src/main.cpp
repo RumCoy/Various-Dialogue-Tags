@@ -1,5 +1,6 @@
 #include "Config.h"
 #include "DialogueMenuHook.h"
+#include "EmbeddedData.h"
 
 #include <SKSE/SKSE.h>
 #include <spdlog/sinks/basic_file_sink.h>
@@ -31,9 +32,13 @@ namespace
             return;
         }
 
+        const auto internalData = VariousDialogueTags::EmbeddedData::GetInternalData();
+        if (internalData.empty()) {
+            SKSE::log::critical("Embedded internal-data resource is missing or empty");
+        }
+
         VariousDialogueTags::Config::GetSingleton().Load(
-            "Data/SKSE/Plugins/VariousDialogueTags_InternalData.ini",
-            "Data/SKSE/Plugins/VariousDialogueTags_UserConfig.ini");
+            internalData, "Data/SKSE/Plugins/VariousDialogueTags_UserConfig.ini");
         SKSE::log::info("Configuration loaded");
     }
 }
