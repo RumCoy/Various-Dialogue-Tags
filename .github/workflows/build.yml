@@ -92,19 +92,32 @@ jobs:
           }
           Copy-Item -LiteralPath $descriptorSource -Destination package/Data/aaaRumCoy_DESC.ini
 
-          Copy-Item -LiteralPath LICENSE -Destination package/LICENSE
-          Copy-Item -LiteralPath COPYING -Destination package/COPYING
-          Copy-Item -LiteralPath lib/commonlibsse-ng/EXCEPTIONS.md -Destination package/COMMONLIBSSE-NG-EXCEPTIONS.md
-          New-Item -ItemType Directory -Force -Path package/LICENSES | Out-Null
-          Copy-Item -LiteralPath build/release/vcpkg_installed/x64-windows-static-md/share/directxmath/copyright -Destination package/LICENSES/DirectXMath.txt
-          Copy-Item -LiteralPath build/release/vcpkg_installed/x64-windows-static-md/share/directxtk/copyright -Destination package/LICENSES/DirectXTK.txt
-          Copy-Item -LiteralPath build/release/vcpkg_installed/x64-windows-static-md/share/fmt/copyright -Destination package/LICENSES/fmt.txt
-          Copy-Item -LiteralPath build/release/vcpkg_installed/x64-windows-static-md/share/rapidcsv/copyright -Destination package/LICENSES/rapidcsv.txt
-          Copy-Item -LiteralPath build/release/vcpkg_installed/x64-windows-static-md/share/spdlog/copyright -Destination package/LICENSES/spdlog.txt
+          $legalDirectory = "package/Data/Docs/Various Dialogue Tags"
+          $legalFile = Join-Path $legalDirectory "LICENSES_AND_SOURCE.txt"
+          New-Item -ItemType Directory -Force -Path $legalDirectory | Out-Null
+
           @(
-            "Corresponding source: https://github.com/RumCoy/Various-Dialogue-Tags"
-            "CommonLibSSE-NG v5.1.0 source: https://github.com/alandtse/CommonLibSSE-NG/tree/v5.1.0"
-          ) | Set-Content -Path package/SOURCE.txt
+            "VARIOUS DIALOGUE TAGS"
+            "LICENSES AND SOURCE INFORMATION"
+            ""
+            "Corresponding source code is available from the public repository associated with this release."
+          ) | Set-Content -LiteralPath $legalFile -Encoding utf8
+
+          function Add-LicenseSection {
+            param([string]$Title, [string]$SourcePath)
+            Add-Content -LiteralPath $legalFile -Value @("", "===== $Title =====", "") -Encoding utf8
+            Get-Content -Raw -LiteralPath $SourcePath | Add-Content -LiteralPath $legalFile -Encoding utf8
+          }
+
+          Add-LicenseSection "Various Dialogue Tags license notice" "LICENSE"
+          Add-LicenseSection "GNU General Public License version 3" "COPYING"
+          Add-LicenseSection "CommonLibSSE-NG exceptions" "lib/commonlibsse-ng/EXCEPTIONS.md"
+          Add-LicenseSection "CommonLibSSE-NG original MIT license" "lib/commonlibsse-ng/LICENSE"
+          Add-LicenseSection "DirectXMath license notices" "build/release/vcpkg_installed/x64-windows-static-md/share/directxmath/copyright"
+          Add-LicenseSection "DirectXTK license notices" "build/release/vcpkg_installed/x64-windows-static-md/share/directxtk/copyright"
+          Add-LicenseSection "fmt license notices" "build/release/vcpkg_installed/x64-windows-static-md/share/fmt/copyright"
+          Add-LicenseSection "rapidcsv license notices" "build/release/vcpkg_installed/x64-windows-static-md/share/rapidcsv/copyright"
+          Add-LicenseSection "spdlog license notices" "build/release/vcpkg_installed/x64-windows-static-md/share/spdlog/copyright"
 
           if (!(Test-Path -LiteralPath $userConfigSource)) {
             throw "Expected user-config template was not found: $userConfigSource"
