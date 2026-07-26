@@ -99,14 +99,14 @@ jobs:
       - name: Upload ready-to-install mod package
         uses: actions/upload-artifact@v6
         with:
-          name: Various-Dialogue-Tags-Windows
+          name: Various Dialogue Tags
           path: package/
           if-no-files-found: error
 
       - name: Upload optional user-config template
         uses: actions/upload-artifact@v6
         with:
-          name: Various-Dialogue-Tags-User-Config
+          name: Various Dialogue Tags - Config
           path: user-config-package/
           if-no-files-found: error
 
@@ -114,7 +114,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v6
         with:
-          name: Various-Dialogue-Tags-build-diagnostics
+          name: Various Dialogue Tags - Build Diagnostics
           path: |
             build/release/CMakeCache.txt
             build/release/vcpkg-manifest-install.log
