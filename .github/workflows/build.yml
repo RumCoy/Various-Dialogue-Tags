@@ -1,0 +1,107 @@
+name: Build Various Dialogue Tags
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  VCPKG_DEFAULT_TRIPLET: x64-windows-static-md
+  VCPKG_FEATURE_FLAGS: manifests,registries,binarycaching
+  VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}\vcpkg-binary-cache
+
+jobs:
+  build-windows:
+    name: Windows / MSVC 2022
+    runs-on: windows-2022
+
+    steps:
+      - name: Check out project
+        uses: actions/checkout@v6
+
+      - name: Check out vcpkg
+        uses: actions/checkout@v6
+        with:
+          repository: microsoft/vcpkg
+          ref: aa2d37682e3318d93aef87efa7b0e88e81cd3d59
+          path: vcpkg
+
+      - name: Bootstrap vcpkg
+        shell: pwsh
+        run: .\vcpkg\bootstrap-vcpkg.bat -disableMetrics
+
+      - name: Restore vcpkg binary cache
+        id: vcpkg-cache
+        uses: actions/cache/restore@v6
+        with:
+          path: vcpkg-binary-cache
+          key: vcpkg-${{ runner.os }}-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json') }}
+
+      - name: Ensure vcpkg binary cache directory exists
+        shell: pwsh
+        run: New-Item -ItemType Directory -Force -Path $env:VCPKG_DEFAULT_BINARY_CACHE | Out-Null
+
+      - name: Configure CMake
+        shell: pwsh
+        env:
+          VCPKG_ROOT: ${{ github.workspace }}\vcpkg
+        run: cmake --preset release
+
+      - name: Save vcpkg binary cache
+        if: always() && steps.vcpkg-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: vcpkg-binary-cache
+          key: ${{ steps.vcpkg-cache.outputs.cache-primary-key }}
+
+      - name: Build DLL
+        shell: pwsh
+        env:
+          VCPKG_ROOT: ${{ github.workspace }}\vcpkg
+        run: cmake --build --preset release
+
+      - name: Create mod staging folders
+        shell: pwsh
+        env:
+          VCPKG_ROOT: ${{ github.workspace }}\vcpkg
+        run: |
+          cmake --install build/release --config Release --prefix package/Data
+          if (!(Test-Path package/Data/SKSE/Plugins/00_VariousDialogueTags.dll)) {
+            throw "Expected packaged DLL was not produced: 00_VariousDialogueTags.dll"
+          }
+
+          New-Item -ItemType Directory -Force -Path user-config-package/Data/SKSE/Plugins | Out-Null
+          Copy-Item config/VariousDialogueTags_UserConfig.ini user-config-package/Data/SKSE/Plugins/VariousDialogueTags_UserConfig.ini
+
+      - name: Upload ready-to-install mod package
+        uses: actions/upload-artifact@v6
+        with:
+          name: Various-Dialogue-Tags-Windows
+          path: package/
+          if-no-files-found: error
+
+      - name: Upload optional user-config template
+        uses: actions/upload-artifact@v6
+        with:
+          name: Various-Dialogue-Tags-User-Config
+          path: user-config-package/
+          if-no-files-found: error
+
+      - name: Upload build logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v6
+        with:
+          name: Various-Dialogue-Tags-build-diagnostics
+          path: |
+            build/release/CMakeCache.txt
+            build/release/vcpkg-manifest-install.log
+            build/release/vcpkg_installed/vcpkg/issue_body.md
+          if-no-files-found: ignore
