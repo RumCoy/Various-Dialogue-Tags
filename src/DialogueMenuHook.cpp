@@ -31,18 +31,52 @@ namespace
         return true;
     }
 
-    bool IsVanillaPlugin(std::string_view filename)
+    bool IsExcludedOriginPlugin(std::string_view filename)
     {
-        constexpr std::string_view vanillaPlugins[] = {
+        constexpr std::string_view excludedOriginPlugins[] = {
             "Skyrim.esm",
             "Update.esm",
             "Dawnguard.esm",
             "HearthFires.esm",
-            "Dragonborn.esm"
+            "Dragonborn.esm",
+            "ccasvsse001-almsivi.esm",
+            "ccBGSSSE001-Fish.esm",
+            "ccbgssse003-zombies.esl",
+            "ccbgssse005-goldbrand.esl",
+            "ccbgssse020-graycowl.esl",
+            "cctwbsse001-puzzledungeon.esm",
+            "cceejsse001-hstead.esm",
+            "ccbgssse035-petnhound.esl",
+            "ccvsvsse002-pets.esl",
+            "ccbgssse034-mntuni.esm",
+            "ccbgssse036-petbwolf.esl",
+            "ccffbsse001-imperialdragon.esl",
+            "ccmtysse002-ve.esl",
+            "cceejsse003-hollow.esm",
+            "ccbgssse031-advcyrus.esm",
+            "ccbgssse038-bowofshadows.esl",
+            "ccbgssse040-advobgobs.esl",
+            "ccbgssse059-ba_dragonplate.esl",
+            "ccbgssse041-netchleather.esl",
+            "ccbgssse063-ba_ebony.esl",
+            "ccbgssse055-ba_orcishscaled.esl",
+            "ccbgssse051-ba_daedricmail.esl",
+            "ccbgssse067-daedinv.esm",
+            "ccbgssse068-bloodfall.esl",
+            "ccbgssse069-contest.esl",
+            "ccVSVSSE003-NecroArts.esl",
+            "ccvsvsse004-beafarmer.esl",
+            "ccbgssse025-advdsgs.esm",
+            "ccrmssse001-necrohouse.esl",
+            "ccedhsse003-redguard.esl",
+            "cceejsse004-hall.esl",
+            "cceejsse005-cave.esm",
+            "cckrtsse001_altar.esl",
+            "ccafdsse001-dwesanctuary.esm"
         };
 
-        for (const auto vanillaPlugin : vanillaPlugins) {
-            if (EqualsIgnoreCase(filename, vanillaPlugin)) {
+        for (const auto excludedOriginPlugin : excludedOriginPlugins) {
+            if (EqualsIgnoreCase(filename, excludedOriginPlugin)) {
                 return true;
             }
         }
@@ -51,7 +85,7 @@ namespace
 
     std::string MakeFallbackTag(std::string_view filename)
     {
-        if (filename.empty() || IsVanillaPlugin(filename)) {
+        if (filename.empty() || IsExcludedOriginPlugin(filename)) {
             return {};
         }
 
@@ -155,13 +189,17 @@ namespace VariousDialogueTags
                 std::string output = currentText;
                 const auto topicProvenance = FormOrigin::Resolve(topic);
                 const auto topicInfoProvenance = FormOrigin::Resolve(topicInfo);
-                if (topicProvenance || topicInfoProvenance) {
+                const bool topicEligible = topicProvenance &&
+                    !IsExcludedOriginPlugin(topicProvenance->origin.filename);
+                const bool topicInfoEligible = topicInfoProvenance &&
+                    !IsExcludedOriginPlugin(topicInfoProvenance->origin.filename);
+                if (topicEligible || topicInfoEligible) {
                     std::array<const FormOrigin::Identity*, 4> candidates{};
                     std::size_t candidateCount = 0;
 
-                    const auto* topicOrigin = topicProvenance ?
+                    const auto* topicOrigin = topicEligible ?
                         std::addressof(topicProvenance->origin) : nullptr;
-                    if (topicInfoProvenance) {
+                    if (topicInfoEligible) {
                         if (!topicOrigin || topicInfoProvenance->winner.file != topicOrigin->file) {
                             AddCandidate(candidates, candidateCount, topicInfoProvenance->winner);
                         }
@@ -169,7 +207,7 @@ namespace VariousDialogueTags
                             AddCandidate(candidates, candidateCount, topicInfoProvenance->origin);
                         }
                     }
-                    if (topicProvenance) {
+                    if (topicEligible) {
                         AddCandidate(candidates, candidateCount, topicProvenance->winner);
                         AddCandidate(candidates, candidateCount, topicProvenance->origin);
                     }
