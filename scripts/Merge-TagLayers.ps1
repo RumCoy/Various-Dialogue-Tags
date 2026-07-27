@@ -45,7 +45,7 @@ function Read-IniLayer {
     $lineNumber = 0
 
     $allowedPluginKeys = if ($ProductName -eq 'VDT') {
-        @('Tag', 'IncludeForms', 'ExcludeForms')
+        @('Tag', 'IncludeForms', 'ExcludeForms', 'ModNameTags')
     } else {
         @('Tag', 'IncludeForms', 'ExcludeForms', 'SkillTags', 'ModNameTags')
     }

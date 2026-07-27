@@ -214,23 +214,31 @@ namespace VariousDialogueTags
 
                     const Rule* rule = nullptr;
                     const FormOrigin::Identity* tagIdentity = nullptr;
+                    bool tagsEnabled = true;
                     for (std::size_t index = 0; index < candidateCount; ++index) {
-                        if (const auto* candidateRule =
-                                config.FindRule(candidates[index]->filename)) {
+                        const auto* candidateRule =
+                            config.FindRule(candidates[index]->filename);
+                        if (!candidateRule) {
+                            continue;
+                        }
+                        if (!candidateRule->modNameTags) {
+                            tagsEnabled = false;
+                            break;
+                        }
+                        if (!rule) {
                             rule = candidateRule;
                             tagIdentity = candidates[index];
-                            break;
                         }
                     }
 
                     std::string fallbackTag;
                     std::string_view tag;
 
-                    if (rule) {
+                    if (tagsEnabled && rule) {
                         if (rule->Allows(tagIdentity->localFormID)) {
                             tag = rule->tag;
                         }
-                    } else if (globalPluginNameFallback) {
+                    } else if (tagsEnabled && globalPluginNameFallback) {
                         for (std::size_t index = 0; index < candidateCount; ++index) {
                             fallbackTag = MakeFallbackTag(candidates[index]->filename);
                             if (!fallbackTag.empty()) {

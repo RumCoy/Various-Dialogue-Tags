@@ -16,6 +16,7 @@ namespace VariousDialogueTags
         std::string tag;
         std::unordered_set<std::uint32_t> includeForms;
         std::unordered_set<std::uint32_t> excludeForms;
+        bool modNameTags{ true };
 
         [[nodiscard]] bool Allows(std::uint32_t localFormID) const;
     };

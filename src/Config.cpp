@@ -189,13 +189,15 @@ namespace VariousDialogueTags
                 ParseFormList(std::move(value), activeRule->includeForms);
             } else if (key == "excludeforms") {
                 ParseFormList(std::move(value), activeRule->excludeForms);
+            } else if (key == "modnametags") {
+                activeRule->modNameTags = ParseBool(value, true);
             }
         }
 
         std::size_t loaded = 0;
         std::size_t overridden = 0;
         for (auto& [pluginName, rule] : fileRules) {
-            if (rule.tag.empty()) {
+            if (rule.tag.empty() && rule.modNameTags) {
                 SKSE::log::warn("Ignored rule without Tag for [{}] in {}",
                     pluginName, sourceName);
                 if (userOverride && rules_.erase(pluginName) > 0) {
