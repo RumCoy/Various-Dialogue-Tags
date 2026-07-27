@@ -76,6 +76,7 @@ jobs:
           VCPKG_ROOT: ${{ github.workspace }}\vcpkg
         run: |
           $resourceSource = "resources"
+          $internalDataSource = Join-Path $resourceSource "VariousDialogueTags_InternalData.ini"
           $descriptorSource = Join-Path $resourceSource "aaaRumCoy_DESC.ini"
           $userConfigSource = Join-Path $resourceSource "VariousDialogueTags_UserConfig.ini"
 
@@ -86,8 +87,14 @@ jobs:
           $dllBytes = [System.IO.File]::ReadAllBytes(
             "package/Data/SKSE/Plugins/00_VariousDialogueTags.dll")
           $dllText = [System.Text.Encoding]::Latin1.GetString($dllBytes)
-          if (!$dllText.Contains("[Plugin:018Auri.esp]")) {
-            throw "Embedded internal-data marker was not found in 00_VariousDialogueTags.dll"
+          $internalDataMarker = Get-Content -LiteralPath $internalDataSource |
+            Where-Object { $_ -match '^\[Plugin:.+\]$' } |
+            Select-Object -First 1
+          if (!$internalDataMarker) {
+            throw "Expected a plugin marker in $internalDataSource"
+          }
+          if (!$dllText.Contains($internalDataMarker)) {
+            throw "Embedded internal-data marker was not found in 00_VariousDialogueTags.dll: $internalDataMarker"
           }
           if (Test-Path package/Data/SKSE/Plugins/VariousDialogueTags_InternalData.ini) {
             throw "Internal data must be embedded in the DLL, not packaged as a separate INI"
