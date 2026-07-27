@@ -15,11 +15,56 @@ if(NOT COMMAND add_commonlibsse_plugin)
     include(lib/commonlibsse-ng/cmake/CommonLibSSE.cmake)
 endif()
 
-set(VDT_INTERNAL_DATA_SOURCE_PATH
-    "${CMAKE_CURRENT_SOURCE_DIR}/resources/VariousDialogueTags_InternalData.ini")
 set(VDT_INTERNAL_DATA_PATH "${CMAKE_CURRENT_BINARY_DIR}/VariousDialogueTags_InternalData.ini")
 set(VDT_RESOURCE_HEADER_PATH "${CMAKE_CURRENT_SOURCE_DIR}/src/Resource.h")
-configure_file("${VDT_INTERNAL_DATA_SOURCE_PATH}" "${VDT_INTERNAL_DATA_PATH}" COPYONLY)
+set(VDT_INTERNAL_DATA_PREMERGED_PATH "" CACHE FILEPATH
+    "Optional premerged internal-data INI produced by CI")
+set(VDT_SHARED_PARENT_BASE_PATH
+    "${CMAKE_CURRENT_SOURCE_DIR}/resources/SharedParentList_Base.ini")
+set(VDT_SHARED_PARENT_EDIT_PATH
+    "${CMAKE_CURRENT_SOURCE_DIR}/resources/SharedParentList_EditHere.ini")
+set(VDT_CURATED_DATA_PATH
+    "${CMAKE_CURRENT_SOURCE_DIR}/resources/VariousDialogueTags_Curated.ini")
+set(VDT_MERGE_SCRIPT_PATH
+    "${CMAKE_CURRENT_SOURCE_DIR}/scripts/Merge-TagLayers.ps1")
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
+    "${VDT_SHARED_PARENT_BASE_PATH}"
+    "${VDT_SHARED_PARENT_EDIT_PATH}"
+    "${VDT_CURATED_DATA_PATH}"
+    "${VDT_MERGE_SCRIPT_PATH}"
+)
+
+if(VDT_INTERNAL_DATA_PREMERGED_PATH)
+    if(NOT EXISTS "${VDT_INTERNAL_DATA_PREMERGED_PATH}")
+        message(FATAL_ERROR
+            "Premerged internal-data INI not found: ${VDT_INTERNAL_DATA_PREMERGED_PATH}")
+    endif()
+    configure_file(
+        "${VDT_INTERNAL_DATA_PREMERGED_PATH}"
+        "${VDT_INTERNAL_DATA_PATH}"
+        COPYONLY
+    )
+else()
+    find_program(POWERSHELL_EXECUTABLE NAMES pwsh powershell REQUIRED)
+    execute_process(
+        COMMAND "${POWERSHELL_EXECUTABLE}"
+            -NoProfile
+            -ExecutionPolicy Bypass
+            -File "${VDT_MERGE_SCRIPT_PATH}"
+            -Product VDT
+            -BasePath "${VDT_SHARED_PARENT_BASE_PATH}"
+            -EditPath "${VDT_SHARED_PARENT_EDIT_PATH}"
+            -CuratedPath "${VDT_CURATED_DATA_PATH}"
+            -OutputPath "${VDT_INTERNAL_DATA_PATH}"
+        RESULT_VARIABLE VDT_MERGE_RESULT
+        OUTPUT_VARIABLE VDT_MERGE_OUTPUT
+        ERROR_VARIABLE VDT_MERGE_ERROR
+    )
+    if(NOT VDT_MERGE_RESULT EQUAL 0)
+        message(FATAL_ERROR
+            "Failed to merge VDT internal data:\n${VDT_MERGE_OUTPUT}\n${VDT_MERGE_ERROR}")
+    endif()
+endif()
 configure_file(
     src/VariousDialogueTags.rc.in
     "${CMAKE_CURRENT_BINARY_DIR}/VariousDialogueTags.rc"

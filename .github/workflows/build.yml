@@ -51,11 +51,24 @@ jobs:
         shell: pwsh
         run: New-Item -ItemType Directory -Force -Path $env:VCPKG_DEFAULT_BINARY_CACHE | Out-Null
 
+      - name: Merge and validate layered internal data
+        shell: pwsh
+        run: |
+          $mergedPath = Join-Path $env:GITHUB_WORKSPACE "build/layered-data/VariousDialogueTags_InternalData.ini"
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/Merge-TagLayers.ps1 `
+            -Product VDT `
+            -BasePath resources/SharedParentList_Base.ini `
+            -EditPath resources/SharedParentList_EditHere.ini `
+            -CuratedPath resources/VariousDialogueTags_Curated.ini `
+            -OutputPath $mergedPath
+
       - name: Configure CMake
         shell: pwsh
         env:
           VCPKG_ROOT: ${{ github.workspace }}\vcpkg
-        run: cmake --preset release
+        run: |
+          $mergedPath = Join-Path $env:GITHUB_WORKSPACE "build/layered-data/VariousDialogueTags_InternalData.ini"
+          cmake --preset release "-DVDT_INTERNAL_DATA_PREMERGED_PATH=$mergedPath"
 
       - name: Save vcpkg binary cache
         if: always() && steps.vcpkg-cache.outputs.cache-hit != 'true'
@@ -76,7 +89,7 @@ jobs:
           VCPKG_ROOT: ${{ github.workspace }}\vcpkg
         run: |
           $resourceSource = "resources"
-          $internalDataSource = Join-Path $resourceSource "VariousDialogueTags_InternalData.ini"
+          $internalDataSource = "build/release/VariousDialogueTags_InternalData.ini"
           $descriptorSource = Join-Path $resourceSource "aaaRumCoy_DESC.ini"
           $userConfigSource = Join-Path $resourceSource "VariousDialogueTags_UserConfig.ini"
 
