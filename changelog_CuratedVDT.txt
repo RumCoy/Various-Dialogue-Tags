@@ -1,0 +1,5 @@
+VDT 5.0.1
+0 mods added to Curated VDT list:
+Changed {2026-08-01} [POP] to [Prison Alternative]: PamaPrisonAlternative.esm
+Changed {2026-08-01} [[Prison Alternative]] to [Prison Alternative]: PrisonAlternative_Executions_Solitude.esp
+Changed {2026-08-01} [[POP]] to [POP]: xazPrisonOverhaulPatched.esp
