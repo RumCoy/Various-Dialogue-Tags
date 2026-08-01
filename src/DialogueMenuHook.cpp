@@ -112,6 +112,16 @@ namespace
                std::isspace(static_cast<unsigned char>(text[tag.size()])) != 0;
     }
 
+    bool IsBlank(std::string_view text)
+    {
+        for (const auto character : text) {
+            if (std::isspace(static_cast<unsigned char>(character)) == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     void AddCandidate(
         std::array<const VariousDialogueTags::FormOrigin::Identity*, 4>& candidates,
         std::size_t& candidateCount,
@@ -178,6 +188,9 @@ namespace VariousDialogueTags
                 auto* topic = option->parentTopic;
                 auto* topicInfo = option->parentTopicInfo;
                 const std::string currentText = option->topicText.c_str();
+                if (IsBlank(currentText)) {
+                    continue;
+                }
                 const auto cacheKey = MakeCacheKey(
                     topic->GetFormID(), topicInfo ? topicInfo->GetFormID() : 0, currentText);
 
@@ -254,6 +267,10 @@ namespace VariousDialogueTags
                         if (currentText.starts_with('$') &&
                             !SKSE::Translation::Translate(currentText, displayText)) {
                             SKSE::log::debug("Deferred unresolved localization token: {}", currentText);
+                            continue;
+                        }
+                        if (IsBlank(displayText)) {
+                            SKSE::log::debug("Deferred blank dialogue text: {}", currentText);
                             continue;
                         }
 
