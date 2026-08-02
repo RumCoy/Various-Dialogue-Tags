@@ -1,5 +1,18 @@
 VDT 5.0.1
-0 mods added to Curated VDT list:
+16 mods (8 added, 1 removed, 7 changed) for Curated VDT List:
 Changed {2026-08-01} [POP] to [Prison Alternative]: PamaPrisonAlternative.esm
 Changed {2026-08-01} [[Prison Alternative]] to [Prison Alternative]: PrisonAlternative_Executions_Solitude.esp
 Changed {2026-08-01} [[POP]] to [POP]: xazPrisonOverhaulPatched.esp
+Removed {2026-08-01} [Prison Alternative]: PamaPrisonAlternative.esm
+Changed {2026-08-01} [[Faralda]] to [FDE]: FDE Faralda.esp
+Added 18+ {2026-08-02} CourtesansOfTheCollegeDialogueAddon [College Courtesans]: CourtesansOfTheCollegeDialogueAddon.esp
+Changed {2026-08-01} [[MTS]] to [MTS]: moretodo.esp
+Added 18+ {2026-08-02} Arial Follower Manages Licenses [Licenses][Follower]: Arial Follower Manages Licenses.esp
+Added 18+ {2026-08-02} Arial Zurk Vanilla Sexism [Vanilla Sexism]: Arial Zurk Vanilla Sexism.esp
+Changed 18+ {2026-08-02} [[Vanilla Sexism]] to [Vanilla Sexism]: Arial Vanilla Sexism.esp
+Added 18+ {2026-08-02} Buyable Slaves [DOM][Buyable Slave]: Buyable Slaves.esp
+Added 18+ {2026-08-02} LyssiaDialogueAddon [Lyssia Addon]: LyssiaDialogueAddon.esp
+Added 18+ {2026-08-02} RemielDialogueAddon [Slutty Addon]: RemielDialogueAddon.esp
+Added 18+ {2026-08-02} SolitudeSlaughtery [Slaughtery]: SolitudeSlaughtery.esp
+Added 18+ {2026-08-02} WhoresOfWhiterunDialogueAddon [Whiterun Whores]: WhoresOfWhiterunDialogueAddon.esp
+Changed {2026-08-02} [[DOM]] to [DOM]: DiaryOfMine.esm
