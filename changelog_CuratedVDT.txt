@@ -1,7 +1,7 @@
 VDT 5.0.1
-22 mods (11 added, 2 removed, 9 changed) for Curated VDT List:
+25 mods (13 added, 2 removed, 10 changed) for Curated VDT List:
 Changed {2026-08-01} [POP] to [Prison Alternative]: PamaPrisonAlternative.esm
-Changed {2026-08-01} [[Prison Alternative]] to [Prison Alternative]: PrisonAlternative_Executions_Solitude.esp
+Changed 18+ {2026-08-01} [[Prison Alternative]] to [Prison Alternative]: PrisonAlternative_Executions_Solitude.esp
 Changed {2026-08-01} [[POP]] to [POP]: xazPrisonOverhaulPatched.esp
 Removed {2026-08-01} [Prison Alternative]: PamaPrisonAlternative.esm
 Changed {2026-08-01} [[Faralda]] to [FDE]: FDE Faralda.esp
@@ -22,3 +22,6 @@ Added {2026-08-05} CWE_DialogueAddon [Capital Whiterun][Dialogue]: CWE_DialogueA
 Changed {2026-08-05} [[Evening with Angi]] to [Evening With Angi]: An Evening With Angi.esp
 Added {2026-08-05} The Heart of Winterroot SE [Winterroot]: Winterroot.esp (https://www.nexusmods.com/skyrimspecialedition/mods/168978)
 Removed {2026-08-05} [What Remains]: FoxQuestMod.esp
+Added {2026-08-05} KittyClass_Dragonknight [Dragonknight]: KittyClass_Dragonknight.esp
+Added {2026-08-05} The Expendables - 12 Unique Mercenary Followers [Expendables]: The Expendables.esp (https://www.nexusmods.com/skyrimspecialedition/mods/176660)
+Changed 18+ {2026-08-05} [[Balazar]] to [Balazar]: BalazarTheHusky.esp
