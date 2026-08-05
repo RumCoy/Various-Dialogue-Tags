@@ -1,5 +1,5 @@
 VDT 5.0.1
-25 mods (13 added, 2 removed, 10 changed) for Curated VDT List:
+30 mods (17 added, 2 removed, 11 changed) for Curated VDT List:
 Changed {2026-08-01} [POP] to [Prison Alternative]: PamaPrisonAlternative.esm
 Changed 18+ {2026-08-01} [[Prison Alternative]] to [Prison Alternative]: PrisonAlternative_Executions_Solitude.esp
 Changed {2026-08-01} [[POP]] to [POP]: xazPrisonOverhaulPatched.esp
@@ -25,3 +25,8 @@ Removed {2026-08-05} [What Remains]: FoxQuestMod.esp
 Added {2026-08-05} KittyClass_Dragonknight [Dragonknight]: KittyClass_Dragonknight.esp
 Added {2026-08-05} The Expendables - 12 Unique Mercenary Followers [Expendables]: The Expendables.esp (https://www.nexusmods.com/skyrimspecialedition/mods/176660)
 Changed 18+ {2026-08-05} [[Balazar]] to [Balazar]: BalazarTheHusky.esp
+Added 18+ {2026-08-05} To Become The Highest Prostitute! [Highest Prostitute]: To Become The Highest Prostitute!.esp
+Added 18+ {2026-08-05} Lover's dialogue addon for Cum Addiction Begging Addon (CumSwallowNeedsAddon) [Cum Begging][Lover's]: CumsSwallowNeedBeggingAddonAddon.esp
+Added 18+ {2026-08-05} Cum Addiction Begging Addon [Cum Begging]: CumSwallowNeeds_BeggingAddon.esp
+Changed {2026-08-05} [[Kaidan]] to [Kaidan]: 0Kaidan.esp
+Added 18+ {2026-08-05} Letters from the Front by Ralof [From the Front]: RalofsNotes.esp (https://www.nexusmods.com/skyrimspecialedition/mods/164224)

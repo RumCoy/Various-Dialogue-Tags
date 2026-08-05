@@ -1,5 +1,5 @@
 SharedParentList 5.0.1
-47 mods (46 added, 1 removed, 0 changed) for SharedParentList:
+60 mods (59 added, 1 removed, 0 changed) for SharedParentList:
 Added {2026-08-01} PaPunishmentPack1 [Prison Alternative]: PaPunishmentPack1.esp
 Added {2026-08-01} The Forsworn Conspiracy - Quest Expansion [Forsworn Expansion]: Forsworn Conspiracy Quest Expansion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/161913)
 Added {2026-08-01} Follower Dialogue Expansion - Eola [FDE]: FDE Eola.esp (https://www.nexusmods.com/skyrimspecialedition/mods/157012)
@@ -47,3 +47,16 @@ Added {2026-08-05} Singalongs of Skyrim [Singalongs]: Singalongs of Skyrim.esp (
 Added {2026-08-05} Miraak Follower Expansion [Miraak Follower]: MiraakFollowerExpansion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/160275)
 Added {2026-08-05} Echoes of Oblivion [Echoes of Oblivion]: Echoes of Oblivion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/153979)
 Removed 18+ {2026-08-05} [Balazar]: BalazarTheHusky.esp
+Added {2026-08-05} Temples and Talismans - Imperial Cult Expansion [Temples & Talismans]: Temples and Talismans - Imperial Cult Expansion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/186356)
+Added {2026-08-05} A Chance Arrangement Plus Plus - A Quest Overhaul [Chance Arrangement Plus]: Flow-TG00.esp (https://www.nexusmods.com/skyrimspecialedition/mods/175885)
+Added {2026-08-05} The Keeper - Carcette Expanded [The Keeper]: Carcette Lives - Quest Expansion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/168918)
+Added {2026-08-05} War's Folly - Quest Mod [War's Folly]: War's Folly.esp (https://www.nexusmods.com/skyrimspecialedition/mods/165699)
+Added {2026-08-05} Thieves Guild Plus Plus - A Questline Overhaul [Thieves Guild Plus]: Flow-TG.esp (https://www.nexusmods.com/skyrimspecialedition/mods/182439)
+Added {2026-08-05} Scriptures of the Dragon Cult [Dragon Cult]: Scriptures-of-the-Dragon-Cult.esp (https://www.nexusmods.com/skyrimspecialedition/mods/173764)
+Added {2026-08-05} The Heart's Toll - Quest Mod [Heart's Toll]: Heart's Toll - Quest Mod.esp (https://www.nexusmods.com/skyrimspecialedition/mods/169076)
+Added {2026-08-05} The Cursed Tribe - Quest Expansion (TCTQE) [Cursed Tribe]: The Cursed Tribe - Quest Expansion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/171220)
+Added {2026-08-05} The Book of Love - Fastred's Awakening [Book of Love]: TT_FastredsAwakening.esp (https://www.nexusmods.com/skyrimspecialedition/mods/170043)
+Added 18+ {2026-08-05} Letters from the Front by Ralof [Letters from the Front]: RalofsNotes.esp (https://www.nexusmods.com/skyrimspecialedition/mods/164224)
+Added {2026-08-05} Dampened Spirits Plus Plus - A Quest Overhaul [Dampened Spirits Plus]: Flow-TG03.esp (https://www.nexusmods.com/skyrimspecialedition/mods/178945)
+Added {2026-08-05} Mephala's Web [Mephala's Web]: TeamEdward.esm (https://www.nexusmods.com/skyrimspecialedition/mods/166761)
+Added {2026-08-05} Incursion [Incursion]: Daedric Incursion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/169624)
