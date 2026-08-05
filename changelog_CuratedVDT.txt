@@ -1,5 +1,5 @@
 VDT 5.0.1
-16 mods (8 added, 1 removed, 7 changed) for Curated VDT List:
+22 mods (11 added, 2 removed, 9 changed) for Curated VDT List:
 Changed {2026-08-01} [POP] to [Prison Alternative]: PamaPrisonAlternative.esm
 Changed {2026-08-01} [[Prison Alternative]] to [Prison Alternative]: PrisonAlternative_Executions_Solitude.esp
 Changed {2026-08-01} [[POP]] to [POP]: xazPrisonOverhaulPatched.esp
@@ -16,3 +16,9 @@ Added 18+ {2026-08-02} RemielDialogueAddon [Slutty Addon]: RemielDialogueAddon.e
 Added 18+ {2026-08-02} SolitudeSlaughtery [Slaughtery]: SolitudeSlaughtery.esp
 Added 18+ {2026-08-02} WhoresOfWhiterunDialogueAddon [Whiterun Whores]: WhoresOfWhiterunDialogueAddon.esp
 Changed {2026-08-02} [[DOM]] to [DOM]: DiaryOfMine.esm
+Added 18+ {2026-08-05} RedguardRosesDialogueAddon [Roses][Redguard]: RedguardRosesDialogueAddon.esp
+Changed 18+ {2026-08-05} [Roses of Riverwood] to [Roses][Riverwood]: RosesOfRiverwoodDialogueAddon.esp
+Added {2026-08-05} CWE_DialogueAddon [Capital Whiterun][Dialogue]: CWE_DialogueAddon.esp
+Changed {2026-08-05} [[Evening with Angi]] to [Evening With Angi]: An Evening With Angi.esp
+Added {2026-08-05} The Heart of Winterroot SE [Winterroot]: Winterroot.esp (https://www.nexusmods.com/skyrimspecialedition/mods/168978)
+Removed {2026-08-05} [What Remains]: FoxQuestMod.esp
