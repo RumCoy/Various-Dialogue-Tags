@@ -1,6 +1,7 @@
 SharedParentList 5.0.1
-63 mods (60 added, 1 removed, 2 changed) for SharedParentList:
+66 mods (63 added, 1 removed, 2 changed) for SharedParentList:
 Added {2026-08-02} Animal Mansion Reborn [Animal Mansion]: Animal Mansion Reborn.esp
+Added {2026-08-06} Aniya - A Custom Voiced Follower [Aniya]: Aniya Follower.esp (https://www.nexusmods.com/skyrimspecialedition/mods/63208)
 Added {2026-08-05} The Keeper - Carcette Expanded [The Keeper]: Carcette Lives - Quest Expansion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/168918)
 Added {2026-08-05} Ill Met by Moonlight - Dialogue Expansion [Ill Met]: CH_IMBMDialougeAddon.esp (https://www.nexusmods.com/skyrimspecialedition/mods/156434)
 Added {2026-08-05} Chattier Hunters and Fishermen [Chattier Hunters]: Chattier Hunters and Fishermen.esp (https://www.nexusmods.com/skyrimspecialedition/mods/179154)
@@ -53,12 +54,14 @@ Added {2026-08-05} The Book of Love - Fastred's Awakening [Book of Love]: TT_Fas
 Added {2026-08-05} War's Folly - Quest Mod [War's Folly]: War's Folly.esp (https://www.nexusmods.com/skyrimspecialedition/mods/165699)
 Added {2026-08-05} The Heart of Winterroot SE [Heart of Winterroot]: Winterroot.esp (https://www.nexusmods.com/skyrimspecialedition/mods/168978)
 Added 18+ {2026-08-02} Bandit Paradise [Bandit Paradise]: Bandit Paradise.esp
+Added 18+ {2026-08-06} Bimbos of Skyrim [Bimbos of Skyrim]: CustomComments.esp
 Added 18+ {2026-08-02} DibellasLove [Dibella's Love]: DibellasLove.esp
 Added 18+ {2026-08-02} EnslavedByThalmor [Enslaved by Thalmor]: EnslavedByThalmor.esp
 Added 18+ {2026-08-05} MariaProstitution [Maria Eden]: MariaProstitution.esp
 Added 18+ {2026-08-05} MiasLair [Love Slaves]: MiasLair.esp
 Added 18+ {2026-08-05} Letters from the Front by Ralof [Letters from the Front]: RalofsNotes.esp (https://www.nexusmods.com/skyrimspecialedition/mods/164224)
 Added 18+ {2026-08-05} SkoomaWhoreReforged [Skooma Whore]: SkoomaWhoreReforged.esp
+Added 18+ {2026-08-06} Sprawling Bimbos [Sprawling Bimbos]: SprawlingBimbos.esp
 Added 18+ {2026-08-05} The Haunted Brothel [Haunted Brothel]: The Haunted Brothel.esp
 Changed 18+ {2026-08-06} [Non-Devious Devices] to [Non-Devious Devices]: Non-Devious Devices - Masterlist.esp
 Changed 18+ {2026-08-06} [Non-Devious Devices] to [Non-Devious Devices]: Non-Devious Devices Masterlist.esp
