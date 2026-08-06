@@ -1,32 +1,67 @@
 VDT 5.0.1
-30 mods (17 added, 2 removed, 11 changed) for Curated VDT List:
-Changed {2026-08-01} [POP] to [Prison Alternative]: PamaPrisonAlternative.esm
-Changed 18+ {2026-08-01} [[Prison Alternative]] to [Prison Alternative]: PrisonAlternative_Executions_Solitude.esp
-Changed {2026-08-01} [[POP]] to [POP]: xazPrisonOverhaulPatched.esp
-Removed {2026-08-01} [Prison Alternative]: PamaPrisonAlternative.esm
-Changed {2026-08-01} [[Faralda]] to [FDE]: FDE Faralda.esp
-Added 18+ {2026-08-02} CourtesansOfTheCollegeDialogueAddon [College Courtesans]: CourtesansOfTheCollegeDialogueAddon.esp
-Changed {2026-08-01} [[MTS]] to [MTS]: moretodo.esp
-Added 18+ {2026-08-02} Arial Follower Manages Licenses [Licenses][Follower]: Arial Follower Manages Licenses.esp
-Added 18+ {2026-08-02} Arial Zurk Vanilla Sexism [Vanilla Sexism]: Arial Zurk Vanilla Sexism.esp
-Changed 18+ {2026-08-02} [[Vanilla Sexism]] to [Vanilla Sexism]: Arial Vanilla Sexism.esp
-Added 18+ {2026-08-02} Buyable Slaves [DOM][Buyable Slave]: Buyable Slaves.esp
-Added 18+ {2026-08-02} LyssiaDialogueAddon [Lyssia Addon]: LyssiaDialogueAddon.esp
-Added 18+ {2026-08-02} RemielDialogueAddon [Slutty Addon]: RemielDialogueAddon.esp
-Added 18+ {2026-08-02} SolitudeSlaughtery [Slaughtery]: SolitudeSlaughtery.esp
-Added 18+ {2026-08-02} WhoresOfWhiterunDialogueAddon [Whiterun Whores]: WhoresOfWhiterunDialogueAddon.esp
-Changed {2026-08-02} [[DOM]] to [DOM]: DiaryOfMine.esm
-Added 18+ {2026-08-05} RedguardRosesDialogueAddon [Roses][Redguard]: RedguardRosesDialogueAddon.esp
-Changed 18+ {2026-08-05} [Roses of Riverwood] to [Roses][Riverwood]: RosesOfRiverwoodDialogueAddon.esp
+65 mods (17 added, 2 removed, 46 changed) for Curated VDT List:
 Added {2026-08-05} CWE_DialogueAddon [Capital Whiterun][Dialogue]: CWE_DialogueAddon.esp
-Changed {2026-08-05} [[Evening with Angi]] to [Evening With Angi]: An Evening With Angi.esp
-Added {2026-08-05} The Heart of Winterroot SE [Winterroot]: Winterroot.esp (https://www.nexusmods.com/skyrimspecialedition/mods/168978)
-Removed {2026-08-05} [What Remains]: FoxQuestMod.esp
 Added {2026-08-05} KittyClass_Dragonknight [Dragonknight]: KittyClass_Dragonknight.esp
 Added {2026-08-05} The Expendables - 12 Unique Mercenary Followers [Expendables]: The Expendables.esp (https://www.nexusmods.com/skyrimspecialedition/mods/176660)
-Changed 18+ {2026-08-05} [[Balazar]] to [Balazar]: BalazarTheHusky.esp
-Added 18+ {2026-08-05} To Become The Highest Prostitute! [Highest Prostitute]: To Become The Highest Prostitute!.esp
+Added {2026-08-05} The Heart of Winterroot SE [Winterroot]: Winterroot.esp (https://www.nexusmods.com/skyrimspecialedition/mods/168978)
+Added 18+ {2026-08-02} Arial Follower Manages Licenses [Licenses][Follower]: Arial Follower Manages Licenses.esp
+Added 18+ {2026-08-02} Arial Zurk Vanilla Sexism [Vanilla Sexism]: Arial Zurk Vanilla Sexism.esp
+Added 18+ {2026-08-02} Buyable Slaves [DOM][Buyable Slave]: Buyable Slaves.esp
+Added 18+ {2026-08-02} CourtesansOfTheCollegeDialogueAddon [College Courtesans]: CourtesansOfTheCollegeDialogueAddon.esp
 Added 18+ {2026-08-05} Lover's dialogue addon for Cum Addiction Begging Addon (CumSwallowNeedsAddon) [Cum Begging][Lover's]: CumsSwallowNeedBeggingAddonAddon.esp
 Added 18+ {2026-08-05} Cum Addiction Begging Addon [Cum Begging]: CumSwallowNeeds_BeggingAddon.esp
-Changed {2026-08-05} [[Kaidan]] to [Kaidan]: 0Kaidan.esp
+Added 18+ {2026-08-02} LyssiaDialogueAddon [Lyssia Addon]: LyssiaDialogueAddon.esp
 Added 18+ {2026-08-05} Letters from the Front by Ralof [From the Front]: RalofsNotes.esp (https://www.nexusmods.com/skyrimspecialedition/mods/164224)
+Added 18+ {2026-08-05} RedguardRosesDialogueAddon [Roses][Redguard]: RedguardRosesDialogueAddon.esp
+Added 18+ {2026-08-02} RemielDialogueAddon [Slutty Addon]: RemielDialogueAddon.esp
+Added 18+ {2026-08-02} SolitudeSlaughtery [Slaughtery]: SolitudeSlaughtery.esp
+Added 18+ {2026-08-05} To Become The Highest Prostitute! [Highest Prostitute]: To Become The Highest Prostitute!.esp
+Added 18+ {2026-08-02} WhoresOfWhiterunDialogueAddon [Whiterun Whores]: WhoresOfWhiterunDialogueAddon.esp
+Changed {2026-08-05} [[Kaidan]] to [Kaidan]: 0Kaidan.esp
+Changed {2026-08-05} [[Evening with Angi]] to [Evening With Angi]: An Evening With Angi.esp
+Changed {2026-08-02} [[DOM]] to [DOM]: DiaryOfMine.esm
+Changed {2026-08-01} [[Faralda]] to [FDE]: FDE Faralda.esp
+Changed {2026-08-01} [[MTS]] to [MTS]: moretodo.esp
+Changed {2026-08-01} [POP] to [Prison Alternative]: PamaPrisonAlternative.esm
+Changed 18+ {2026-08-05} [Roses of Riverwood] to [Roses][Riverwood]: RosesOfRiverwoodDialogueAddon.esp
+Changed 18+ {2026-08-06} content tracking for [AA]: Amorous Adventures Text and Player Dialogue Revision (No Quest Edits).esp
+Changed 18+ {2026-08-06} content tracking for [SL][Harassment]: Sexlab Horrible Harassment (Male).esp
+Changed 18+ {2026-08-02} content tracking for [Vanilla Sexism]: Arial Vanilla Sexism.esp
+Changed 18+ {2026-08-06} content tracking for [Babo]: BaboInteractiveDia.esp
+Changed 18+ {2026-08-05} content tracking for [Balazar]: BalazarTheHusky.esp
+Changed 18+ {2026-08-06} content tracking for [Damsels]: Damsels Breeding Slaves.esp
+Changed 18+ {2026-08-06} content tracking for [Toys][Dark Desires]: DarkDesiresClub.esp
+Changed 18+ {2026-08-06} content tracking for [Ebonitium]: Devious Arena Stories.esp
+Changed 18+ {2026-08-06} content tracking for [Ebonitium]: Devious Arena.esp
+Changed 18+ {2026-08-06} content tracking for [Devious Bandit]: Devious Bandit Overhaul.esp
+Changed 18+ {2026-08-06} content tracking for [Devious Brothel]: Devious Brothels.esp
+Changed 18+ {2026-08-06} content tracking for [Devious Deviants]: Devious Deviants.esp
+Changed 18+ {2026-08-06} content tracking for [DD][Equip]: Devious Devices - Equip.esp
+Changed 18+ {2026-08-06} content tracking for [DD]: Devious Devices - Integration.esm
+Changed 18+ {2026-08-06} content tracking for [Devious Lore]: Devious Lore.esp
+Changed 18+ {2026-08-06} content tracking for [Devious Newcomer]: Devious Newcomer.esp
+Changed 18+ {2026-08-06} content tracking for [Devious Eyecandy]: Devious NPC Eyecandy.esp
+Changed 18+ {2026-08-06} content tracking for [Devious Slavery]: Devious Slavery and Servitude.esp
+Changed 18+ {2026-08-06} content tracking for [Devious Interests]: DeviousInterests.esp
+Changed 18+ {2026-08-06} content tracking for [Deviously Cursed]: Deviously Cursed Loot.esp
+Changed 18+ {2026-08-06} content tracking for [Deviously Enslaved]: Deviously Enslaved.esp
+Changed 18+ {2026-08-06} content tracking for [FSM]: Follower Slavery Mod.esp
+Changed 18+ {2026-08-06} content tracking for [Toys][HoT]: HoT&WeT.esp
+Changed 18+ {2026-08-06} content tracking for [Slave Girls]: hydra_slavegirls_dialogue_fixes.esp
+Changed 18+ {2026-08-06} content tracking for [Slave Girls]: hydra_slavegirls.esp
+Changed 18+ {2026-08-06} content tracking for [AYGAS]: PAH_AndYouGetASlave.esp
+Changed 18+ {2026-08-06} content tracking for [PAH]: PAHSlaveCart.esp
+Changed 18+ {2026-08-06} content tracking for [PAH]: paradise_halls_fellglow_slave_camp.esp
+Changed 18+ {2026-08-01} content tracking for [Prison Alternative]: PrisonAlternative_Executions_Solitude.esp
+Changed 18+ {2026-08-06} content tracking for [Toys][SLaVE]: Shout Like a Virgin.esp
+Changed 18+ {2026-08-06} content tracking for [Simple Slavery]: SimpleSlavery.esp
+Changed 18+ {2026-08-06} content tracking for [Slavers]: SlaversOfSkyrim.esm
+Changed 18+ {2026-08-06} content tracking for [Slaverun]: Slaverun_Reloaded.esp
+Changed 18+ {2026-08-06} content tracking for [Toys][Temptations]: ToyfulTemptations.esp
+Changed 18+ {2026-08-06} content tracking for [Toys]: Toys.esm
+Changed 18+ {2026-08-06} content tracking for [Toys][Story]: ToyStory.esp
+Changed 18+ {2026-08-06} content tracking for [Toys][Workshop]: ToysWorkshop.esp
+Changed 18+ {2026-08-06} content tracking for [Toys][Whorecrux]: Whorecrux.esp
+Changed 18+ {2026-08-01} content tracking for [POP]: xazPrisonOverhaulPatched.esp
+Removed {2026-08-05} [What Remains]: FoxQuestMod.esp
+Removed {2026-08-01} [Prison Alternative]: PamaPrisonAlternative.esm

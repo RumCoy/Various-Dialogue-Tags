@@ -1,38 +1,13 @@
 SharedParentList 5.0.1
-60 mods (59 added, 1 removed, 0 changed) for SharedParentList:
-Added {2026-08-01} PaPunishmentPack1 [Prison Alternative]: PaPunishmentPack1.esp
-Added {2026-08-01} The Forsworn Conspiracy - Quest Expansion [Forsworn Expansion]: Forsworn Conspiracy Quest Expansion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/161913)
-Added {2026-08-01} Follower Dialogue Expansion - Eola [FDE]: FDE Eola.esp (https://www.nexusmods.com/skyrimspecialedition/mods/157012)
-Added {2026-08-01} Follower Dialogue Expansion - Eola [FDE]: FDE Eola.esp (https://www.nexusmods.com/skyrimspecialedition/mods/157012)
-Added {2026-08-01} (BEST EVIL FOLLOWER) Follower Dialogue Expansion - Fura Bloodmouth [FDE]: FDE Fura.esp (https://www.nexusmods.com/skyrimspecialedition/mods/165839)
-Added {2026-08-01} (SHAPE YOUR QUEEN) Follower Dialogue Expansion - Elisif the Fair [FDE]: FDE Elisif.esp (https://www.nexusmods.com/skyrimspecialedition/mods/167954)
-Added {2026-08-01} Follower Dialogue Expansion - Lisette [FDE]: FDE Lisette.esp (https://www.nexusmods.com/skyrimspecialedition/mods/177717)
-Added {2026-08-01} Follower Dialogue Expansion - Marcurio (FDE) [FDE]: FDE Marcurio.esp (https://www.nexusmods.com/skyrimspecialedition/mods/174725)
-Added {2026-08-01} Follower Dialogue Expansion - Olfina Gray-Mane [FDE]: FDE Olfina.esp (https://www.nexusmods.com/skyrimspecialedition/mods/172562)
-Added {2026-08-01} REBEL NORTH - Immersive Dialogue Expansion - Stormcloaks [IDE]: IDE Stormcloaks.esp (https://www.nexusmods.com/skyrimspecialedition/mods/178880)
-Added {2026-08-01} Spare Anise [Spare Anise]: SpareAnise.esp (https://www.nexusmods.com/skyrimspecialedition/mods/167469)
-Added {2026-08-01} Follower Dialogue Expansion - Senna [FDE]: FDE Senna.esp (https://www.nexusmods.com/skyrimspecialedition/mods/183143)
-Added {2026-08-01} FAMILY LIFE - Immersive Dialogue Expansion - Hearthfire [IDE]: IDE Hearthfire.esp (https://www.nexusmods.com/skyrimspecialedition/mods/179647)
-Added {2026-08-01} Follower Dialogue Expansion - Ralof [FDE]: FDE Ralof.esp (https://www.nexusmods.com/skyrimspecialedition/mods/180198)
-Added {2026-08-01} Follower Dialogue Expansion - Saadia [FDE]: FDE Saadia.esp (https://www.nexusmods.com/skyrimspecialedition/mods/170684)
-Added {2026-08-01} HOUSE OF WARRIORS - Immersive Dialogue Expansion - Jorrvaskr (Companions) [IDE]: IDE Jorrvaskr.esp (https://www.nexusmods.com/skyrimspecialedition/mods/173134)
-Added {2026-08-01} Immersive Dialogue Expansion - Thalmor [IDE]: IDE Thalmor.esp (https://www.nexusmods.com/skyrimspecialedition/mods/168432)
-Added {2026-08-01} Simple Serana Marriage [Serana Marriage]: Serana Marriage.esp (https://www.nexusmods.com/skyrimspecialedition/mods/173758)
+63 mods (60 added, 1 removed, 2 changed) for SharedParentList:
 Added {2026-08-02} Animal Mansion Reborn [Animal Mansion]: Animal Mansion Reborn.esp
-Added 18+ {2026-08-02} Bandit Paradise [Bandit Paradise]: Bandit Paradise.esp
-Added 18+ {2026-08-02} DibellasLove [Dibella's Love]: DibellasLove.esp
-Added 18+ {2026-08-02} EnslavedByThalmor [Enslaved by Thalmor]: EnslavedByThalmor.esp
-Added 18+ {2026-08-05} MiasLair [Love Slaves]: MiasLair.esp
-Added 18+ {2026-08-05} SkoomaWhoreReforged [Skooma Whore]: SkoomaWhoreReforged.esp
-Added 18+ {2026-08-05} The Haunted Brothel [Haunted Brothel]: The Haunted Brothel.esp
-Added {2026-08-05} Why I Came to Skyrim - Origin Stories [Origin Stories]: The Book of Origins.esp (https://www.nexusmods.com/skyrimspecialedition/mods/167166)
-Added {2026-08-05} The Bitter Claim - SE [Bitter Claim]: Skeldrun.esp (https://www.nexusmods.com/skyrimspecialedition/mods/162674)
-Added {2026-08-05} Mephala's Favor [Mephala's Favor]: Mephalafavor.esp (https://www.nexusmods.com/skyrimspecialedition/mods/167283)
+Added {2026-08-05} The Keeper - Carcette Expanded [The Keeper]: Carcette Lives - Quest Expansion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/168918)
 Added {2026-08-05} Ill Met by Moonlight - Dialogue Expansion [Ill Met]: CH_IMBMDialougeAddon.esp (https://www.nexusmods.com/skyrimspecialedition/mods/156434)
-Added {2026-08-05} What Remains - Quest Mod [What Remains]: FoxQuestMod.esp (https://www.nexusmods.com/skyrimspecialedition/mods/176571)
-Added {2026-08-05} Rescue Missions [Rescue Missions]: RescueMissions.esp (https://www.nexusmods.com/skyrimspecialedition/mods/144251)
-Added {2026-08-05} The Heart of Winterroot SE [Heart of Winterroot]: Winterroot.esp (https://www.nexusmods.com/skyrimspecialedition/mods/168978)
 Added {2026-08-05} Chattier Hunters and Fishermen [Chattier Hunters]: Chattier Hunters and Fishermen.esp (https://www.nexusmods.com/skyrimspecialedition/mods/179154)
+Added {2026-08-05} Incursion [Incursion]: Daedric Incursion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/169624)
+Added {2026-08-05} Echoes of Oblivion [Echoes of Oblivion]: Echoes of Oblivion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/153979)
+Added {2026-08-05} Extended Hireling Dialogue - Belrand [Extended Dialogue]: Extended Hireling Dialogue Belrand.esp (https://www.nexusmods.com/skyrimspecialedition/mods/184282)
+Added {2026-08-05} Extended Hireling Dialogue - Teldryn [Extended Dialogue]: Extended Hireling Dialogue Teldryn.esp (https://www.nexusmods.com/skyrimspecialedition/mods/167886)
 Added {2026-08-05} Extended NPC Dialogue Hub [Extended Dialogue]: Extended NPC Dialogue Ahlam.esp (https://www.nexusmods.com/skyrimspecialedition/mods/179341)
 Added {2026-08-05} Extended NPC Dialogue Hub [Extended Dialogue]: Extended NPC Dialogue Embry.esp (https://www.nexusmods.com/skyrimspecialedition/mods/179341)
 Added {2026-08-05} Extended NPC Dialogue Hub [Extended Dialogue]: Extended NPC Dialogue Erdi.esp (https://www.nexusmods.com/skyrimspecialedition/mods/179341)
@@ -40,23 +15,51 @@ Added {2026-08-05} Extended NPC Dialogue Hub [Extended Dialogue]: Extended NPC D
 Added {2026-08-05} Extended NPC Dialogue Hub [Extended Dialogue]: Extended NPC Dialogue Nils.esp (https://www.nexusmods.com/skyrimspecialedition/mods/179341)
 Added {2026-08-05} Extended NPC Dialogue Hub [Extended Dialogue]: Extended NPC Dialogue Sigurd.esp (https://www.nexusmods.com/skyrimspecialedition/mods/179341)
 Added {2026-08-05} Extended NPC Dialogue Hub [Extended Dialogue]: Extended NPC Dialogue Talsgar.esp (https://www.nexusmods.com/skyrimspecialedition/mods/179341)
-Added {2026-08-05} I Love You Too [Love You]: I Love You Too.esp (https://www.nexusmods.com/skyrimspecialedition/mods/180031)
-Added {2026-08-05} Extended Hireling Dialogue - Belrand [Extended Dialogue]: Extended Hireling Dialogue Belrand.esp (https://www.nexusmods.com/skyrimspecialedition/mods/184282)
-Added {2026-08-05} Extended Hireling Dialogue - Teldryn [Extended Dialogue]: Extended Hireling Dialogue Teldryn.esp (https://www.nexusmods.com/skyrimspecialedition/mods/167886)
-Added {2026-08-05} Singalongs of Skyrim [Singalongs]: Singalongs of Skyrim.esp (https://www.nexusmods.com/skyrimspecialedition/mods/129812)
-Added {2026-08-05} Miraak Follower Expansion [Miraak Follower]: MiraakFollowerExpansion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/160275)
-Added {2026-08-05} Echoes of Oblivion [Echoes of Oblivion]: Echoes of Oblivion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/153979)
-Removed 18+ {2026-08-05} [Balazar]: BalazarTheHusky.esp
-Added {2026-08-05} Temples and Talismans - Imperial Cult Expansion [Temples & Talismans]: Temples and Talismans - Imperial Cult Expansion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/186356)
-Added {2026-08-05} A Chance Arrangement Plus Plus - A Quest Overhaul [Chance Arrangement Plus]: Flow-TG00.esp (https://www.nexusmods.com/skyrimspecialedition/mods/175885)
-Added {2026-08-05} The Keeper - Carcette Expanded [The Keeper]: Carcette Lives - Quest Expansion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/168918)
-Added {2026-08-05} War's Folly - Quest Mod [War's Folly]: War's Folly.esp (https://www.nexusmods.com/skyrimspecialedition/mods/165699)
+Added {2026-08-01} (SHAPE YOUR QUEEN) Follower Dialogue Expansion - Elisif the Fair [FDE]: FDE Elisif.esp (https://www.nexusmods.com/skyrimspecialedition/mods/167954)
+Added {2026-08-01} Follower Dialogue Expansion - Eola [FDE]: FDE Eola.esp (https://www.nexusmods.com/skyrimspecialedition/mods/157012)
+Added {2026-08-01} Follower Dialogue Expansion - Eola [FDE]: FDE Eola.esp (https://www.nexusmods.com/skyrimspecialedition/mods/157012)
+Added {2026-08-01} (BEST EVIL FOLLOWER) Follower Dialogue Expansion - Fura Bloodmouth [FDE]: FDE Fura.esp (https://www.nexusmods.com/skyrimspecialedition/mods/165839)
+Added {2026-08-01} Follower Dialogue Expansion - Lisette [FDE]: FDE Lisette.esp (https://www.nexusmods.com/skyrimspecialedition/mods/177717)
+Added {2026-08-01} Follower Dialogue Expansion - Marcurio (FDE) [FDE]: FDE Marcurio.esp (https://www.nexusmods.com/skyrimspecialedition/mods/174725)
+Added {2026-08-01} Follower Dialogue Expansion - Olfina Gray-Mane [FDE]: FDE Olfina.esp (https://www.nexusmods.com/skyrimspecialedition/mods/172562)
+Added {2026-08-01} Follower Dialogue Expansion - Ralof [FDE]: FDE Ralof.esp (https://www.nexusmods.com/skyrimspecialedition/mods/180198)
+Added {2026-08-01} Follower Dialogue Expansion - Saadia [FDE]: FDE Saadia.esp (https://www.nexusmods.com/skyrimspecialedition/mods/170684)
+Added {2026-08-01} Follower Dialogue Expansion - Senna [FDE]: FDE Senna.esp (https://www.nexusmods.com/skyrimspecialedition/mods/183143)
 Added {2026-08-05} Thieves Guild Plus Plus - A Questline Overhaul [Thieves Guild Plus]: Flow-TG.esp (https://www.nexusmods.com/skyrimspecialedition/mods/182439)
-Added {2026-08-05} Scriptures of the Dragon Cult [Dragon Cult]: Scriptures-of-the-Dragon-Cult.esp (https://www.nexusmods.com/skyrimspecialedition/mods/173764)
+Added {2026-08-05} A Chance Arrangement Plus Plus - A Quest Overhaul [Chance Arrangement Plus]: Flow-TG00.esp (https://www.nexusmods.com/skyrimspecialedition/mods/175885)
+Added {2026-08-05} Dampened Spirits Plus Plus - A Quest Overhaul [Dampened Spirits Plus]: Flow-TG03.esp (https://www.nexusmods.com/skyrimspecialedition/mods/178945)
+Added {2026-08-01} The Forsworn Conspiracy - Quest Expansion [Forsworn Expansion]: Forsworn Conspiracy Quest Expansion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/161913)
+Added {2026-08-05} What Remains - Quest Mod [What Remains]: FoxQuestMod.esp (https://www.nexusmods.com/skyrimspecialedition/mods/176571)
 Added {2026-08-05} The Heart's Toll - Quest Mod [Heart's Toll]: Heart's Toll - Quest Mod.esp (https://www.nexusmods.com/skyrimspecialedition/mods/169076)
+Added {2026-08-05} I Love You Too [Love You]: I Love You Too.esp (https://www.nexusmods.com/skyrimspecialedition/mods/180031)
+Added {2026-08-01} FAMILY LIFE - Immersive Dialogue Expansion - Hearthfire [IDE]: IDE Hearthfire.esp (https://www.nexusmods.com/skyrimspecialedition/mods/179647)
+Added {2026-08-01} HOUSE OF WARRIORS - Immersive Dialogue Expansion - Jorrvaskr (Companions) [IDE]: IDE Jorrvaskr.esp (https://www.nexusmods.com/skyrimspecialedition/mods/173134)
+Added {2026-08-01} REBEL NORTH - Immersive Dialogue Expansion - Stormcloaks [IDE]: IDE Stormcloaks.esp (https://www.nexusmods.com/skyrimspecialedition/mods/178880)
+Added {2026-08-01} Immersive Dialogue Expansion - Thalmor [IDE]: IDE Thalmor.esp (https://www.nexusmods.com/skyrimspecialedition/mods/168432)
+Added {2026-08-05} Mephala's Favor [Mephala's Favor]: Mephalafavor.esp (https://www.nexusmods.com/skyrimspecialedition/mods/167283)
+Added {2026-08-05} Miraak Follower Expansion [Miraak Follower]: MiraakFollowerExpansion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/160275)
+Added {2026-08-01} PaPunishmentPack1 [Prison Alternative]: PaPunishmentPack1.esp
+Added {2026-08-05} Rescue Missions [Rescue Missions]: RescueMissions.esp (https://www.nexusmods.com/skyrimspecialedition/mods/144251)
+Added {2026-08-05} Scriptures of the Dragon Cult [Dragon Cult]: Scriptures-of-the-Dragon-Cult.esp (https://www.nexusmods.com/skyrimspecialedition/mods/173764)
+Added {2026-08-01} Simple Serana Marriage [Serana Marriage]: Serana Marriage.esp (https://www.nexusmods.com/skyrimspecialedition/mods/173758)
+Added {2026-08-05} Singalongs of Skyrim [Singalongs]: Singalongs of Skyrim.esp (https://www.nexusmods.com/skyrimspecialedition/mods/129812)
+Added {2026-08-05} The Bitter Claim - SE [Bitter Claim]: Skeldrun.esp (https://www.nexusmods.com/skyrimspecialedition/mods/162674)
+Added {2026-08-01} Spare Anise [Spare Anise]: SpareAnise.esp (https://www.nexusmods.com/skyrimspecialedition/mods/167469)
+Added {2026-08-05} Mephala's Web [Mephala's Web]: TeamEdward.esm (https://www.nexusmods.com/skyrimspecialedition/mods/166761)
+Added {2026-08-05} Temples and Talismans - Imperial Cult Expansion [Temples & Talismans]: Temples and Talismans - Imperial Cult Expansion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/186356)
+Added {2026-08-05} Why I Came to Skyrim - Origin Stories [Origin Stories]: The Book of Origins.esp (https://www.nexusmods.com/skyrimspecialedition/mods/167166)
 Added {2026-08-05} The Cursed Tribe - Quest Expansion (TCTQE) [Cursed Tribe]: The Cursed Tribe - Quest Expansion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/171220)
 Added {2026-08-05} The Book of Love - Fastred's Awakening [Book of Love]: TT_FastredsAwakening.esp (https://www.nexusmods.com/skyrimspecialedition/mods/170043)
+Added {2026-08-05} War's Folly - Quest Mod [War's Folly]: War's Folly.esp (https://www.nexusmods.com/skyrimspecialedition/mods/165699)
+Added {2026-08-05} The Heart of Winterroot SE [Heart of Winterroot]: Winterroot.esp (https://www.nexusmods.com/skyrimspecialedition/mods/168978)
+Added 18+ {2026-08-02} Bandit Paradise [Bandit Paradise]: Bandit Paradise.esp
+Added 18+ {2026-08-02} DibellasLove [Dibella's Love]: DibellasLove.esp
+Added 18+ {2026-08-02} EnslavedByThalmor [Enslaved by Thalmor]: EnslavedByThalmor.esp
+Added 18+ {2026-08-05} MariaProstitution [Maria Eden]: MariaProstitution.esp
+Added 18+ {2026-08-05} MiasLair [Love Slaves]: MiasLair.esp
 Added 18+ {2026-08-05} Letters from the Front by Ralof [Letters from the Front]: RalofsNotes.esp (https://www.nexusmods.com/skyrimspecialedition/mods/164224)
-Added {2026-08-05} Dampened Spirits Plus Plus - A Quest Overhaul [Dampened Spirits Plus]: Flow-TG03.esp (https://www.nexusmods.com/skyrimspecialedition/mods/178945)
-Added {2026-08-05} Mephala's Web [Mephala's Web]: TeamEdward.esm (https://www.nexusmods.com/skyrimspecialedition/mods/166761)
-Added {2026-08-05} Incursion [Incursion]: Daedric Incursion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/169624)
+Added 18+ {2026-08-05} SkoomaWhoreReforged [Skooma Whore]: SkoomaWhoreReforged.esp
+Added 18+ {2026-08-05} The Haunted Brothel [Haunted Brothel]: The Haunted Brothel.esp
+Changed 18+ {2026-08-06} [Non-Devious Devices] to [Non-Devious Devices]: Non-Devious Devices - Masterlist.esp
+Changed 18+ {2026-08-06} [Non-Devious Devices] to [Non-Devious Devices]: Non-Devious Devices Masterlist.esp
+Removed 18+ {2026-08-05} [Balazar]: BalazarTheHusky.esp
