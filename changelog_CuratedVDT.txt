@@ -1,5 +1,5 @@
 VDT 5.0.1
-71 mods (23 added, 2 removed, 46 changed) for Curated VDT List:
+73 mods (25 added, 2 removed, 46 changed) for Curated VDT List:
 Added {2026-08-05} CWE_DialogueAddon [Capital Whiterun][Dialogue]: CWE_DialogueAddon.esp
 Added {2026-08-05} KittyClass_Dragonknight [Dragonknight]: KittyClass_Dragonknight.esp
 Added {2026-08-05} The Expendables - 12 Unique Mercenary Followers [Expendables]: The Expendables.esp (https://www.nexusmods.com/skyrimspecialedition/mods/176660)
@@ -14,10 +14,12 @@ Added 18+ {2026-08-05} Cum Addiction Begging Addon [Cum Begging]: CumSwallowNeed
 Added 18+ {2026-08-06} Bimbos of Skyrim [Bimbos]: CustomComments.esp
 Added 18+ {2026-08-06} Forced Arousal Begging [Arousal Begging]: Forced Arousal Begging.esp
 Added 18+ {2026-08-02} LyssiaDialogueAddon [Lyssia Addon]: LyssiaDialogueAddon.esp
+Added 18+ {2026-08-07} PetTheFreakingDogAlready [Pet]: PetTheFreakingDogAlready.esp
 Added 18+ {2026-08-05} Letters from the Front by Ralof [From the Front]: RalofsNotes.esp (https://www.nexusmods.com/skyrimspecialedition/mods/164224)
 Added 18+ {2026-08-05} RedguardRosesDialogueAddon [Roses][Redguard]: RedguardRosesDialogueAddon.esp
 Added 18+ {2026-08-02} RemielDialogueAddon [Slutty Addon]: RemielDialogueAddon.esp
 Added 18+ {2026-08-06} Sexual Vampire Feeding [Sexual Vampire]: Sexual Vampire Feed.esp
+Added 18+ {2026-08-07} SLDragons [SL][Dragons]: SLDragons.esp
 Added 18+ {2026-08-02} SolitudeSlaughtery [Slaughtery]: SolitudeSlaughtery.esp
 Added 18+ {2026-08-06} Sprawling Bimbos [Bimbos][Sprawling]: SprawlingBimbos.esp
 Added 18+ {2026-08-05} To Become The Highest Prostitute! [Highest Prostitute]: To Become The Highest Prostitute!.esp
