@@ -1,5 +1,5 @@
 VDT 5.0.1
-73 mods (25 added, 2 removed, 46 changed) for Curated VDT List:
+34 mods (25 added, 2 removed, 7 changed) for Curated VDT List:
 Added {2026-08-05} CWE_DialogueAddon [Capital Whiterun][Dialogue]: CWE_DialogueAddon.esp
 Added {2026-08-05} KittyClass_Dragonknight [Dragonknight]: KittyClass_Dragonknight.esp
 Added {2026-08-05} The Expendables - 12 Unique Mercenary Followers [Expendables]: The Expendables.esp (https://www.nexusmods.com/skyrimspecialedition/mods/176660)
@@ -27,17 +27,27 @@ Added 18+ {2026-08-06} Vampiric Cum Addiction [Vampiric Cum]: Vampiric Cum Addic
 Added 18+ {2026-08-02} WhoresOfWhiterunDialogueAddon [Whiterun Whores]: WhoresOfWhiterunDialogueAddon.esp
 Changed {2026-08-05} [[Kaidan]] to [Kaidan]: 0Kaidan.esp
 Changed {2026-08-05} [[Evening with Angi]] to [Evening With Angi]: An Evening With Angi.esp
-Changed {2026-08-02} [[DOM]] to [DOM]: DiaryOfMine.esm
 Changed {2026-08-01} [[Faralda]] to [FDE]: FDE Faralda.esp
 Changed {2026-08-01} [[MTS]] to [MTS]: moretodo.esp
 Changed {2026-08-01} [POP] to [Prison Alternative]: PamaPrisonAlternative.esm
+Changed 18+ {2026-08-02} [[DOM]] to [DOM]: DiaryOfMine.esm
+Changed 18+ {2026-08-05} [Roses of Riverwood] to [Roses][Riverwood]: RosesOfRiverwoodDialogueAddon.esp
 Changed 18+ {2026-08-06} content tracking for [AA]: Amorous Adventures Text and Player Dialogue Revision (No Quest Edits).esp
 Changed 18+ {2026-08-06} content tracking for [SL][Harassment]: Sexlab Horrible Harassment (Male).esp
+Changed 18+ {2026-08-07} content tracking for [SL][Harassment]: Sexlab Horrible Harassment (Male).esp
+Changed 18+ {2026-08-07} content tracking for [SL][Alicia]: AliciaPainSlut.esp
 Changed 18+ {2026-08-02} content tracking for [Vanilla Sexism]: Arial Vanilla Sexism.esp
 Changed 18+ {2026-08-06} content tracking for [Babo]: BaboInteractiveDia.esp
 Changed 18+ {2026-08-05} content tracking for [Balazar]: BalazarTheHusky.esp
+Changed 18+ {2026-08-07} content tracking for [Bloodwhore]: Curses of the BloodWhore.esp
 Changed 18+ {2026-08-06} content tracking for [Damsels]: Damsels Breeding Slaves.esp
+Changed 18+ {2026-08-07} content tracking for [Damsels]: Damsels Desired Prize.esp
+Changed 18+ {2026-08-07} content tracking for [Damsels]: Damsels in Distress.esp
+Changed 18+ {2026-08-07} content tracking for [Damsels]: Damsels Just Punishment.esp
+Changed 18+ {2026-08-07} content tracking for [Damsels]: Damsels The Caged Rose.esp
+Changed 18+ {2026-08-07} content tracking for [Circle of Lust]: DarkDesiresCircleOfLust.esp
 Changed 18+ {2026-08-06} content tracking for [Toys][Dark Desires]: DarkDesiresClub.esp
+Changed 18+ {2026-08-07} content tracking for [Circle of Lust]: DarkDesiresSubmissivePet.esp
 Changed 18+ {2026-08-06} content tracking for [Ebonitium]: Devious Arena Stories.esp
 Changed 18+ {2026-08-06} content tracking for [Ebonitium]: Devious Arena.esp
 Changed 18+ {2026-08-06} content tracking for [Devious Bandit]: Devious Bandit Overhaul.esp
@@ -52,6 +62,15 @@ Changed 18+ {2026-08-06} content tracking for [Devious Slavery]: Devious Slavery
 Changed 18+ {2026-08-06} content tracking for [Devious Interests]: DeviousInterests.esp
 Changed 18+ {2026-08-06} content tracking for [Deviously Cursed]: Deviously Cursed Loot.esp
 Changed 18+ {2026-08-06} content tracking for [Deviously Enslaved]: Deviously Enslaved.esp
+Changed 18+ {2026-08-07} content tracking for [Thief]: Dogma - Thief.esp
+Changed 18+ {2026-08-07} content tracking for [AYGAS]: DOMAYGAS.esp
+Changed 18+ {2026-08-07} content tracking for [Domination]: Domination.esp
+Changed 18+ {2026-08-07} content tracking for [DOM][PAH]: DOMPAH.esp
+Changed 18+ {2026-08-07} content tracking for [SBC][DOM]: DOMSBC.esp
+Changed 18+ {2026-08-07} content tracking for [DOM][Stories]: DOMStories.esp
+Changed 18+ {2026-08-07} content tracking for [DOM][TDF]: DOMTDF.esp
+Changed 18+ {2026-08-07} content tracking for [DOM][TDF]: DOMTDFE.esp
+Changed 18+ {2026-08-07} content tracking for [DOM][TDF]: DOMTDFX.esp
 Changed 18+ {2026-08-06} content tracking for [FSM]: Follower Slavery Mod.esp
 Changed 18+ {2026-08-06} content tracking for [Toys][HoT]: HoT&WeT.esp
 Changed 18+ {2026-08-06} content tracking for [Slave Girls]: hydra_slavegirls_dialogue_fixes.esp
@@ -60,15 +79,23 @@ Changed 18+ {2026-08-06} content tracking for [AYGAS]: PAH_AndYouGetASlave.esp
 Changed 18+ {2026-08-06} content tracking for [PAH]: PAHSlaveCart.esp
 Changed 18+ {2026-08-06} content tracking for [PAH]: paradise_halls_fellglow_slave_camp.esp
 Changed 18+ {2026-08-01} content tracking for [Prison Alternative]: PrisonAlternative_Executions_Solitude.esp
-Changed 18+ {2026-08-05} [Roses of Riverwood] to [Roses][Riverwood]: RosesOfRiverwoodDialogueAddon.esp
+Changed 18+ {2026-08-07} content tracking for [Public Whore]: Public Whore.esp
+Changed 18+ {2026-08-07} content tracking for [Public Whore]: PWPatch.esp
 Changed 18+ {2026-08-06} content tracking for [Toys][SLaVE]: Shout Like a Virgin.esp
 Changed 18+ {2026-08-06} content tracking for [Simple Slavery]: SimpleSlavery.esp
 Changed 18+ {2026-08-06} content tracking for [Slavers]: SlaversOfSkyrim.esm
 Changed 18+ {2026-08-06} content tracking for [Slaverun]: Slaverun_Reloaded.esp
+Changed 18+ {2026-08-07} content tracking for [SL][Drunk]: SLDrunkRedux.esp
+Changed 18+ {2026-08-07} content tracking for [SLEN]: SLEN - FollowAddon.esp
+Changed 18+ {2026-08-07} content tracking for [SLEN]: SLEN I wanna watch-FollowAddon Patch.esp
+Changed 18+ {2026-08-07} content tracking for [SLEN]: SLEN I wanna watch.esp
+Changed 18+ {2026-08-07} content tracking for [SL][Enchantress]: SLER.esp
+Changed 18+ {2026-08-07} content tracking for [Damsels]: Spoils of War.esp
 Changed 18+ {2026-08-06} content tracking for [Toys][Temptations]: ToyfulTemptations.esp
 Changed 18+ {2026-08-06} content tracking for [Toys]: Toys.esm
 Changed 18+ {2026-08-06} content tracking for [Toys][Story]: ToyStory.esp
 Changed 18+ {2026-08-06} content tracking for [Toys][Workshop]: ToysWorkshop.esp
+Changed 18+ {2026-08-07} content tracking for [Bathhouse][DOM]: UB_DOM.esp
 Changed 18+ {2026-08-06} content tracking for [Toys][Whorecrux]: Whorecrux.esp
 Changed 18+ {2026-08-01} content tracking for [POP]: xazPrisonOverhaulPatched.esp
 Removed {2026-08-05} [What Remains]: FoxQuestMod.esp
