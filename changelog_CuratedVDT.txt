@@ -1,5 +1,5 @@
 VDT 5.0.1
-35 mods (25 added, 2 removed, 8 changed) for Curated VDT List:
+36 mods (25 added, 3 removed, 8 changed) for Curated VDT List:
 Added {2026-08-05} CWE_DialogueAddon [Capital Whiterun][Dialogue]: CWE_DialogueAddon.esp
 Added {2026-08-05} KittyClass_Dragonknight [Dragonknight]: KittyClass_Dragonknight.esp
 Added {2026-08-05} The Expendables - 12 Unique Mercenary Followers [Expendables]: The Expendables.esp (https://www.nexusmods.com/skyrimspecialedition/mods/176660)
@@ -101,3 +101,4 @@ Changed 18+ {2026-08-06} content tracking for [Toys][Whorecrux]: Whorecrux.esp
 Changed 18+ {2026-08-01} content tracking for [POP]: xazPrisonOverhaulPatched.esp
 Removed {2026-08-05} [What Remains]: FoxQuestMod.esp
 Removed {2026-08-01} [Prison Alternative]: PamaPrisonAlternative.esm
+Removed {2026-08-07} [SDA]: SDA GYH Patch.esp
