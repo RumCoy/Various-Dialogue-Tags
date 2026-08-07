@@ -1,5 +1,5 @@
 SharedParentList 5.0.1
-66 mods (63 added, 1 removed, 2 changed) for SharedParentList:
+67 mods (64 added, 1 removed, 2 changed) for SharedParentList:
 Added {2026-08-02} Animal Mansion Reborn [Animal Mansion]: Animal Mansion Reborn.esp
 Added {2026-08-06} Aniya - A Custom Voiced Follower [Aniya]: Aniya Follower.esp (https://www.nexusmods.com/skyrimspecialedition/mods/63208)
 Added {2026-08-05} The Keeper - Carcette Expanded [The Keeper]: Carcette Lives - Quest Expansion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/168918)
@@ -61,6 +61,7 @@ Added 18+ {2026-08-05} MariaProstitution [Maria Eden]: MariaProstitution.esp
 Added 18+ {2026-08-05} MiasLair [Love Slaves]: MiasLair.esp
 Added 18+ {2026-08-05} Letters from the Front by Ralof [Letters from the Front]: RalofsNotes.esp (https://www.nexusmods.com/skyrimspecialedition/mods/164224)
 Added 18+ {2026-08-05} SkoomaWhoreReforged [Skooma Whore]: SkoomaWhoreReforged.esp
+Added 18+ {2026-08-07} SLDragons [SexLab Dragons]: SLDragons.esp
 Added 18+ {2026-08-06} Sprawling Bimbos [Sprawling Bimbos]: SprawlingBimbos.esp
 Added 18+ {2026-08-05} The Haunted Brothel [Haunted Brothel]: The Haunted Brothel.esp
 Changed 18+ {2026-08-06} [Non-Devious Devices] to [Non-Devious Devices]: Non-Devious Devices - Masterlist.esp
