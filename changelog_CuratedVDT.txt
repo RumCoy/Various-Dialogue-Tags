@@ -1,5 +1,5 @@
 VDT 5.0.1
-34 mods (25 added, 2 removed, 7 changed) for Curated VDT List:
+35 mods (25 added, 2 removed, 8 changed) for Curated VDT List:
 Added {2026-08-05} CWE_DialogueAddon [Capital Whiterun][Dialogue]: CWE_DialogueAddon.esp
 Added {2026-08-05} KittyClass_Dragonknight [Dragonknight]: KittyClass_Dragonknight.esp
 Added {2026-08-05} The Expendables - 12 Unique Mercenary Followers [Expendables]: The Expendables.esp (https://www.nexusmods.com/skyrimspecialedition/mods/176660)
@@ -26,6 +26,7 @@ Added 18+ {2026-08-05} To Become The Highest Prostitute! [Highest Prostitute]: T
 Added 18+ {2026-08-06} Vampiric Cum Addiction [Vampiric Cum]: Vampiric Cum Addiction.esp
 Added 18+ {2026-08-02} WhoresOfWhiterunDialogueAddon [Whiterun Whores]: WhoresOfWhiterunDialogueAddon.esp
 Changed {2026-08-05} [[Kaidan]] to [Kaidan]: 0Kaidan.esp
+Changed {2026-08-07} [Auri][Vigilant] to [Auri]: 018AuriVIGILANTpatch.esp
 Changed {2026-08-05} [[Evening with Angi]] to [Evening With Angi]: An Evening With Angi.esp
 Changed {2026-08-01} [[Faralda]] to [FDE]: FDE Faralda.esp
 Changed {2026-08-01} [[MTS]] to [MTS]: moretodo.esp
