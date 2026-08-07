@@ -132,7 +132,8 @@ namespace
         }
 
         for (std::size_t index = 0; index < candidateCount; ++index) {
-            if (candidates[index]->file == candidate.file) {
+            if (candidates[index]->file == candidate.file &&
+                candidates[index]->localFormID == candidate.localFormID) {
                 return;
             }
         }
@@ -225,8 +226,7 @@ namespace VariousDialogueTags
                         AddCandidate(candidates, candidateCount, topicProvenance->origin);
                     }
 
-                    const Rule* rule = nullptr;
-                    const FormOrigin::Identity* tagIdentity = nullptr;
+                    bool explicitRuleFound = false;
                     bool tagsEnabled = true;
                     for (std::size_t index = 0; index < candidateCount; ++index) {
                         const auto* candidateRule =
@@ -234,24 +234,34 @@ namespace VariousDialogueTags
                         if (!candidateRule) {
                             continue;
                         }
+                        explicitRuleFound = true;
                         if (!candidateRule->modNameTags) {
                             tagsEnabled = false;
                             break;
                         }
-                        if (!rule) {
-                            rule = candidateRule;
-                            tagIdentity = candidates[index];
+                    }
+
+                    const Rule* rule = nullptr;
+                    const FormOrigin::Identity* tagIdentity = nullptr;
+                    if (tagsEnabled) {
+                        for (std::size_t index = 0; index < candidateCount; ++index) {
+                            const auto* candidateRule =
+                                config.FindRule(candidates[index]->filename);
+                            if (candidateRule &&
+                                candidateRule->Allows(candidates[index]->localFormID)) {
+                                rule = candidateRule;
+                                tagIdentity = candidates[index];
+                                break;
+                            }
                         }
                     }
 
                     std::string fallbackTag;
                     std::string_view tag;
 
-                    if (tagsEnabled && rule) {
-                        if (rule->Allows(tagIdentity->localFormID)) {
-                            tag = rule->tag;
-                        }
-                    } else if (tagsEnabled && globalPluginNameFallback) {
+                    if (rule) {
+                        tag = rule->tag;
+                    } else if (tagsEnabled && !explicitRuleFound && globalPluginNameFallback) {
                         for (std::size_t index = 0; index < candidateCount; ++index) {
                             fallbackTag = MakeFallbackTag(candidates[index]->filename);
                             if (!fallbackTag.empty()) {
