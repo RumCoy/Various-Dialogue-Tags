@@ -15,7 +15,7 @@ namespace VariousDialogueTags::Menu
             auto& config = Config::GetSingleton();
             bool enabled = config.Enabled();
 
-            if (ImGuiMCP::Checkbox("Enable dialogue tags", &enabled)) {
+            if (ImGuiMCP::Checkbox("Enable Various Dialogue Tags", &enabled)) {
                 config.SetEnabled(enabled);
                 if (!config.SaveTempCache()) {
                     SKSE::log::error("Failed to save temp cache");
@@ -42,7 +42,7 @@ namespace VariousDialogueTags::Menu
         }
 
         SKSEMenuFramework::SetSection("Various Dialogue Tags");
-        SKSEMenuFramework::AddSectionItem("Settings", RenderSettings);
+        SKSEMenuFramework::AddSectionItem("General", RenderSettings);
         registered = true;
     }
 }
