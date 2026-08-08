@@ -16,9 +16,16 @@ namespace VariousDialogueTags::Menu
             bool enabled = config.Enabled();
 
             if (ImGuiMCP::Checkbox("Enable Various Dialogue Tags", &enabled)) {
-                config.SetEnabled(enabled);
-                if (!config.SaveTempCache()) {
-                    SKSE::log::error("Failed to save temp cache");
+                if (!config.SetEnabledFromMenu(enabled)) {
+                    SKSE::log::error("Failed to persist one or more menu setting files");
+                }
+            }
+
+            bool globalPluginNameFallback = config.GlobalPluginNameFallback();
+            if (ImGuiMCP::Checkbox(
+                    "Tag unconfigured mods with plugin names", &globalPluginNameFallback)) {
+                if (!config.SetGlobalPluginNameFallbackFromMenu(globalPluginNameFallback)) {
+                    SKSE::log::error("Failed to persist one or more menu setting files");
                 }
             }
         }

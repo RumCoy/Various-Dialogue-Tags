@@ -31,19 +31,25 @@ namespace VariousDialogueTags
             const std::filesystem::path& tempCachePath);
 
         [[nodiscard]] bool Enabled() const noexcept;
-        void SetEnabled(bool enabled) noexcept;
-        [[nodiscard]] bool SaveTempCache() const;
+        [[nodiscard]] bool SetEnabledFromMenu(bool enabled);
 
         [[nodiscard]] bool GlobalPluginNameFallback() const noexcept;
+        [[nodiscard]] bool SetGlobalPluginNameFallbackFromMenu(bool enabled);
         [[nodiscard]] const Rule* FindRule(std::string_view pluginName) const;
 
     private:
         bool LoadUserFile(const std::filesystem::path& path);
         bool LoadTempCache(const std::filesystem::path& path);
         bool LoadStream(std::istream& input, std::string sourceName, bool userOverride);
+        [[nodiscard]] bool SaveTempCache() const;
+        [[nodiscard]] bool PersistMenuSetting(
+            std::string_view key, std::string_view value) const;
+        [[nodiscard]] bool UpdateUserConfigSetting(
+            std::string_view key, std::string_view value) const;
 
         bool enabled_{ true };
         bool globalPluginNameFallback_{ false };
+        std::filesystem::path userConfigPath_;
         std::filesystem::path tempCachePath_;
         std::unordered_map<std::string, Rule> rules_;
     };
