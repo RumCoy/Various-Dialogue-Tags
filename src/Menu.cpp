@@ -28,6 +28,11 @@ namespace VariousDialogueTags::Menu
                     SKSE::log::error("Failed to persist one or more menu setting files");
                 }
             }
+            if (ImGuiMCP::IsItemHovered(0)) {
+                ImGuiMCP::SetTooltip(
+                    "DEFAULT: OFF. Uses the plugin filename as the tag for dialogue from "
+                    "unconfigured non-vanilla plugins.");
+            }
         }
     }
 
