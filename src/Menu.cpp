@@ -36,6 +36,12 @@ namespace VariousDialogueTags::Menu
         }
     }
 
+    bool IsAvailable()
+    {
+        return SKSEMenuFramework::IsInstalled() &&
+               SKSEMenuFramework::GetMenuFrameworkVersion() > 0.0F;
+    }
+
     void Register()
     {
         static bool registered = false;
@@ -43,18 +49,13 @@ namespace VariousDialogueTags::Menu
             return;
         }
 
-        if (!SKSEMenuFramework::IsInstalled()) {
-            SKSE::log::info("SKSE Menu Framework is not installed; menu integration disabled");
-            return;
-        }
-
-        if (SKSEMenuFramework::GetMenuFrameworkVersion() <= 0.0F) {
-            SKSE::log::warn("SKSE Menu Framework returned an invalid version; menu integration disabled");
+        if (!IsAvailable()) {
+            SKSE::log::info("SKSE Menu Framework unavailable; menu integration disabled");
             return;
         }
 
         SKSEMenuFramework::SetSection("Various Dialogue Tags");
-        SKSEMenuFramework::AddSectionItem("General", RenderSettings);
+        SKSEMenuFramework::AddSectionItem("Home", RenderSettings);
         registered = true;
     }
 }

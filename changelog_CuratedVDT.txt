@@ -1,3 +1,14 @@
+VDT 5.2.0
+3 mods (1 added, 1 removed, 1 changed) for Curated VDT List:
+Added {2026-08-08} [Dark Warrior]: KittyClass_DarkWarrior.esp
+Changed {2026-08-08} [DTDB QE] to [Brotherhood QE]: Destroy the Dark Brotherhood - Quest Expansion.esp
+Changed 18+ {2026-08-08} content tracking for [AA]: Amorous Adventures Text and Player Dialogue Revision (No Quest Edits).esp
+Changed 18+ {2026-08-08} content tracking for [MEI]: MEI - Beast Races Addon.esp
+Changed 18+ {2026-08-08} content tracking for [MEI]: MEI - Patch - GGIY.esp
+Changed 18+ {2026-08-08} content tracking for [MEI]: MEI - Red Wave Addon.esp
+Changed 18+ {2026-08-08} content tracking for [ORomance]: ORomancePlus_MEI.esp
+Removed {2026-08-08} [MEI]: MEI - Maven Elenwen Ingun.esp
+
 VDT 5.0.1
 36 mods (25 added, 3 removed, 8 changed) for Curated VDT List:
 Added {2026-08-05} CWE_DialogueAddon [Capital Whiterun][Dialogue]: CWE_DialogueAddon.esp

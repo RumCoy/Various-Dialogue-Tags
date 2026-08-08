@@ -1,4 +1,8 @@
-SharedParentList 5.0.1
+SharedParentList 5.2.0
+1 mods (1 added, 0 removed, 0 changed) for SharedParentList:
+Added 18+ {2026-08-08} [MEI]: MEI - Maven Elenwen Ingun.esp
+
+SharedParentList 5.1.0
 67 mods (64 added, 1 removed, 2 changed) for SharedParentList:
 Added {2026-08-02} Animal Mansion Reborn [Animal Mansion]: Animal Mansion Reborn.esp
 Added {2026-08-06} Aniya - A Custom Voiced Follower [Aniya]: Aniya Follower.esp (https://www.nexusmods.com/skyrimspecialedition/mods/63208)

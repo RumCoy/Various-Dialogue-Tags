@@ -3,6 +3,7 @@
 #include "EmbeddedData.h"
 #include "Menu.h"
 
+#include <filesystem>
 #include <SKSE/SKSE.h>
 #include <spdlog/sinks/basic_file_sink.h>
 
@@ -38,10 +39,18 @@ namespace
             SKSE::log::critical("Embedded internal-data resource is missing or empty");
         }
 
+        std::filesystem::path tempCachePath;
+        if (VariousDialogueTags::Menu::IsAvailable()) {
+            tempCachePath = "Data/SKSE/Plugins/VariousDialogueTags_tempCache.ini";
+        } else {
+            SKSE::log::info(
+                "SKSE Menu Framework unavailable; existing temp cache will be ignored");
+        }
+
         VariousDialogueTags::Config::GetSingleton().Load(
             internalData,
             "Data/SKSE/Plugins/VariousDialogueTags_UserConfig.ini",
-            "Data/SKSE/Plugins/VariousDialogueTags_tempCache.ini");
+            tempCachePath);
 
         VariousDialogueTags::Menu::Register();
         SKSE::log::info("Configuration loaded");
