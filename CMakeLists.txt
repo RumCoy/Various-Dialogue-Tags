@@ -79,6 +79,8 @@ add_commonlibsse_plugin(${PROJECT_NAME}
         src/PCH.h
         src/Config.cpp
         src/Config.h
+        src/Menu.cpp
+        src/Menu.h
         src/EmbeddedData.cpp
         src/EmbeddedData.h
         src/DialogueMenuHook.cpp
@@ -90,6 +92,9 @@ add_commonlibsse_plugin(${PROJECT_NAME}
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "00_VariousDialogueTags")
+
+target_include_directories(${PROJECT_NAME} PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/lib/skse-menu-framework/resources")
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE NOMINMAX WIN32_LEAN_AND_MEAN)
 target_precompile_headers(${PROJECT_NAME} PRIVATE src/PCH.h)

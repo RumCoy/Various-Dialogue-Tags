@@ -1,6 +1,7 @@
 #include "Config.h"
 #include "DialogueMenuHook.h"
 #include "EmbeddedData.h"
+#include "Menu.h"
 
 #include <SKSE/SKSE.h>
 #include <spdlog/sinks/basic_file_sink.h>
@@ -38,7 +39,11 @@ namespace
         }
 
         VariousDialogueTags::Config::GetSingleton().Load(
-            internalData, "Data/SKSE/Plugins/VariousDialogueTags_UserConfig.ini");
+            internalData,
+            "Data/SKSE/Plugins/VariousDialogueTags_UserConfig.ini",
+            "Data/SKSE/Plugins/VariousDialogueTags_tempCache.ini");
+
+        VariousDialogueTags::Menu::Register();
         SKSE::log::info("Configuration loaded");
     }
 }

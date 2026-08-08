@@ -139,6 +139,7 @@ jobs:
           Add-LicenseSection "GNU General Public License version 3" "COPYING"
           Add-LicenseSection "CommonLibSSE-NG exceptions" "lib/commonlibsse-ng/EXCEPTIONS.md"
           Add-LicenseSection "CommonLibSSE-NG original MIT license" "lib/commonlibsse-ng/LICENSE"
+          Add-LicenseSection "SKSE Menu Framework LGPL-2.1" "lib/skse-menu-framework/LICENSE"
           Add-LicenseSection "DirectXMath license notices" "build/release/vcpkg_installed/x64-windows-static-md/share/directxmath/copyright"
           Add-LicenseSection "DirectXTK license notices" "build/release/vcpkg_installed/x64-windows-static-md/share/directxtk/copyright"
           Add-LicenseSection "fmt license notices" "build/release/vcpkg_installed/x64-windows-static-md/share/fmt/copyright"
