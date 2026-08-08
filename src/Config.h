@@ -27,17 +27,24 @@ namespace VariousDialogueTags
         static Config& GetSingleton();
 
         bool Load(std::string_view embeddedInternalData,
-            const std::filesystem::path& userConfigPath);
+            const std::filesystem::path& userConfigPath,
+            const std::filesystem::path& tempCachePath);
+
         [[nodiscard]] bool Enabled() const noexcept;
+        void SetEnabled(bool enabled) noexcept;
+        [[nodiscard]] bool SaveTempCache() const;
+
         [[nodiscard]] bool GlobalPluginNameFallback() const noexcept;
         [[nodiscard]] const Rule* FindRule(std::string_view pluginName) const;
 
     private:
         bool LoadUserFile(const std::filesystem::path& path);
+        bool LoadTempCache(const std::filesystem::path& path);
         bool LoadStream(std::istream& input, std::string sourceName, bool userOverride);
 
         bool enabled_{ true };
         bool globalPluginNameFallback_{ false };
+        std::filesystem::path tempCachePath_;
         std::unordered_map<std::string, Rule> rules_;
     };
 }
