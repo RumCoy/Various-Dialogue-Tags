@@ -229,8 +229,11 @@ namespace
         const RE::MenuTopicManager::Dialogue* selectedDialogue{};
         RE::FormID selectedTopic{};
         RE::FormID selectedTopicInfo{};
-        RE::FormID currentTopicInfo{};
         std::string activeTag;
+        bool hasPreviousMenu{};
+        bool previousMenuUniform{};
+        std::string previousMenuSignature;
+        std::string previousMenuTag;
     };
 
     void SetObservedSelection(
@@ -255,12 +258,6 @@ namespace
         return selection != state.selectedDialogue ||
                topic != state.selectedTopic ||
                topicInfo != state.selectedTopicInfo;
-    }
-
-    RE::TESTopicInfo* GetCurrentTopicInfo(const RE::MenuTopicManager& topicManager)
-    {
-        return topicManager.currentTopicInfo ?
-            topicManager.currentTopicInfo : topicManager.lastTopicInfo;
     }
 
     bool IsTopLevelMenu(const RE::MenuTopicManager& topicManager)
@@ -356,50 +353,26 @@ namespace VariousDialogueTags
             return original_(this, message);
         }
 
+        bool contextUpdated = false;
         if (!conversation.initialized || conversation.speaker != topicManager->speaker) {
             conversation = {};
             conversation.initialized = true;
             conversation.speaker = topicManager->speaker;
             SetObservedSelection(conversation, topicManager->lastSelectedDialogue);
-            auto* currentTopicInfo = GetCurrentTopicInfo(*topicManager);
-            conversation.currentTopicInfo = currentTopicInfo ?
-                currentTopicInfo->GetFormID() : 0;
-            if (currentTopicInfo) {
-                conversation.activeTag = ResolveTag(config,
-                    currentTopicInfo->parentTopic, currentTopicInfo,
-                    globalPluginNameFallback).tag;
-            } else if (topicManager->lastSelectedDialogue) {
-                auto* selected = topicManager->lastSelectedDialogue;
-                conversation.activeTag = ResolveTag(config, selected->parentTopic,
-                    selected->parentTopicInfo, globalPluginNameFallback).tag;
-            }
         } else {
-            bool contextUpdated = false;
-            auto* currentTopicInfo = GetCurrentTopicInfo(*topicManager);
-            const auto currentTopicInfoID = currentTopicInfo ?
-                currentTopicInfo->GetFormID() : 0;
-            if (currentTopicInfoID != conversation.currentTopicInfo) {
-                conversation.currentTopicInfo = currentTopicInfoID;
-                if (currentTopicInfo) {
-                    conversation.activeTag = ResolveTag(config,
-                        currentTopicInfo->parentTopic, currentTopicInfo,
-                        globalPluginNameFallback).tag;
-                    contextUpdated = true;
-                }
-            }
             if (SelectionChanged(conversation, topicManager->lastSelectedDialogue)) {
                 auto* selected = topicManager->lastSelectedDialogue;
                 SetObservedSelection(conversation, selected);
-                if (!contextUpdated && selected) {
+                if (selected) {
                     conversation.activeTag = ResolveTag(config, selected->parentTopic,
                         selected->parentTopicInfo, globalPluginNameFallback).tag;
                     contextUpdated = true;
                 }
-            }
-            if (!contextUpdated && rootChanged && topicManager->rootTopicInfo) {
+            } else if (rootChanged && topicManager->rootTopicInfo) {
                 auto* root = topicManager->rootTopicInfo;
                 conversation.activeTag = ResolveTag(config, root->parentTopic, root,
                     globalPluginNameFallback).tag;
+                contextUpdated = true;
             }
         }
 
@@ -410,6 +383,7 @@ namespace VariousDialogueTags
 
         std::vector<PendingOption> pending;
         std::unordered_set<std::string> visibleContexts;
+        std::string menuSignature;
         for (auto* option : *topicManager->dialogueList) {
             if (!option || !option->parentTopic) {
                 continue;
@@ -427,6 +401,8 @@ namespace VariousDialogueTags
                 cached != cache.end() && currentText == cached->second.output) {
                 currentText = cached->second.source;
             }
+            menuSignature.append(cacheKey);
+            menuSignature.push_back('\0');
             auto tag = ResolveTag(
                 config, option->parentTopic, topicInfo, globalPluginNameFallback);
             visibleContexts.insert(tag.tag);
@@ -436,6 +412,13 @@ namespace VariousDialogueTags
                 .cacheKey = std::move(cacheKey),
                 .tag = std::move(tag)
             });
+        }
+
+        const bool menuChanged = conversation.hasPreviousMenu &&
+            menuSignature != conversation.previousMenuSignature;
+        if (!topLevelMenu && !contextUpdated && menuChanged &&
+            conversation.previousMenuUniform) {
+            conversation.activeTag = conversation.previousMenuTag;
         }
 
         const bool hideMatchingOptions = config.HideTagsWhenAllOptionsMatch() &&
@@ -486,6 +469,12 @@ namespace VariousDialogueTags
                 .tagged = shouldTag
             });
         }
+
+        conversation.hasPreviousMenu = !pending.empty();
+        conversation.previousMenuUniform = visibleContexts.size() == 1;
+        conversation.previousMenuSignature = std::move(menuSignature);
+        conversation.previousMenuTag = conversation.previousMenuUniform ?
+            *visibleContexts.begin() : std::string{};
 
         return original_(this, message);
     }
