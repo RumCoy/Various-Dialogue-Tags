@@ -104,7 +104,7 @@ namespace VariousDialogueTags
         rules_.clear();
         enabled_ = true;
         globalPluginNameFallback_ = false;
-        hideUnambiguousTags_ = true;
+        hideTagsWhenAllOptionsMatch_ = false;
         userConfigPath_ = userConfigPath;
         tempCachePath_ = tempCachePath;
 
@@ -116,9 +116,9 @@ namespace VariousDialogueTags
 
         SKSE::log::info(
             "Configuration complete: {} dialogue-tag rule(s); enabled={}; "
-            "globalPluginNameFallback={}; hideUnambiguousTags={}; embeddedData={}; "
+            "globalPluginNameFallback={}; hideTagsWhenAllOptionsMatch={}; embeddedData={}; "
             "userConfig={}; tempCache={}",
-            rules_.size(), enabled_, globalPluginNameFallback_, hideUnambiguousTags_,
+            rules_.size(), enabled_, globalPluginNameFallback_, hideTagsWhenAllOptionsMatch_,
             loadedEmbeddedData, loadedUserConfig, loadedTempCache);
         return loadedEmbeddedData || loadedUserConfig || loadedTempCache;
     }
@@ -198,8 +198,9 @@ namespace VariousDialogueTags
                     enabled_ = ParseBool(value, enabled_);
                 } else if (key == "globalpluginnamefallback") {
                     globalPluginNameFallback_ = ParseBool(value, globalPluginNameFallback_);
-                } else if (key == "hideunambiguoustags") {
-                    hideUnambiguousTags_ = ParseBool(value, hideUnambiguousTags_);
+                } else if (key == "hidetagswhenalloptionsmatch") {
+                    hideTagsWhenAllOptionsMatch_ =
+                        ParseBool(value, hideTagsWhenAllOptionsMatch_);
                 }
                 continue;
             }
@@ -298,8 +299,8 @@ namespace VariousDialogueTags
             << "Enabled = " << (Enabled() ? "true" : "false") << '\n'
             << "GlobalPluginNameFallback = "
             << (GlobalPluginNameFallback() ? "true" : "false") << '\n'
-            << "HideUnambiguousTags = "
-            << (HideUnambiguousTags() ? "true" : "false") << '\n';
+            << "HideTagsWhenAllOptionsMatch = "
+            << (HideTagsWhenAllOptionsMatch() ? "true" : "false") << '\n';
 
         return static_cast<bool>(output);
     }
@@ -482,16 +483,16 @@ namespace VariousDialogueTags
             "GlobalPluginNameFallback", enabled ? "true" : "false");
     }
 
-    bool Config::HideUnambiguousTags() const noexcept
+    bool Config::HideTagsWhenAllOptionsMatch() const noexcept
     {
-        return hideUnambiguousTags_;
+        return hideTagsWhenAllOptionsMatch_;
     }
 
-    bool Config::SetHideUnambiguousTagsFromMenu(bool enabled)
+    bool Config::SetHideTagsWhenAllOptionsMatchFromMenu(bool enabled)
     {
-        hideUnambiguousTags_ = enabled;
+        hideTagsWhenAllOptionsMatch_ = enabled;
         return PersistMenuSetting(
-            "HideUnambiguousTags", enabled ? "true" : "false");
+            "HideTagsWhenAllOptionsMatch", enabled ? "true" : "false");
     }
 
     const Rule* Config::FindRule(std::string_view pluginName) const

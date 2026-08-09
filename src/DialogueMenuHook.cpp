@@ -229,6 +229,7 @@ namespace
         const RE::MenuTopicManager::Dialogue* selectedDialogue{};
         RE::FormID selectedTopic{};
         RE::FormID selectedTopicInfo{};
+        RE::FormID currentTopicInfo{};
         std::string activeTag;
     };
 
@@ -254,6 +255,12 @@ namespace
         return selection != state.selectedDialogue ||
                topic != state.selectedTopic ||
                topicInfo != state.selectedTopicInfo;
+    }
+
+    RE::TESTopicInfo* GetCurrentTopicInfo(const RE::MenuTopicManager& topicManager)
+    {
+        return topicManager.currentTopicInfo ?
+            topicManager.currentTopicInfo : topicManager.lastTopicInfo;
     }
 
     bool IsTopLevelMenu(const RE::MenuTopicManager& topicManager)
@@ -354,25 +361,50 @@ namespace VariousDialogueTags
             conversation.initialized = true;
             conversation.speaker = topicManager->speaker;
             SetObservedSelection(conversation, topicManager->lastSelectedDialogue);
+            auto* currentTopicInfo = GetCurrentTopicInfo(*topicManager);
+            conversation.currentTopicInfo = currentTopicInfo ?
+                currentTopicInfo->GetFormID() : 0;
+            if (currentTopicInfo) {
+                conversation.activeTag = ResolveTag(config,
+                    currentTopicInfo->parentTopic, currentTopicInfo,
+                    globalPluginNameFallback).tag;
+            } else if (topicManager->lastSelectedDialogue) {
+                auto* selected = topicManager->lastSelectedDialogue;
+                conversation.activeTag = ResolveTag(config, selected->parentTopic,
+                    selected->parentTopicInfo, globalPluginNameFallback).tag;
+            }
         } else {
-            bool selectedContextUpdated = false;
+            bool contextUpdated = false;
+            auto* currentTopicInfo = GetCurrentTopicInfo(*topicManager);
+            const auto currentTopicInfoID = currentTopicInfo ?
+                currentTopicInfo->GetFormID() : 0;
+            if (currentTopicInfoID != conversation.currentTopicInfo) {
+                conversation.currentTopicInfo = currentTopicInfoID;
+                if (currentTopicInfo) {
+                    conversation.activeTag = ResolveTag(config,
+                        currentTopicInfo->parentTopic, currentTopicInfo,
+                        globalPluginNameFallback).tag;
+                    contextUpdated = true;
+                }
+            }
             if (SelectionChanged(conversation, topicManager->lastSelectedDialogue)) {
                 auto* selected = topicManager->lastSelectedDialogue;
                 SetObservedSelection(conversation, selected);
-                if (selected) {
+                if (!contextUpdated && selected) {
                     conversation.activeTag = ResolveTag(config, selected->parentTopic,
                         selected->parentTopicInfo, globalPluginNameFallback).tag;
-                    selectedContextUpdated = true;
+                    contextUpdated = true;
                 }
             }
-            if (!selectedContextUpdated && rootChanged && topicManager->rootTopicInfo) {
+            if (!contextUpdated && rootChanged && topicManager->rootTopicInfo) {
                 auto* root = topicManager->rootTopicInfo;
                 conversation.activeTag = ResolveTag(config, root->parentTopic, root,
                     globalPluginNameFallback).tag;
             }
         }
 
-        if (IsTopLevelMenu(*topicManager)) {
+        const bool topLevelMenu = IsTopLevelMenu(*topicManager);
+        if (topLevelMenu) {
             conversation.activeTag.clear();
         }
 
@@ -406,13 +438,13 @@ namespace VariousDialogueTags
             });
         }
 
-        const bool hideUnambiguous = config.HideUnambiguousTags() &&
+        const bool hideMatchingOptions = config.HideTagsWhenAllOptionsMatch() &&
             visibleContexts.size() <= 1;
         for (auto& item : pending) {
             const bool sameContext = !conversation.activeTag.empty() &&
                 item.tag.tag == conversation.activeTag;
             const bool shouldTag = !item.tag.tag.empty() &&
-                !sameContext && !hideUnambiguous;
+                !sameContext && !hideMatchingOptions;
             if (const auto cached = cache.find(item.cacheKey);
                 cached != cache.end() && cached->second.source == item.text &&
                 cached->second.tag == item.tag.tag && cached->second.tagged == shouldTag) {

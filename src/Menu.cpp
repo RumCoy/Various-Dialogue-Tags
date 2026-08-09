@@ -34,10 +34,11 @@ namespace VariousDialogueTags::Menu
                     "unconfigured non-vanilla plugins.");
             }
 
-            bool hideUnambiguousTags = config.HideUnambiguousTags();
+            bool hideTagsWhenAllOptionsMatch = config.HideTagsWhenAllOptionsMatch();
             if (ImGuiMCP::Checkbox(
-                    "Hide tags when unambiguous", &hideUnambiguousTags)) {
-                if (!config.SetHideUnambiguousTagsFromMenu(hideUnambiguousTags)) {
+                    "Hide tags when all options match", &hideTagsWhenAllOptionsMatch)) {
+                if (!config.SetHideTagsWhenAllOptionsMatchFromMenu(
+                        hideTagsWhenAllOptionsMatch)) {
                     SKSE::log::error("Failed to persist one or more menu setting files");
                 }
             }

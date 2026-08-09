@@ -47,7 +47,7 @@ function Read-IniLayer {
         @('Tag', 'IncludeForms', 'ExcludeForms', 'SkillTags', 'ModNameTags')
     }
     $allowedGeneralKeys = if ($ProductName -eq 'VDT') {
-        @('Enabled', 'GlobalPluginNameFallback', 'HideUnambiguousTags')
+        @('Enabled', 'GlobalPluginNameFallback', 'HideTagsWhenAllOptionsMatch')
     } else {
         @('Enabled', 'SkillTags', 'ModNameTags', 'GlobalPluginNameFallback')
     }
