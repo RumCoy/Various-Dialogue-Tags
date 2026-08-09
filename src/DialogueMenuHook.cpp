@@ -230,8 +230,6 @@ namespace
         RE::FormID selectedTopic{};
         RE::FormID selectedTopicInfo{};
         std::string activeTag;
-        bool mainMenuKnown{};
-        std::unordered_set<RE::FormID> mainMenuTopics;
         bool hasPreviousMenu{};
         bool previousMenuUniform{};
         std::string previousMenuSignature;
@@ -291,10 +289,10 @@ namespace
     struct PendingOption
     {
         RE::MenuTopicManager::Dialogue* option{};
-        RE::FormID topicFormID{};
         std::string text;
         std::string cacheKey;
         TagResolution tag;
+        bool sameBranchTag{};
     };
 
     struct CachedOption
@@ -379,11 +377,15 @@ namespace VariousDialogueTags
             }
         }
 
-        const bool topLevelCandidate = IsTopLevelMenu(*topicManager);
+        const bool topLevelMenu = IsTopLevelMenu(*topicManager);
+        if (topLevelMenu) {
+            conversation.activeTag.clear();
+        }
 
         std::vector<PendingOption> pending;
         std::unordered_set<std::string> visibleContexts;
         std::unordered_set<std::string> visibleTags;
+        std::unordered_map<const RE::TESTopic*, std::string> branchTags;
         std::string menuSignature;
         for (auto* option : *topicManager->dialogueList) {
             if (!option || !option->parentTopic) {
@@ -407,39 +409,34 @@ namespace VariousDialogueTags
             menuSignature.push_back('\0');
             auto tag = ResolveTag(
                 config, option->parentTopic, topicInfo, globalPluginNameFallback);
+            bool sameBranchTag = false;
+            auto* branch = option->parentTopic->ownerBranch;
+            if (branch && branch->startingTopic &&
+                branch->startingTopic != option->parentTopic) {
+                auto [branchTag, inserted] = branchTags.try_emplace(
+                    branch->startingTopic);
+                if (inserted) {
+                    branchTag->second = ResolveTag(config, branch->startingTopic,
+                        nullptr, globalPluginNameFallback).tag;
+                }
+                sameBranchTag = !tag.tag.empty() && tag.tag == branchTag->second;
+            }
             visibleContexts.insert(tag.tag);
             if (!tag.tag.empty()) {
                 visibleTags.insert(tag.tag);
             }
             pending.push_back(PendingOption{
                 .option = option,
-                .topicFormID = topicFormID,
                 .text = currentText,
                 .cacheKey = std::move(cacheKey),
-                .tag = std::move(tag)
+                .tag = std::move(tag),
+                .sameBranchTag = sameBranchTag
             });
-        }
-
-        bool mainMenu = !conversation.mainMenuKnown && !pending.empty();
-        if (!mainMenu && topLevelCandidate) {
-            for (const auto& option : pending) {
-                if (conversation.mainMenuTopics.contains(option.topicFormID)) {
-                    mainMenu = true;
-                    break;
-                }
-            }
-        }
-        if (mainMenu) {
-            conversation.mainMenuKnown = true;
-            for (const auto& option : pending) {
-                conversation.mainMenuTopics.insert(option.topicFormID);
-            }
-            conversation.activeTag.clear();
         }
 
         const bool menuChanged = conversation.hasPreviousMenu &&
             menuSignature != conversation.previousMenuSignature;
-        if (!mainMenu && !contextUpdated && menuChanged &&
+        if (!topLevelMenu && !contextUpdated && menuChanged &&
             conversation.previousMenuUniform) {
             conversation.activeTag = conversation.previousMenuTag;
         }
@@ -449,7 +446,7 @@ namespace VariousDialogueTags
             const bool sameContext = !conversation.activeTag.empty() &&
                 item.tag.tag == conversation.activeTag;
             const bool shouldTag = !item.tag.tag.empty() &&
-                !sameContext && !immersiveMode;
+                !sameContext && !item.sameBranchTag && !immersiveMode;
             if (const auto cached = cache.find(item.cacheKey);
                 cached != cache.end() && cached->second.source == item.text &&
                 cached->second.tag == item.tag.tag && cached->second.tagged == shouldTag) {
