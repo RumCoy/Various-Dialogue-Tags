@@ -7,9 +7,6 @@ param(
     [string]$BasePath,
 
     [Parameter(Mandatory = $true)]
-    [string]$EditPath,
-
-    [Parameter(Mandatory = $true)]
     [string]$CuratedPath,
 
     [Parameter(Mandatory = $true)]
@@ -145,7 +142,6 @@ function Read-IniLayer {
 }
 
 $base = Read-IniLayer -Path $BasePath -Role Shared -ProductName $Product
-$edit = Read-IniLayer -Path $EditPath -Role Shared -ProductName $Product
 $curated = Read-IniLayer -Path $CuratedPath -Role Curated -ProductName $Product
 
 $outputDirectory = Split-Path -Parent $OutputPath
@@ -153,7 +149,7 @@ if ($outputDirectory.Length -gt 0) {
     New-Item -ItemType Directory -Force -Path $outputDirectory | Out-Null
 }
 
-$segments = @($base.Content, $edit.Content, $curated.Content) |
+$segments = @($base.Content, $curated.Content) |
     ForEach-Object { $_.TrimEnd([char[]]@(13, 10)) } |
     Where-Object { $_.Length -gt 0 }
 $separator = [Environment]::NewLine + [Environment]::NewLine
@@ -162,6 +158,6 @@ $utf8WithoutBom = [System.Text.UTF8Encoding]::new($false)
 [System.IO.File]::WriteAllText($OutputPath, $merged, $utf8WithoutBom)
 
 Write-Output (
-    "Merged {0} Base, {1} EditHere, and {2} Curated plugin sections into {3}" -f
-    $base.PluginCount, $edit.PluginCount, $curated.PluginCount, $OutputPath)
+    "Merged {0} Base and {1} Curated plugin sections into {2}" -f
+    $base.PluginCount, $curated.PluginCount, $OutputPath)
 

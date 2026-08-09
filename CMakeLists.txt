@@ -21,15 +21,12 @@ set(VDT_INTERNAL_DATA_PREMERGED_PATH "" CACHE FILEPATH
     "Optional premerged internal-data INI produced by CI")
 set(VDT_SHARED_PARENT_BASE_PATH
     "${CMAKE_CURRENT_SOURCE_DIR}/resources/SharedParentList_Base.ini")
-set(VDT_SHARED_PARENT_EDIT_PATH
-    "${CMAKE_CURRENT_SOURCE_DIR}/resources/SharedParentList_EditHere.ini")
 set(VDT_CURATED_DATA_PATH
     "${CMAKE_CURRENT_SOURCE_DIR}/resources/VariousDialogueTags_Curated.ini")
 set(VDT_MERGE_SCRIPT_PATH
     "${CMAKE_CURRENT_SOURCE_DIR}/scripts/Merge-TagLayers.ps1")
 set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
     "${VDT_SHARED_PARENT_BASE_PATH}"
-    "${VDT_SHARED_PARENT_EDIT_PATH}"
     "${VDT_CURATED_DATA_PATH}"
     "${VDT_MERGE_SCRIPT_PATH}"
 )
@@ -53,7 +50,6 @@ else()
             -File "${VDT_MERGE_SCRIPT_PATH}"
             -Product VDT
             -BasePath "${VDT_SHARED_PARENT_BASE_PATH}"
-            -EditPath "${VDT_SHARED_PARENT_EDIT_PATH}"
             -CuratedPath "${VDT_CURATED_DATA_PATH}"
             -OutputPath "${VDT_INTERNAL_DATA_PATH}"
         RESULT_VARIABLE VDT_MERGE_RESULT

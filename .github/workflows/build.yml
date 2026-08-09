@@ -58,7 +58,6 @@ jobs:
           powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/Merge-TagLayers.ps1 `
             -Product VDT `
             -BasePath resources/SharedParentList_Base.ini `
-            -EditPath resources/SharedParentList_EditHere.ini `
             -CuratedPath resources/VariousDialogueTags_Curated.ini `
             -OutputPath $mergedPath
 
