@@ -3,11 +3,11 @@ SharedParentList 5.2.1
 Added {2026-08-08} Midnight Sun [Midnight Sun]: Midnight Sun.esm (https://www.nexusmods.com/skyrimspecialedition/mods/163295)
 
 SharedParentList 5.2.0
-1 mods (1 added, 0 removed, 0 changed) for SharedParentList:
-Added 18+ {2026-08-08} [MEI]: MEI - Maven Elenwen Ingun.esp
+1 mods (0 added, 0 removed, 0 changed, 1 migrated in) for SharedParentList:
+Migrated in 18+ {2026-08-08} [MEI]: MEI - Maven Elenwen Ingun.esp
 
 SharedParentList 5.1.0
-67 mods (64 added, 1 removed, 2 changed) for SharedParentList:
+64 mods (64 added, 0 removed, 0 changed) for SharedParentList:
 Added {2026-08-02} Animal Mansion Reborn [Animal Mansion]: Animal Mansion Reborn.esp
 Added {2026-08-06} Aniya - A Custom Voiced Follower [Aniya]: Aniya Follower.esp (https://www.nexusmods.com/skyrimspecialedition/mods/63208)
 Added {2026-08-05} The Keeper - Carcette Expanded [The Keeper]: Carcette Lives - Quest Expansion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/168918)
@@ -72,6 +72,3 @@ Added 18+ {2026-08-05} SkoomaWhoreReforged [Skooma Whore]: SkoomaWhoreReforged.e
 Added 18+ {2026-08-07} SLDragons [SexLab Dragons]: SLDragons.esp
 Added 18+ {2026-08-06} Sprawling Bimbos [Sprawling Bimbos]: SprawlingBimbos.esp
 Added 18+ {2026-08-05} The Haunted Brothel [Haunted Brothel]: The Haunted Brothel.esp
-Changed 18+ {2026-08-06} [Non-Devious Devices] to [Non-Devious Devices]: Non-Devious Devices - Masterlist.esp
-Changed 18+ {2026-08-06} [Non-Devious Devices] to [Non-Devious Devices]: Non-Devious Devices Masterlist.esp
-Removed 18+ {2026-08-05} [Balazar]: BalazarTheHusky.esp
