@@ -30,19 +30,20 @@ namespace VariousDialogueTags::Menu
             }
             if (ImGuiMCP::IsItemHovered(0)) {
                 ImGuiMCP::SetTooltip(
-                    "DEFAULT: OFF. Uses the plugin filename as the tag for dialogue from "
-                    "unconfigured non-vanilla plugins.");
+                    "DEFAULT: OFF. Uses the plugin filename as the tag for dialogue from unconfigured non-vanilla plugins.");
             }
 
             bool immersiveMode = config.ImmersiveMode();
-            if (ImGuiMCP::Checkbox("Immersive Mode", &immersiveMode)) {
+            if (ImGuiMCP::Checkbox("\"Immersive\" Mode", &immersiveMode)) {
                 if (!config.SetImmersiveModeFromMenu(immersiveMode)) {
                     SKSE::log::error("Failed to persist one or more menu setting files");
                 }
             }
             if (ImGuiMCP::IsItemHovered(0)) {
                 ImGuiMCP::SetTooltip(
-                    "Hides tags when only one tag is present in the dialogue list.");
+					"DEFAULT: OFF. When enabled, hides tags if all tags in the dialogue menu match.\n"
+					"Tags will only appear when different tags/mods are present in a single dialogue menu.\n"
+                    "This lets mods like More Dialogue Options or More Ferries immersively add dialogue without adding tags.");
             }
         }
     }
