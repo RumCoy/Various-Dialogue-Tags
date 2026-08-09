@@ -104,6 +104,7 @@ namespace VariousDialogueTags
         rules_.clear();
         enabled_ = true;
         globalPluginNameFallback_ = false;
+        hideUnambiguousTags_ = true;
         userConfigPath_ = userConfigPath;
         tempCachePath_ = tempCachePath;
 
@@ -115,9 +116,10 @@ namespace VariousDialogueTags
 
         SKSE::log::info(
             "Configuration complete: {} dialogue-tag rule(s); enabled={}; "
-            "globalPluginNameFallback={}; embeddedData={}; userConfig={}; tempCache={}",
-            rules_.size(), enabled_, globalPluginNameFallback_, loadedEmbeddedData,
-            loadedUserConfig, loadedTempCache);
+            "globalPluginNameFallback={}; hideUnambiguousTags={}; embeddedData={}; "
+            "userConfig={}; tempCache={}",
+            rules_.size(), enabled_, globalPluginNameFallback_, hideUnambiguousTags_,
+            loadedEmbeddedData, loadedUserConfig, loadedTempCache);
         return loadedEmbeddedData || loadedUserConfig || loadedTempCache;
     }
 
@@ -196,6 +198,8 @@ namespace VariousDialogueTags
                     enabled_ = ParseBool(value, enabled_);
                 } else if (key == "globalpluginnamefallback") {
                     globalPluginNameFallback_ = ParseBool(value, globalPluginNameFallback_);
+                } else if (key == "hideunambiguoustags") {
+                    hideUnambiguousTags_ = ParseBool(value, hideUnambiguousTags_);
                 }
                 continue;
             }
@@ -293,7 +297,9 @@ namespace VariousDialogueTags
             << "[General]\n"
             << "Enabled = " << (Enabled() ? "true" : "false") << '\n'
             << "GlobalPluginNameFallback = "
-            << (GlobalPluginNameFallback() ? "true" : "false") << '\n';
+            << (GlobalPluginNameFallback() ? "true" : "false") << '\n'
+            << "HideUnambiguousTags = "
+            << (HideUnambiguousTags() ? "true" : "false") << '\n';
 
         return static_cast<bool>(output);
     }
@@ -474,6 +480,18 @@ namespace VariousDialogueTags
         globalPluginNameFallback_ = enabled;
         return PersistMenuSetting(
             "GlobalPluginNameFallback", enabled ? "true" : "false");
+    }
+
+    bool Config::HideUnambiguousTags() const noexcept
+    {
+        return hideUnambiguousTags_;
+    }
+
+    bool Config::SetHideUnambiguousTagsFromMenu(bool enabled)
+    {
+        hideUnambiguousTags_ = enabled;
+        return PersistMenuSetting(
+            "HideUnambiguousTags", enabled ? "true" : "false");
     }
 
     const Rule* Config::FindRule(std::string_view pluginName) const

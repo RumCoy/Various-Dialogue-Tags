@@ -12,6 +12,8 @@
 #include <string>
 #include <string_view>
 #include <unordered_map>
+#include <unordered_set>
+#include <vector>
 
 namespace
 {
@@ -140,13 +142,169 @@ namespace
         candidates[candidateCount++] = std::addressof(candidate);
     }
 
-    std::string MakeCacheKey(
-        RE::FormID topicFormID,
-        RE::FormID topicInfoFormID,
-        std::string_view text)
+    struct TagResolution
     {
-        return std::to_string(topicFormID) + '\n' +
-               std::to_string(topicInfoFormID) + '\n' + std::string(text);
+        std::string tag;
+        std::string filename;
+        std::uint32_t localFormID{};
+    };
+
+    TagResolution ResolveTag(
+        const VariousDialogueTags::Config& config,
+        const RE::TESTopic* topic,
+        const RE::TESTopicInfo* topicInfo,
+        bool globalPluginNameFallback)
+    {
+        const auto topicProvenance = VariousDialogueTags::FormOrigin::Resolve(topic);
+        const auto topicInfoProvenance = VariousDialogueTags::FormOrigin::Resolve(topicInfo);
+        const bool topicEligible = topicProvenance &&
+            !IsExcludedOriginPlugin(topicProvenance->origin.filename);
+        const bool topicInfoEligible = topicInfoProvenance &&
+            !IsExcludedOriginPlugin(topicInfoProvenance->origin.filename);
+        if (!topicEligible && !topicInfoEligible) {
+            return {};
+        }
+
+        std::array<const VariousDialogueTags::FormOrigin::Identity*, 4> candidates{};
+        std::size_t candidateCount = 0;
+
+        const auto* topicOrigin = topicEligible ?
+            std::addressof(topicProvenance->origin) : nullptr;
+        if (topicInfoEligible) {
+            if (!topicOrigin || topicInfoProvenance->winner.file != topicOrigin->file) {
+                AddCandidate(candidates, candidateCount, topicInfoProvenance->winner);
+            }
+            if (!topicOrigin || topicInfoProvenance->origin.file != topicOrigin->file) {
+                AddCandidate(candidates, candidateCount, topicInfoProvenance->origin);
+            }
+        }
+        if (topicEligible) {
+            AddCandidate(candidates, candidateCount, topicProvenance->winner);
+            AddCandidate(candidates, candidateCount, topicProvenance->origin);
+        }
+
+        bool explicitRuleFound = false;
+        for (std::size_t index = 0; index < candidateCount; ++index) {
+            const auto* candidateRule = config.FindRule(candidates[index]->filename);
+            if (!candidateRule) {
+                continue;
+            }
+            explicitRuleFound = true;
+            if (!candidateRule->modNameTags) {
+                return {};
+            }
+        }
+
+        for (std::size_t index = 0; index < candidateCount; ++index) {
+            const auto* candidateRule = config.FindRule(candidates[index]->filename);
+            if (candidateRule && candidateRule->Allows(candidates[index]->localFormID)) {
+                return TagResolution{
+                    .tag = candidateRule->tag,
+                    .filename = candidates[index]->filename,
+                    .localFormID = candidates[index]->localFormID
+                };
+            }
+        }
+
+        if (!explicitRuleFound && globalPluginNameFallback) {
+            for (std::size_t index = 0; index < candidateCount; ++index) {
+                auto tag = MakeFallbackTag(candidates[index]->filename);
+                if (!tag.empty()) {
+                    return TagResolution{
+                        .tag = std::move(tag),
+                        .filename = candidates[index]->filename,
+                        .localFormID = candidates[index]->localFormID
+                    };
+                }
+            }
+        }
+
+        return {};
+    }
+
+    struct ConversationState
+    {
+        bool initialized{};
+        RE::ObjectRefHandle speaker;
+        const RE::MenuTopicManager::Dialogue* selectedDialogue{};
+        RE::FormID selectedTopic{};
+        RE::FormID selectedTopicInfo{};
+        std::string activeTag;
+    };
+
+    void SetObservedSelection(
+        ConversationState& state,
+        const RE::MenuTopicManager::Dialogue* selection)
+    {
+        state.selectedDialogue = selection;
+        state.selectedTopic = selection && selection->parentTopic ?
+            selection->parentTopic->GetFormID() : 0;
+        state.selectedTopicInfo = selection && selection->parentTopicInfo ?
+            selection->parentTopicInfo->GetFormID() : 0;
+    }
+
+    bool SelectionChanged(
+        const ConversationState& state,
+        const RE::MenuTopicManager::Dialogue* selection)
+    {
+        const auto topic = selection && selection->parentTopic ?
+            selection->parentTopic->GetFormID() : 0;
+        const auto topicInfo = selection && selection->parentTopicInfo ?
+            selection->parentTopicInfo->GetFormID() : 0;
+        return selection != state.selectedDialogue ||
+               topic != state.selectedTopic ||
+               topicInfo != state.selectedTopicInfo;
+    }
+
+    bool IsTopLevelMenu(const RE::MenuTopicManager& topicManager)
+    {
+        if (!topicManager.dialogueList) {
+            return false;
+        }
+
+        for (auto* option : *topicManager.dialogueList) {
+            if (!option || !option->parentTopic || !option->parentTopic->ownerBranch) {
+                continue;
+            }
+
+            auto* branch = option->parentTopic->ownerBranch;
+            if (branch->startingTopic != option->parentTopic) {
+                continue;
+            }
+
+            for (auto* topLevelBranch : topicManager.topLevelBranches) {
+                if (topLevelBranch == branch) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    struct PendingOption
+    {
+        RE::MenuTopicManager::Dialogue* option{};
+        std::string text;
+        std::string cacheKey;
+        TagResolution tag;
+    };
+
+    struct CachedOption
+    {
+        std::string source;
+        std::string output;
+        std::string tag;
+        bool tagged{};
+    };
+
+    std::string MakeCacheKey(
+        const RE::MenuTopicManager::Dialogue* option,
+        RE::FormID topicFormID,
+        RE::FormID topicInfoFormID)
+    {
+        return std::to_string(reinterpret_cast<std::uintptr_t>(option)) + '\n' +
+               std::to_string(topicFormID) + '\n' + std::to_string(topicInfoFormID);
     }
 }
 
@@ -161,8 +319,9 @@ namespace VariousDialogueTags
 
     RE::UI_MESSAGE_RESULTS DialogueMenuHook::ProcessMessageHook(RE::UIMessage& message)
     {
-        static std::unordered_map<std::string, std::string> cache;
+        static std::unordered_map<std::string, CachedOption> cache;
         static RE::FormID lastConversationRoot = 0;
+        static ConversationState conversation;
 
         auto* topicManager = RE::MenuTopicManager::GetSingleton();
         const auto currentRoot = topicManager && topicManager->rootTopicInfo ?
@@ -171,134 +330,129 @@ namespace VariousDialogueTags
         const bool menuClosing =
             message.type == RE::UI_MESSAGE_TYPE::kHide ||
             message.type == RE::UI_MESSAGE_TYPE::kForceHide;
-        if (menuClosing || currentRoot != lastConversationRoot) {
+        if (menuClosing) {
+            cache.clear();
+            lastConversationRoot = 0;
+            conversation = {};
+            return original_(this, message);
+        }
+        const bool rootChanged = currentRoot != lastConversationRoot;
+        if (rootChanged) {
             cache.clear();
             lastConversationRoot = currentRoot;
         }
 
         const auto& config = Config::GetSingleton();
         const bool globalPluginNameFallback = config.GlobalPluginNameFallback();
-        if (config.Enabled() && topicManager && topicManager->dialogueList) {
-            for (auto iterator = topicManager->dialogueList->begin();
-                 iterator != topicManager->dialogueList->end(); ++iterator) {
-                auto* option = *iterator;
-                if (!option || !option->parentTopic) {
-                    continue;
+        if (!config.Enabled() || !topicManager || !topicManager->dialogueList) {
+            conversation = {};
+            return original_(this, message);
+        }
+
+        if (!conversation.initialized || conversation.speaker != topicManager->speaker) {
+            conversation = {};
+            conversation.initialized = true;
+            conversation.speaker = topicManager->speaker;
+            SetObservedSelection(conversation, topicManager->lastSelectedDialogue);
+        } else {
+            bool selectedContextUpdated = false;
+            if (SelectionChanged(conversation, topicManager->lastSelectedDialogue)) {
+                auto* selected = topicManager->lastSelectedDialogue;
+                SetObservedSelection(conversation, selected);
+                if (selected) {
+                    conversation.activeTag = ResolveTag(config, selected->parentTopic,
+                        selected->parentTopicInfo, globalPluginNameFallback).tag;
+                    selectedContextUpdated = true;
                 }
-
-                auto* topic = option->parentTopic;
-                auto* topicInfo = option->parentTopicInfo;
-                const std::string currentText = option->topicText.c_str();
-                if (IsBlank(currentText)) {
-                    continue;
-                }
-                const auto cacheKey = MakeCacheKey(
-                    topic->GetFormID(), topicInfo ? topicInfo->GetFormID() : 0, currentText);
-
-                if (const auto cached = cache.find(cacheKey); cached != cache.end()) {
-                    option->topicText = cached->second;
-                    continue;
-                }
-
-                std::string output = currentText;
-                const auto topicProvenance = FormOrigin::Resolve(topic);
-                const auto topicInfoProvenance = FormOrigin::Resolve(topicInfo);
-                const bool topicEligible = topicProvenance &&
-                    !IsExcludedOriginPlugin(topicProvenance->origin.filename);
-                const bool topicInfoEligible = topicInfoProvenance &&
-                    !IsExcludedOriginPlugin(topicInfoProvenance->origin.filename);
-                if (topicEligible || topicInfoEligible) {
-                    std::array<const FormOrigin::Identity*, 4> candidates{};
-                    std::size_t candidateCount = 0;
-
-                    const auto* topicOrigin = topicEligible ?
-                        std::addressof(topicProvenance->origin) : nullptr;
-                    if (topicInfoEligible) {
-                        if (!topicOrigin || topicInfoProvenance->winner.file != topicOrigin->file) {
-                            AddCandidate(candidates, candidateCount, topicInfoProvenance->winner);
-                        }
-                        if (!topicOrigin || topicInfoProvenance->origin.file != topicOrigin->file) {
-                            AddCandidate(candidates, candidateCount, topicInfoProvenance->origin);
-                        }
-                    }
-                    if (topicEligible) {
-                        AddCandidate(candidates, candidateCount, topicProvenance->winner);
-                        AddCandidate(candidates, candidateCount, topicProvenance->origin);
-                    }
-
-                    bool explicitRuleFound = false;
-                    bool tagsEnabled = true;
-                    for (std::size_t index = 0; index < candidateCount; ++index) {
-                        const auto* candidateRule =
-                            config.FindRule(candidates[index]->filename);
-                        if (!candidateRule) {
-                            continue;
-                        }
-                        explicitRuleFound = true;
-                        if (!candidateRule->modNameTags) {
-                            tagsEnabled = false;
-                            break;
-                        }
-                    }
-
-                    const Rule* rule = nullptr;
-                    const FormOrigin::Identity* tagIdentity = nullptr;
-                    if (tagsEnabled) {
-                        for (std::size_t index = 0; index < candidateCount; ++index) {
-                            const auto* candidateRule =
-                                config.FindRule(candidates[index]->filename);
-                            if (candidateRule &&
-                                candidateRule->Allows(candidates[index]->localFormID)) {
-                                rule = candidateRule;
-                                tagIdentity = candidates[index];
-                                break;
-                            }
-                        }
-                    }
-
-                    std::string fallbackTag;
-                    std::string_view tag;
-
-                    if (rule) {
-                        tag = rule->tag;
-                    } else if (tagsEnabled && !explicitRuleFound && globalPluginNameFallback) {
-                        for (std::size_t index = 0; index < candidateCount; ++index) {
-                            fallbackTag = MakeFallbackTag(candidates[index]->filename);
-                            if (!fallbackTag.empty()) {
-                                tagIdentity = candidates[index];
-                                tag = fallbackTag;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (!tag.empty()) {
-                        std::string displayText = currentText;
-                        if (currentText.starts_with('$') &&
-                            !SKSE::Translation::Translate(currentText, displayText)) {
-                            SKSE::log::debug("Deferred unresolved localization token: {}", currentText);
-                            continue;
-                        }
-                        if (IsBlank(displayText)) {
-                            SKSE::log::debug("Deferred blank dialogue text: {}", currentText);
-                            continue;
-                        }
-
-                        output = displayText;
-                        if (!HasPrefix(output, tag)) {
-                            output.reserve(tag.size() + 1 + displayText.size());
-                            output.assign(tag);
-                            output.push_back(' ');
-                            output.append(displayText);
-                            SKSE::log::debug("Tagged {}|{:X}: {}", tagIdentity->filename,
-                                tagIdentity->localFormID, displayText);
-                        }
-                    }
-                }
-
-                option->topicText = output;
-                cache.emplace(cacheKey, std::move(output));
             }
+            if (!selectedContextUpdated && rootChanged && topicManager->rootTopicInfo) {
+                auto* root = topicManager->rootTopicInfo;
+                conversation.activeTag = ResolveTag(config, root->parentTopic, root,
+                    globalPluginNameFallback).tag;
+            }
+        }
+
+        if (IsTopLevelMenu(*topicManager)) {
+            conversation.activeTag.clear();
+        }
+
+        std::vector<PendingOption> pending;
+        std::unordered_set<std::string> visibleContexts;
+        for (auto* option : *topicManager->dialogueList) {
+            if (!option || !option->parentTopic) {
+                continue;
+            }
+
+            std::string currentText = option->topicText.c_str();
+            if (IsBlank(currentText)) {
+                continue;
+            }
+
+            auto* topicInfo = option->parentTopicInfo;
+            auto cacheKey = MakeCacheKey(option, option->parentTopic->GetFormID(),
+                topicInfo ? topicInfo->GetFormID() : 0);
+            if (const auto cached = cache.find(cacheKey);
+                cached != cache.end() && currentText == cached->second.output) {
+                currentText = cached->second.source;
+            }
+            auto tag = ResolveTag(
+                config, option->parentTopic, topicInfo, globalPluginNameFallback);
+            visibleContexts.insert(tag.tag);
+            pending.push_back(PendingOption{
+                .option = option,
+                .text = currentText,
+                .cacheKey = std::move(cacheKey),
+                .tag = std::move(tag)
+            });
+        }
+
+        const bool hideUnambiguous = config.HideUnambiguousTags() &&
+            visibleContexts.size() <= 1;
+        for (auto& item : pending) {
+            const bool sameContext = !conversation.activeTag.empty() &&
+                item.tag.tag == conversation.activeTag;
+            const bool shouldTag = !item.tag.tag.empty() &&
+                !sameContext && !hideUnambiguous;
+            if (const auto cached = cache.find(item.cacheKey);
+                cached != cache.end() && cached->second.source == item.text &&
+                cached->second.tag == item.tag.tag && cached->second.tagged == shouldTag) {
+                item.option->topicText = cached->second.output;
+                continue;
+            }
+
+            std::string output = item.text;
+            if (shouldTag) {
+                std::string displayText = item.text;
+                if (item.text.starts_with('$') &&
+                    !SKSE::Translation::Translate(item.text, displayText)) {
+                    SKSE::log::debug("Deferred unresolved localization token: {}", item.text);
+                    item.option->topicText = item.text;
+                    continue;
+                }
+                if (IsBlank(displayText)) {
+                    SKSE::log::debug("Deferred blank dialogue text: {}", item.text);
+                    item.option->topicText = item.text;
+                    continue;
+                }
+
+                output = displayText;
+                if (!HasPrefix(output, item.tag.tag)) {
+                    output.reserve(item.tag.tag.size() + 1 + displayText.size());
+                    output.assign(item.tag.tag);
+                    output.push_back(' ');
+                    output.append(displayText);
+                    SKSE::log::debug("Tagged {}|{:X}: {}", item.tag.filename,
+                        item.tag.localFormID, displayText);
+                }
+            }
+
+            item.option->topicText = output;
+            cache.insert_or_assign(std::move(item.cacheKey), CachedOption{
+                .source = std::move(item.text),
+                .output = std::move(output),
+                .tag = std::move(item.tag.tag),
+                .tagged = shouldTag
+            });
         }
 
         return original_(this, message);

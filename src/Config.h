@@ -35,6 +35,8 @@ namespace VariousDialogueTags
 
         [[nodiscard]] bool GlobalPluginNameFallback() const noexcept;
         [[nodiscard]] bool SetGlobalPluginNameFallbackFromMenu(bool enabled);
+        [[nodiscard]] bool HideUnambiguousTags() const noexcept;
+        [[nodiscard]] bool SetHideUnambiguousTagsFromMenu(bool enabled);
         [[nodiscard]] const Rule* FindRule(std::string_view pluginName) const;
 
     private:
@@ -49,6 +51,7 @@ namespace VariousDialogueTags
 
         bool enabled_{ true };
         bool globalPluginNameFallback_{ false };
+        bool hideUnambiguousTags_{ true };
         std::filesystem::path userConfigPath_;
         std::filesystem::path tempCachePath_;
         std::unordered_map<std::string, Rule> rules_;

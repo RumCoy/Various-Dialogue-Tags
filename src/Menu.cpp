@@ -33,6 +33,14 @@ namespace VariousDialogueTags::Menu
                     "DEFAULT: OFF. Uses the plugin filename as the tag for dialogue from "
                     "unconfigured non-vanilla plugins.");
             }
+
+            bool hideUnambiguousTags = config.HideUnambiguousTags();
+            if (ImGuiMCP::Checkbox(
+                    "Hide tags when unambiguous", &hideUnambiguousTags)) {
+                if (!config.SetHideUnambiguousTagsFromMenu(hideUnambiguousTags)) {
+                    SKSE::log::error("Failed to persist one or more menu setting files");
+                }
+            }
         }
     }
 
