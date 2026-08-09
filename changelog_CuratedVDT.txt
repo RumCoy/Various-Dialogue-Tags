@@ -14,35 +14,35 @@ Added {2026-08-05} CWE_DialogueAddon [Capital Whiterun][Dialogue]: CWE_DialogueA
 Added {2026-08-05} KittyClass_Dragonknight [Dragonknight]: KittyClass_Dragonknight.esp
 Added {2026-08-05} The Expendables - 12 Unique Mercenary Followers [Expendables]: The Expendables.esp (https://www.nexusmods.com/skyrimspecialedition/mods/176660)
 Added {2026-08-05} The Heart of Winterroot SE [Winterroot]: Winterroot.esp (https://www.nexusmods.com/skyrimspecialedition/mods/168978)
+Changed {2026-08-01} [[Faralda]] to [FDE]: FDE Faralda.esp
+Changed {2026-08-01} [[MTS]] to [MTS]: moretodo.esp
+Changed {2026-08-01} [POP] to [Prison Alternative]: PamaPrisonAlternative.esm
+Changed {2026-08-05} [[Kaidan]] to [Kaidan]: 0Kaidan.esp
+Changed {2026-08-05} [[Evening with Angi]] to [Evening With Angi]: An Evening With Angi.esp
+Changed {2026-08-07} [Auri][Vigilant] to [Auri]: 018AuriVIGILANTpatch.esp
+Removed {2026-08-01} [Prison Alternative]: PamaPrisonAlternative.esm
+Removed {2026-08-05} [What Remains]: FoxQuestMod.esp
+Removed {2026-08-07} [SDA]: SDA GYH Patch.esp
 Added 18+ {2026-08-02} Arial Follower Manages Licenses [Licenses][Follower]: Arial Follower Manages Licenses.esp
 Added 18+ {2026-08-02} Arial Zurk Vanilla Sexism [Vanilla Sexism]: Arial Zurk Vanilla Sexism.esp
 Added 18+ {2026-08-02} Buyable Slaves [DOM][Buyable Slave]: Buyable Slaves.esp
 Added 18+ {2026-08-02} CourtesansOfTheCollegeDialogueAddon [College Courtesans]: CourtesansOfTheCollegeDialogueAddon.esp
-Added 18+ {2026-08-06} SexLab Cumpires (cum drinking vampires) [Cumpires]: Cumpires.esp
+Added 18+ {2026-08-02} LyssiaDialogueAddon [Lyssia Addon]: LyssiaDialogueAddon.esp
+Added 18+ {2026-08-02} RemielDialogueAddon [Slutty Addon]: RemielDialogueAddon.esp
+Added 18+ {2026-08-02} SolitudeSlaughtery [Slaughtery]: SolitudeSlaughtery.esp
+Added 18+ {2026-08-02} WhoresOfWhiterunDialogueAddon [Whiterun Whores]: WhoresOfWhiterunDialogueAddon.esp
 Added 18+ {2026-08-05} Lover's dialogue addon for Cum Addiction Begging Addon (CumSwallowNeedsAddon) [Cum Begging][Lover's]: CumsSwallowNeedBeggingAddonAddon.esp
 Added 18+ {2026-08-05} Cum Addiction Begging Addon [Cum Begging]: CumSwallowNeeds_BeggingAddon.esp
-Added 18+ {2026-08-06} Bimbos of Skyrim [Bimbos]: CustomComments.esp
-Added 18+ {2026-08-06} Forced Arousal Begging [Arousal Begging]: Forced Arousal Begging.esp
-Added 18+ {2026-08-02} LyssiaDialogueAddon [Lyssia Addon]: LyssiaDialogueAddon.esp
-Added 18+ {2026-08-07} PetTheFreakingDogAlready [Pet]: PetTheFreakingDogAlready.esp
 Added 18+ {2026-08-05} Letters from the Front by Ralof [From the Front]: RalofsNotes.esp (https://www.nexusmods.com/skyrimspecialedition/mods/164224)
 Added 18+ {2026-08-05} RedguardRosesDialogueAddon [Roses][Redguard]: RedguardRosesDialogueAddon.esp
-Added 18+ {2026-08-02} RemielDialogueAddon [Slutty Addon]: RemielDialogueAddon.esp
-Added 18+ {2026-08-06} Sexual Vampire Feeding [Sexual Vampire]: Sexual Vampire Feed.esp
-Added 18+ {2026-08-07} SLDragons [SL][Dragons]: SLDragons.esp
-Added 18+ {2026-08-02} SolitudeSlaughtery [Slaughtery]: SolitudeSlaughtery.esp
-Added 18+ {2026-08-06} Sprawling Bimbos [Bimbos][Sprawling]: SprawlingBimbos.esp
 Added 18+ {2026-08-05} To Become The Highest Prostitute! [Highest Prostitute]: To Become The Highest Prostitute!.esp
+Added 18+ {2026-08-06} SexLab Cumpires (cum drinking vampires) [Cumpires]: Cumpires.esp
+Added 18+ {2026-08-06} Bimbos of Skyrim [Bimbos]: CustomComments.esp
+Added 18+ {2026-08-06} Forced Arousal Begging [Arousal Begging]: Forced Arousal Begging.esp
+Added 18+ {2026-08-06} Sexual Vampire Feeding [Sexual Vampire]: Sexual Vampire Feed.esp
+Added 18+ {2026-08-06} Sprawling Bimbos [Bimbos][Sprawling]: SprawlingBimbos.esp
 Added 18+ {2026-08-06} Vampiric Cum Addiction [Vampiric Cum]: Vampiric Cum Addiction.esp
-Added 18+ {2026-08-02} WhoresOfWhiterunDialogueAddon [Whiterun Whores]: WhoresOfWhiterunDialogueAddon.esp
-Changed {2026-08-05} [[Kaidan]] to [Kaidan]: 0Kaidan.esp
-Changed {2026-08-07} [Auri][Vigilant] to [Auri]: 018AuriVIGILANTpatch.esp
-Changed {2026-08-05} [[Evening with Angi]] to [Evening With Angi]: An Evening With Angi.esp
-Changed {2026-08-01} [[Faralda]] to [FDE]: FDE Faralda.esp
-Changed {2026-08-01} [[MTS]] to [MTS]: moretodo.esp
-Changed {2026-08-01} [POP] to [Prison Alternative]: PamaPrisonAlternative.esm
+Added 18+ {2026-08-07} PetTheFreakingDogAlready [Pet]: PetTheFreakingDogAlready.esp
+Added 18+ {2026-08-07} SLDragons [SL][Dragons]: SLDragons.esp
 Changed 18+ {2026-08-02} [[DOM]] to [DOM]: DiaryOfMine.esm
 Changed 18+ {2026-08-05} [Roses of Riverwood] to [Roses][Riverwood]: RosesOfRiverwoodDialogueAddon.esp
-Removed {2026-08-05} [What Remains]: FoxQuestMod.esp
-Removed {2026-08-01} [Prison Alternative]: PamaPrisonAlternative.esm
-Removed {2026-08-07} [SDA]: SDA GYH Patch.esp

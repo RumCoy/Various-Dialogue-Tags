@@ -104,7 +104,7 @@ namespace VariousDialogueTags
         rules_.clear();
         enabled_ = true;
         globalPluginNameFallback_ = false;
-        hideTagsWhenAllOptionsMatch_ = false;
+        immersiveMode_ = false;
         userConfigPath_ = userConfigPath;
         tempCachePath_ = tempCachePath;
 
@@ -116,9 +116,9 @@ namespace VariousDialogueTags
 
         SKSE::log::info(
             "Configuration complete: {} dialogue-tag rule(s); enabled={}; "
-            "globalPluginNameFallback={}; hideTagsWhenAllOptionsMatch={}; embeddedData={}; "
+            "globalPluginNameFallback={}; immersiveMode={}; embeddedData={}; "
             "userConfig={}; tempCache={}",
-            rules_.size(), enabled_, globalPluginNameFallback_, hideTagsWhenAllOptionsMatch_,
+            rules_.size(), enabled_, globalPluginNameFallback_, immersiveMode_,
             loadedEmbeddedData, loadedUserConfig, loadedTempCache);
         return loadedEmbeddedData || loadedUserConfig || loadedTempCache;
     }
@@ -198,9 +198,8 @@ namespace VariousDialogueTags
                     enabled_ = ParseBool(value, enabled_);
                 } else if (key == "globalpluginnamefallback") {
                     globalPluginNameFallback_ = ParseBool(value, globalPluginNameFallback_);
-                } else if (key == "hidetagswhenalloptionsmatch") {
-                    hideTagsWhenAllOptionsMatch_ =
-                        ParseBool(value, hideTagsWhenAllOptionsMatch_);
+                } else if (key == "immersivemode") {
+                    immersiveMode_ = ParseBool(value, immersiveMode_);
                 }
                 continue;
             }
@@ -299,8 +298,7 @@ namespace VariousDialogueTags
             << "Enabled = " << (Enabled() ? "true" : "false") << '\n'
             << "GlobalPluginNameFallback = "
             << (GlobalPluginNameFallback() ? "true" : "false") << '\n'
-            << "HideTagsWhenAllOptionsMatch = "
-            << (HideTagsWhenAllOptionsMatch() ? "true" : "false") << '\n';
+            << "ImmersiveMode = " << (ImmersiveMode() ? "true" : "false") << '\n';
 
         return static_cast<bool>(output);
     }
@@ -483,16 +481,15 @@ namespace VariousDialogueTags
             "GlobalPluginNameFallback", enabled ? "true" : "false");
     }
 
-    bool Config::HideTagsWhenAllOptionsMatch() const noexcept
+    bool Config::ImmersiveMode() const noexcept
     {
-        return hideTagsWhenAllOptionsMatch_;
+        return immersiveMode_;
     }
 
-    bool Config::SetHideTagsWhenAllOptionsMatchFromMenu(bool enabled)
+    bool Config::SetImmersiveModeFromMenu(bool enabled)
     {
-        hideTagsWhenAllOptionsMatch_ = enabled;
-        return PersistMenuSetting(
-            "HideTagsWhenAllOptionsMatch", enabled ? "true" : "false");
+        immersiveMode_ = enabled;
+        return PersistMenuSetting("ImmersiveMode", enabled ? "true" : "false");
     }
 
     const Rule* Config::FindRule(std::string_view pluginName) const

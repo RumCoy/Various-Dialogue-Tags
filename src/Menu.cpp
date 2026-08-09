@@ -34,13 +34,15 @@ namespace VariousDialogueTags::Menu
                     "unconfigured non-vanilla plugins.");
             }
 
-            bool hideTagsWhenAllOptionsMatch = config.HideTagsWhenAllOptionsMatch();
-            if (ImGuiMCP::Checkbox(
-                    "Hide tags when all options match", &hideTagsWhenAllOptionsMatch)) {
-                if (!config.SetHideTagsWhenAllOptionsMatchFromMenu(
-                        hideTagsWhenAllOptionsMatch)) {
+            bool immersiveMode = config.ImmersiveMode();
+            if (ImGuiMCP::Checkbox("Immersive Mode", &immersiveMode)) {
+                if (!config.SetImmersiveModeFromMenu(immersiveMode)) {
                     SKSE::log::error("Failed to persist one or more menu setting files");
                 }
+            }
+            if (ImGuiMCP::IsItemHovered(0)) {
+                ImGuiMCP::SetTooltip(
+                    "Hides tags when only one tag is present in the dialogue list.");
             }
         }
     }

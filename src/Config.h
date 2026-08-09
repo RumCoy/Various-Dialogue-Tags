@@ -35,8 +35,8 @@ namespace VariousDialogueTags
 
         [[nodiscard]] bool GlobalPluginNameFallback() const noexcept;
         [[nodiscard]] bool SetGlobalPluginNameFallbackFromMenu(bool enabled);
-        [[nodiscard]] bool HideTagsWhenAllOptionsMatch() const noexcept;
-        [[nodiscard]] bool SetHideTagsWhenAllOptionsMatchFromMenu(bool enabled);
+        [[nodiscard]] bool ImmersiveMode() const noexcept;
+        [[nodiscard]] bool SetImmersiveModeFromMenu(bool enabled);
         [[nodiscard]] const Rule* FindRule(std::string_view pluginName) const;
 
     private:
@@ -51,7 +51,7 @@ namespace VariousDialogueTags
 
         bool enabled_{ true };
         bool globalPluginNameFallback_{ false };
-        bool hideTagsWhenAllOptionsMatch_{ false };
+        bool immersiveMode_{ false };
         std::filesystem::path userConfigPath_;
         std::filesystem::path tempCachePath_;
         std::unordered_map<std::string, Rule> rules_;
