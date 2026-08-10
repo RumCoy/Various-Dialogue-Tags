@@ -29,9 +29,9 @@ namespace VariousDialogueTags::Menu
             }
             if (ImGuiMCP::IsItemHovered(0)) {
                 ImGuiMCP::SetTooltip(
-					"DEFAULT: OFF. When enabled, hides tags if all tags in the dialogue menu match.\n"
-					"Tags will only appear when different tags/mods are present in the same menu.\n"
-                    "This lets mods like More Dialogue Options or More Ferries immersively add dialogue without adding tags.");
+					"DEFAULT: OFF. Hides tags if all tags in the dialogue menu match\n"
+					"Tags will only appear when different tags/mods are present in the same menu\n"
+                    "★ This lets mods like More Dialogue Options or More Ferries immersively add dialogue without adding tags");
             }
 
             bool globalPluginNameFallback = config.GlobalPluginNameFallback();
@@ -43,7 +43,7 @@ namespace VariousDialogueTags::Menu
             }
             if (ImGuiMCP::IsItemHovered(0)) {
                 ImGuiMCP::SetTooltip(
-                    "DEFAULT: OFF. Uses the plugin filename as the tag for dialogue from unconfigured plugins.");
+                    "DEFAULT: OFF. Uses the plugin filename as the tag for dialogue from unconfigured plugins");
             }
         }
     }

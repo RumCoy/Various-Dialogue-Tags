@@ -358,9 +358,10 @@ namespace VariousDialogueTags
         const auto normalizedKey = Lower(std::string(key));
         bool inGeneral = false;
         bool foundGeneral = false;
-        bool trackingLastGeneral = false;
         bool updated = false;
-        std::size_t lastGeneralEnd = lines.size();
+        std::size_t lastGeneralHeader = lines.size();
+        std::size_t enabledLine = lines.size();
+        std::size_t globalFallbackLine = lines.size();
 
         for (std::size_t i = 0; i < lines.size(); ++i) {
             auto parsedLine = Trim(lines[i].text);
@@ -369,18 +370,14 @@ namespace VariousDialogueTags
             }
 
             if (!parsedLine.empty() && parsedLine.front() == '[' && parsedLine.back() == ']') {
-                if (trackingLastGeneral) {
-                    lastGeneralEnd = i;
-                    trackingLastGeneral = false;
-                }
-
                 const auto sectionName = Lower(Trim(
                     parsedLine.substr(1, parsedLine.size() - 2)));
                 inGeneral = sectionName == "general";
                 if (inGeneral) {
                     foundGeneral = true;
-                    trackingLastGeneral = true;
-                    lastGeneralEnd = lines.size();
+                    lastGeneralHeader = i;
+                    enabledLine = lines.size();
+                    globalFallbackLine = lines.size();
                 }
                 continue;
             }
@@ -391,8 +388,16 @@ namespace VariousDialogueTags
             }
 
             const auto separator = lines[i].text.find('=');
-            if (separator == std::string::npos ||
-                Lower(Trim(lines[i].text.substr(0, separator))) != normalizedKey) {
+            if (separator == std::string::npos) {
+                continue;
+            }
+            const auto lineKey = Lower(Trim(lines[i].text.substr(0, separator)));
+            if (lineKey == "enabled") {
+                enabledLine = i;
+            } else if (lineKey == "globalpluginnamefallback") {
+                globalFallbackLine = i;
+            }
+            if (lineKey != normalizedKey) {
                 continue;
             }
 
@@ -419,10 +424,6 @@ namespace VariousDialogueTags
             updated = true;
         }
 
-        if (trackingLastGeneral) {
-            lastGeneralEnd = lines.size();
-        }
-
         if (!updated) {
             TextLine settingLine{
                 std::string(key) + " = " + std::string(value),
@@ -430,14 +431,26 @@ namespace VariousDialogueTags
             };
 
             if (foundGeneral) {
-                if (lastGeneralEnd == lines.size()) {
+                std::size_t insertionIndex = lastGeneralHeader + 1;
+                if (normalizedKey == "globalpluginnamefallback" &&
+                    enabledLine != lines.size()) {
+                    insertionIndex = enabledLine + 1;
+                } else if (normalizedKey == "immersivemode") {
+                    if (globalFallbackLine != lines.size()) {
+                        insertionIndex = globalFallbackLine + 1;
+                    } else if (enabledLine != lines.size()) {
+                        insertionIndex = enabledLine + 1;
+                    }
+                }
+
+                if (insertionIndex == lines.size()) {
                     if (!lines.empty() && lines.back().ending.empty()) {
                         lines.back().ending = preferredLineEnding;
                     }
                     settingLine.ending = hadFinalNewline ? preferredLineEnding : std::string{};
                     lines.push_back(std::move(settingLine));
                 } else {
-                    lines.insert(lines.begin() + static_cast<std::ptrdiff_t>(lastGeneralEnd),
+                    lines.insert(lines.begin() + static_cast<std::ptrdiff_t>(insertionIndex),
                         std::move(settingLine));
                 }
             } else {
