@@ -22,7 +22,7 @@ namespace VariousDialogueTags::Menu
             }
 
             bool immersiveMode = config.ImmersiveMode();
-            if (ImGuiMCP::Checkbox("\"Immersive\" mode (hide tags when they all match)", &immersiveMode)) {
+            if (ImGuiMCP::Checkbox("Enable \"immersive\" mode (hide tags when they all match)", &immersiveMode)) {
                 if (!config.SetImmersiveModeFromMenu(immersiveMode)) {
                     SKSE::log::error("Failed to persist one or more menu setting files");
                 }
