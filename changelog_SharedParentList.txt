@@ -1,4 +1,4 @@
-SharedParentList 5.2.1
+SharedParentList 5.3.0
 1 mods (1 added, 0 removed, 0 changed) for SharedParentList:
 Added {2026-08-08} Midnight Sun [Midnight Sun]: Midnight Sun.esm (https://www.nexusmods.com/skyrimspecialedition/mods/163295)
 
