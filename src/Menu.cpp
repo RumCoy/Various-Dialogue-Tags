@@ -21,6 +21,19 @@ namespace VariousDialogueTags::Menu
                 }
             }
 
+            bool immersiveMode = config.ImmersiveMode();
+            if (ImGuiMCP::Checkbox("\"Immersive\" mode (hide tags when they all match)", &immersiveMode)) {
+                if (!config.SetImmersiveModeFromMenu(immersiveMode)) {
+                    SKSE::log::error("Failed to persist one or more menu setting files");
+                }
+            }
+            if (ImGuiMCP::IsItemHovered(0)) {
+                ImGuiMCP::SetTooltip(
+					"DEFAULT: OFF. When enabled, hides tags if all tags in the dialogue menu match.\n"
+					"Tags will only appear when different tags/mods are present in the same menu.\n"
+                    "This lets mods like More Dialogue Options or More Ferries immersively add dialogue without adding tags.");
+            }
+
             bool globalPluginNameFallback = config.GlobalPluginNameFallback();
             if (ImGuiMCP::Checkbox(
                     "Tag unconfigured mods with plugin names", &globalPluginNameFallback)) {
@@ -30,20 +43,7 @@ namespace VariousDialogueTags::Menu
             }
             if (ImGuiMCP::IsItemHovered(0)) {
                 ImGuiMCP::SetTooltip(
-                    "DEFAULT: OFF. Uses the plugin filename as the tag for dialogue from unconfigured non-vanilla plugins.");
-            }
-
-            bool immersiveMode = config.ImmersiveMode();
-            if (ImGuiMCP::Checkbox("\"Immersive\" Mode", &immersiveMode)) {
-                if (!config.SetImmersiveModeFromMenu(immersiveMode)) {
-                    SKSE::log::error("Failed to persist one or more menu setting files");
-                }
-            }
-            if (ImGuiMCP::IsItemHovered(0)) {
-                ImGuiMCP::SetTooltip(
-					"DEFAULT: OFF. When enabled, hides tags if all tags in the dialogue menu match.\n"
-					"Tags will only appear when different tags/mods are present in a single dialogue menu.\n"
-                    "This lets mods like More Dialogue Options or More Ferries immersively add dialogue without adding tags.");
+                    "DEFAULT: OFF. Uses the plugin filename as the tag for dialogue from unconfigured plugins.");
             }
         }
     }
