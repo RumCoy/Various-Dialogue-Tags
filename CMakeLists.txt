@@ -68,7 +68,7 @@ configure_file(
 )
 
 add_commonlibsse_plugin(${PROJECT_NAME}
-    NAME "Various Dialogue Tags"
+    NAME "VariousDialogueTags"
     AUTHOR "Various Dialogue Tags contributors"
     SOURCES
         src/main.cpp
