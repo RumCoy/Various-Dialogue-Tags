@@ -1,3 +1,8 @@
+SharedParentList 5.3.1
+2 mods (2 added, 0 removed, 0 changed) for SharedParentList:
+Added {2026-08-10} The Children of Forelhost [Children of Forelhost]: ChildrenOfForelhost.esp (https://www.nexusmods.com/skyrimspecialedition/mods/187285)
+Added {2026-08-10} A Thief's Last Secret [Thief's Last Secret]: HTPlug.esp (https://www.nexusmods.com/skyrimspecialedition/mods/187685)
+
 SharedParentList 5.3.0
 1 mods (1 added, 0 removed, 0 changed) for SharedParentList:
 Added {2026-08-08} Midnight Sun [Midnight Sun]: Midnight Sun.esm (https://www.nexusmods.com/skyrimspecialedition/mods/163295)
@@ -26,7 +31,6 @@ Added {2026-08-01} Immersive Dialogue Expansion - Thalmor [IDE]: IDE Thalmor.esp
 Added {2026-08-01} PaPunishmentPack1 [Prison Alternative]: PaPunishmentPack1.esp
 Added {2026-08-01} Simple Serana Marriage [Serana Marriage]: Serana Marriage.esp (https://www.nexusmods.com/skyrimspecialedition/mods/173758)
 Added {2026-08-01} Spare Anise [Spare Anise]: SpareAnise.esp (https://www.nexusmods.com/skyrimspecialedition/mods/167469)
-Added {2026-08-02} Animal Mansion Reborn [Animal Mansion]: Animal Mansion Reborn.esp
 Added {2026-08-05} The Keeper - Carcette Expanded [The Keeper]: Carcette Lives - Quest Expansion.esp (https://www.nexusmods.com/skyrimspecialedition/mods/168918)
 Added {2026-08-05} Ill Met by Moonlight - Dialogue Expansion [Ill Met]: CH_IMBMDialougeAddon.esp (https://www.nexusmods.com/skyrimspecialedition/mods/156434)
 Added {2026-08-05} Chattier Hunters and Fishermen [Chattier Hunters]: Chattier Hunters and Fishermen.esp (https://www.nexusmods.com/skyrimspecialedition/mods/179154)
@@ -61,6 +65,7 @@ Added {2026-08-05} The Book of Love - Fastred's Awakening [Book of Love]: TT_Fas
 Added {2026-08-05} War's Folly - Quest Mod [War's Folly]: War's Folly.esp (https://www.nexusmods.com/skyrimspecialedition/mods/165699)
 Added {2026-08-05} The Heart of Winterroot SE [Heart of Winterroot]: Winterroot.esp (https://www.nexusmods.com/skyrimspecialedition/mods/168978)
 Added {2026-08-06} Aniya - A Custom Voiced Follower [Aniya]: Aniya Follower.esp (https://www.nexusmods.com/skyrimspecialedition/mods/63208)
+Added 18+ {2026-08-02} Animal Mansion Reborn [Animal Mansion]: Animal Mansion Reborn.esp
 Added 18+ {2026-08-02} Bandit Paradise [Bandit Paradise]: Bandit Paradise.esp
 Added 18+ {2026-08-02} DibellasLove [Dibella's Love]: DibellasLove.esp
 Added 18+ {2026-08-02} EnslavedByThalmor [Enslaved by Thalmor]: EnslavedByThalmor.esp

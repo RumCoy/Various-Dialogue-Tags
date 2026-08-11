@@ -1,3 +1,10 @@
+VDT 5.3.1
+4 mods (4 added, 0 removed, 0 changed) for Curated VDT List:
+Added {2026-08-10} The Children of Forelhost [Forelhost]: ChildrenOfForelhost.esp (https://www.nexusmods.com/skyrimspecialedition/mods/187285)
+Added {2026-08-10} Olava The Seer - Dialogue Addon - Cut Content Restoration [The Seer]: Olava The Seer.esp (https://www.nexusmods.com/skyrimspecialedition/mods/186364)
+Added {2026-08-10} PrismaUI Teleport Menu Integration Addon [Teleport Menu]: PrismaUITeleportMenuIntegration.esp (https://www.nexusmods.com/skyrimspecialedition/mods/188003)
+Added 18+ {2026-08-10} Amorous Adventures OSA - Even More Sequences [AA]: AA_OStim_EvenMoreSequences.esp (https://www.nexusmods.com/skyrimspecialedition/mods/187834)
+
 VDT 5.3.0
 1 mods (0 added, 0 removed, 1 changed) for Curated VDT List:
 Changed {2026-08-08} [BIS] to [Bathing]: Bathing in Skyrim.esp
