@@ -1,5 +1,5 @@
 SharedParentList 5.3.1
-4 mods (2 added, 0 removed, 0 changed, 2 migrated in) for SharedParentList:
+2 mods (2 added, 0 removed, 0 changed, 2 migrated in) for SharedParentList:
 Added {2026-08-10} The Children of Forelhost [Children of Forelhost]: ChildrenOfForelhost.esp (https://www.nexusmods.com/skyrimspecialedition/mods/187285)
 Added {2026-08-10} A Thief's Last Secret [Thief's Last Secret]: HTPlug.esp (https://www.nexusmods.com/skyrimspecialedition/mods/187685)
 Migrated in {2026-08-11} from Curated VDT List [Undeath] + Curated VBT List (Undeath) to SharedParentList [Undeath]: Undeath.esp
@@ -10,7 +10,7 @@ SharedParentList 5.3.0
 Added {2026-08-08} Midnight Sun [Midnight Sun]: Midnight Sun.esm (https://www.nexusmods.com/skyrimspecialedition/mods/163295)
 
 SharedParentList 5.2.0
-1 mods (0 added, 0 removed, 0 changed, 1 migrated in) for SharedParentList:
+0 mods (0 added, 0 removed, 0 changed, 1 migrated in) for SharedParentList:
 Migrated in 18+ {2026-08-08} [MEI]: MEI - Maven Elenwen Ingun.esp
 
 SharedParentList 5.1.0
