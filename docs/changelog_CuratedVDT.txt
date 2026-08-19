@@ -1,5 +1,5 @@
 VDT 5.3.1
-15 mods (15 added, 0 removed, 0 changed, 1 migrated out, 1 migrated in) for Curated VDT List:
+17 mods (17 added, 0 removed, 0 changed, 1 migrated out, 1 migrated in) for Curated VDT List:
 Added {2026-08-10} The Children of Forelhost [Forelhost]: ChildrenOfForelhost.esp (https://www.nexusmods.com/skyrimspecialedition/mods/187285)
 Added {2026-08-10} Olava The Seer - Dialogue Addon - Cut Content Restoration [The Seer]: Olava The Seer.esp (https://www.nexusmods.com/skyrimspecialedition/mods/186364)
 Added {2026-08-10} PrismaUI Teleport Menu Integration Addon [Teleport Menu]: PrismaUITeleportMenuIntegration.esp (https://www.nexusmods.com/skyrimspecialedition/mods/188003)
@@ -16,6 +16,8 @@ Added {2026-08-19} Skoomaquestmod [Skooma Dilemma]: Skoomaquestmod.esp
 Migrated out {2026-08-11} from Curated VDT List [Undeath] + Curated VBT List (Undeath) to SharedParentList [Undeath]: Undeath.esp
 Migrated in {2026-08-19} from SharedParentList [Rescue Missions] to Curated VDT List [Rescue Missions]: RescueMissions.esp
 Added 18+ {2026-08-10} Amorous Adventures OSA - Even More Sequences [AA]: AA_OStim_EvenMoreSequences.esp (https://www.nexusmods.com/skyrimspecialedition/mods/187834)
+Added 18+ {2026-08-19} CaptivePlayer - AlternateStart [Captive Player]: CaptivePlayer - AlternateStart.esp
+Added 18+ {2026-08-19} NerfedFollowers [Nerfed Follower]: NerfedFollowers.esp
 Added 18+ {2026-08-19} Sexcraft [Sexcraft]: Sexcraft.esp
 
 VDT 5.3.0
