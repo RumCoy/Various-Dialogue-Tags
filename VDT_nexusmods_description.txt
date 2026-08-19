@@ -1,0 +1,82 @@
+[url=https://github.com/alandtse/CommonLibSSE-NG]SKSE plugin[/url] for [b][color=#f1c232]SE[/color][/b] 1.5.97, [b][color=#f1c232]AE[/color][/b] 1.6.x, and [b][color=#f1c232]VR[/color][/b]. Tested on 1.6.1170.
+
+[b][color=#f1c232]Requirements[/color][/b]
+[font=Tahoma][color=#f1c232]   ﻿✧[/color][/font] [url=https://www.nexusmods.com/skyrimspecialedition/mods/30379]Skyrim Script Extender (SKSE64)[/url]﻿ [b][color=#f1c232](Required)[/color][/b]
+[font=Tahoma][color=#f1c232]   ﻿✧[/color][/font] [url=https://www.nexusmods.com/skyrimspecialedition/mods/32444]Address Library for SKSE Plugins[/url]﻿ [b][color=#f1c232](Required)[/color][/b]
+[font=Tahoma][color=#f1c232]   ﻿✧[/color][/font] [url=https://www.nexusmods.com/skyrimspecialedition/mods/120352]SKSE Menu Framework[/url]﻿ (Optional, to [b][color=#a4c2f4]hide tags while in-game[/color][/b])
+[font=Tahoma][color=#f1c232]   ﻿✧[/color][/font] [url=https://www.nexusmods.com/skyrimspecialedition/mods/105799]Description Framework[/url]﻿ and [url=https://www.nexusmods.com/skyrimspecialedition/mods/51073]powerofthree's Tweaks[/url]﻿ (Optional, both are required only for Description Framework support)
+[font=Tahoma][color=#f1c232]   ﻿✧[/color][/font] More information in [b][color=#f1c232]Installation[/color][/b] below
+
+[b][color=#f1c232]Compatibility[/color][/b]
+[font=Tahoma][color=#f1c232]   ﻿✧[/color][/font] Safe to enable/disable at any time during your save
+[font=Tahoma][color=#f1c232]   ﻿✧[/color][/font] [b][color=#a4c2f4]Compatible with everything[/color][/b]
+[font=Tahoma][color=#f1c232]   ﻿✧[/color][/font] Built-in tags for over [b][color=#f1c232]800 mods[/color][/b], optional automatic tags for all others
+[font=Tahoma][color=#f1c232]   ﻿✧[/color][/font] More information in [b][color=#f1c232]Information[/color][/b] and [b][color=#f1c232]Compatibility[/color][/b] below
+
+[b][color=#a4c2f4]My Other Mods[/color][/b]
+[font=Tahoma][color=#f1c232]   ﻿✧[/color][/font] [url=https://www.nexusmods.com/skyrimspecialedition/mods/151404]Various Book Tags (VBT)[/url]
+[font=Tahoma][color=#f1c232]   ﻿✧[/color][/font] [url=https://www.nexusmods.com/skyrimspecialedition/mods/141632]Skyrim Autocorrect (SKAU)[/url]﻿
+
+[center][img]https://staticdelivery.nexusmods.com/mods/1704/images/63625/63625-1676996761-82027629.png[/img][/center]
+Intended as a niche mod for those with multiple dialogue and relationship mods—originally meant to help keep track of which "Hey there!" is associated with the mod you wanted to use. Now, if you're not bothered by [b]dialogue tags[/b], VDT will let you know which mod is presenting which dialogue option. Inspired by KrisV777's [url=https://www.nexusmods.com/skyrimspecialedition/mods/135618]Dynamic Dialogue Replacer (DDR)[/url] and SkyHorizon's [url=https://www.nexusmods.com/skyrimspecialedition/mods/107676]Dynamic String Distributor (DSD)[/url], VDT dynamically adds tags to player dialogue options at runtime, avoiding the risks associated with editing plugins/ESPs.
+
+Once a mod/source context has been established by an originating dialogue branch, VDT automatically stops repeating the same tag through its subsequent dialogue. The optional [b]"Immersive" Mode[/b] can further drastically reduce shown tags, only showing them when multiple different tags/mods are present in the same dialogue menu—this is for players who mainly want [color=#a4c2f4][b]tags when multiple mods are adding options to the same menu, but otherwise prefer mod-added dialogue to blend in naturally[/b][/color] (without any tags).
+
+By default, VDT only tags mods explicitly supported by the curated built-in list, or by the optional [b]User Config[/b]. The Config also allows you to [color=#a4c2f4][b]automatically tag every mod-added dialogue option[/b][/color] (this is disabled by default). Alternatively, [url=https://www.nexusmods.com/skyrimspecialedition/mods/120352]SKSE Menu Framework[/url] allows you to control the presence of tags (including auto-generated tags and "Immersive" Mode) without needing to use the optional Config file.
+
+[center][img]https://staticdelivery.nexusmods.com/mods/1704/images/63625/63625-1676996774-1699634888.png[/img][/center]
+VDT is an SKSE plugin, with [url=https://github.com/RumCoy/Various-Dialogue-Tags]source code available on GitHub[/url]. While it comes with its own curated built-in list of 800+ mods, players can override, change, or otherwise add additional mods via [b]VariousDialogueTags_UserConfig.ini[/b]. The optional Config is separate from the main download, allowing you to easily maintain your own changes and additions.
+
+[b][color=#a4c2f4]Automatic tags for any and every mod are now available![/color][/b] An option for players trying to trace a particular line, or for those who don't care about having only curated tags: VDT now allows mod dialogue options to be automatically tagged with the mod's plugin name if a curated/user-defined tag does not already exist. This option is disabled by default. Navigate to [i]SKSE\Plugins\VariousDialogueTags_UserConfig.ini[/i] and set [i]GlobalPluginNameFallback=true[/i] to enable. Alternatively (and easier-tively), [url=https://www.nexusmods.com/skyrimspecialedition/mods/120352]SKSE Menu Framework[/url] is now also natively supported—[url=https://www.nexusmods.com/skyrimspecialedition/mods/120352]SKSE Menu Framework[/url] is completely optional, but it will allow you to freely hide or show tags (automatically-generated or otherwise) while in-game.
+
+[b][color=#a4c2f4]"Immersive" Mode is now also available.[/color][/b] Disabled by default—change via [url=https://www.nexusmods.com/skyrimspecialedition/mods/120352]SKSE Menu[/url] or User Config. When enabled, tags are hidden if all tags in a dialogue menu are the same; tags only appear when multiple different tags/mods are present in the same menu. This is for players who mainly want tags when multiple mods are adding options to the same menu, but otherwise prefer mod-added dialogue to blend in naturally. In practice, this largely hides tags for immersion-related mods such as [url=https://www.nexusmods.com/skyrimspecialedition/mods/32161]Serana Dialogue Add-On[/url], [url=https://www.nexusmods.com/skyrimspecialedition/mods/28905]More Dialogue Options[/url], or [url=https://www.nexusmods.com/skyrimspecialedition/mods/73363]More Ferries[/url], while still showing tags in menus where multiple mods/frameworks can be distinguished.
+
+[font=Arial][size=5][b][color=#f1c232]Built-In Support[/color][/b][/size][/font]
+The main file includes curated tags for more than 800 mods. These are a few examples:
+[font=Tahoma][color=#f1c232]✧[/color][/font] Legacy of the Dragonborn
+[font=Tahoma][color=#f1c232]✧[/color][/font] ezPG
+[font=Tahoma][color=#f1c232]✧[/color][/font] Interesting NPCs (3DNPC)
+[font=Tahoma][color=#f1c232]✧[/color][/font] Sidequests of Skyrim
+[font=Tahoma][color=#f1c232]✧[/color][/font] More Dialogue Options
+[font=Tahoma][color=#f1c232]✧[/color][/font] My Home Is Your Home
+[font=Tahoma][color=#f1c232]✧[/color][/font] Nether's Follower Framework
+[font=Tahoma][color=#f1c232]✧[/color][/font] Dress Up Lover's NPC Outfit Changer
+[font=Tahoma][color=#f1c232]✧[/color][/font] Song of the Green (Auri Follower)
+[font=Tahoma][color=#f1c232]✧[/color][/font] [url=https://www.nexusmods.com/profile/jayserpa]JaySerpa's[/url] entire catalogue
+[font=Tahoma][color=#f1c232]✧[/color][/font] Many follower expansions, dialogue overhauls, quest expansions, and expanded functionality/compatibility patches
+[font=Tahoma][color=#f1c232]✧[/color][/font] Mods from other sites
+
+Minor [url=105799]Description Framework[/url] support is provided for ~20 mods. More information:
+[spoiler]Slightly outside the scope of VDT (hence the spoiler), but aligning with VDT's general purpose: adding important explanatory text or indicators to otherwise ambiguous, generically-named "mystery" items. These items are otherwise description-less and somewhat obscure in their function. It's mostly immersive text subtly pointing to the related mod. A quick example: [i]"Material for Sidequest."[/i] descriptions added to [url=54245]Sidequests of Skyrim[/url] 'Shipment' misc items.
+
+The included [i]aaaRumCoy_DESC.ini[/i] is set as low priority through both the ini (-99 priority) and filename priority (aa suffix); other Descriptions should consistently overwrite those provided here.
+
+Added minor Description Framework support for roughly 20+ mods, including: AddItemMenu SE, Sidequests of Skyrim, Ruins Coins, Lux Via, Your Market Stall, Road Signs Fast Travel, Journeyman, Adamant, Mistborn, Fate Card Packs, Ebony Warrior Re-Imagined, Nessa, Skyshards Offer Skills, Torchbugs Expanded, and mods from other sites.
+
+Expanded example:
+Adds the description [i]"A key to open or close the door to the Hall of Forgotten."[/i]
+... to the otherwise description-less '[url=https://www.reddit.com/r/skyrimmods/comments/17n9m1p/legacy_of_the_dragonborn_hall_of_the_forgotten/]Magic Activation Crystal[/url]' given upon gamestart, used for the [url=https://www.reddit.com/r/skyrim/comments/17lp82w/i_have_no_idea_what_this_is/]Hall of Forgotten door[/url].
+
+... As you can tell, these were mostly incidental descriptions for my own modlist that I felt others using VDT might likewise enjoy![/spoiler][line]
+[font=Arial][size=5][b][color=#f1c232]Installation[/color][/b][/size][/font]
+Install like any other mod. Requires [url=https://www.nexusmods.com/skyrimspecialedition/mods/30379]Skyrim Script Extender (SKSE64)[/url] and [url=https://www.nexusmods.com/skyrimspecialedition/mods/32444]Address Library for SKSE Plugins[/url]﻿.
+[url=https://www.nexusmods.com/skyrimspecialedition/mods/141632]Skyrim Autocorrect[/url] is [b][color=#a4c2f4]highly[/color][/b] recommended. During VDT development, I've seen SKAU fix [i]thousands[/i] of lines (not an exaggeration).
+[url=https://www.nexusmods.com/skyrimspecialedition/mods/105799]Description Framework[/url] is optional. For [url=https://www.nexusmods.com/skyrimspecialedition/mods/105799]Description Framework[/url] support to work, also requires [url=https://www.nexusmods.com/skyrimspecialedition/mods/51073]powerofthree's Tweaks[/url].
+[url=https://www.nexusmods.com/skyrimspecialedition/mods/120352]SKSE Menu Framework[/url] is optional. Allows you to change presence of tags while in-game.
+
+[color=#f1c232][b][font=Verdana]✧[/font][/b][/color] [b]As a SKSE plugin, can be placed anywhere in load order.[/b]
+
+
+[font=Arial][size=5][b][color=#f1c232]Compatibility[/color][/b][/size][/font]
+[color=#f1c232][b][font=Verdana]✧[/font][/b][/color] [color=#a4c2f4][b]Compatible with everything[/b][/color]. No performance impact.
+Yes, [b][color=#a4c2f4][i]everything[/i][/color][/b]. Compatible with [url=https://www.nexusmods.com/skyrimspecialedition/mods/84329]Dragonborn Voice Over (DBVO)[/url]. Compatible with [url=https://www.nexusmods.com/skyrimspecialedition/mods/184221]Dragonborn ReVoiced[/url]. Compatible with [url=https://www.nexusmods.com/skyrimspecialedition/mods/11802]Legacy of the Dragonborn (LotD)[/url].
+
+Compatible with [url=https://www.nexusmods.com/skyrimspecialedition/mods/107676]Dynamic String Distributor (DSD)[/url] and other forms of translations.
+
+Compatible with [url=https://www.nexusmods.com/skyrimspecialedition/mods/135618]Dynamic Dialogue Replacer (DDR)[/url]. More information:[spoiler]
+[url=https://www.nexusmods.com/skyrimspecialedition/mods/135618]Dynamic Dialogue Replacer (DDR)[/url] users: Should be compatible with DDR and DDR-related mods. Note that testing suggests that [url=https://www.nexusmods.com/skyrimspecialedition/mods/107676]DSD[/url] applies its dialogue changes first, which are then overwritten by DDR changes (such as from [url=https://www.nexusmods.com/skyrimspecialedition/mods/141632]Skyrim Autocorrect - Dialogue Grammar Fixes[/url]), which are then tagged by VDT.[/spoiler]
+
+[line]
+[center]
+Any (archived) ESP is flagged as [color=#f1c232]ESL[/color].
+Feedback is always welcome. DMs are always open![/center]
