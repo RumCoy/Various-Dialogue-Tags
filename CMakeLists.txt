@@ -81,6 +81,8 @@ add_commonlibsse_plugin(${PROJECT_NAME}
         src/EmbeddedData.h
         src/DialogueMenuHook.cpp
         src/DialogueMenuHook.h
+        src/DBVO2LegacyCompatibility.cpp
+        src/DBVO2LegacyCompatibility.h
         src/FormOrigin.cpp
         src/FormOrigin.h
         src/Resource.h
