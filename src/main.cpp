@@ -6,12 +6,28 @@
 
 #include <filesystem>
 #include <SKSE/SKSE.h>
+#include <Windows.h>
 
 namespace
 {
     void OnSKSEMessage(SKSE::MessagingInterface::Message* message)
     {
-        if (!message || message->type != SKSE::MessagingInterface::kDataLoaded) {
+        if (!message) {
+            return;
+        }
+
+        if (message->type == SKSE::MessagingInterface::kPostPostLoad) {
+            const bool voiceOverLoaded =
+                ::GetModuleHandleW(L"DBVO.dll") != nullptr ||
+                ::GetModuleHandleW(L"DBReV.dll") != nullptr;
+
+            if (voiceOverLoaded) {
+                VariousDialogueTags::DBVO2LegacyCompatibility::Install();
+            }
+            return;
+        }
+
+        if (message->type != SKSE::MessagingInterface::kDataLoaded) {
             return;
         }
 
@@ -43,7 +59,6 @@ SKSEPluginLoad(const SKSE::LoadInterface* skse)
     SKSE::Init(skse);
 
     VariousDialogueTags::DialogueMenuHook::Install();
-    VariousDialogueTags::DBVO2LegacyCompatibility::Install();
 
     auto* messaging = SKSE::GetMessagingInterface();
     if (!messaging || !messaging->RegisterListener(OnSKSEMessage)) {

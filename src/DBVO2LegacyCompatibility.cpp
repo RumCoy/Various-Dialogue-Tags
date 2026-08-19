@@ -20,7 +20,7 @@ namespace VariousDialogueTags
     {
         REL::Relocation<std::uintptr_t> vtable{ RE::VTABLE_DialogueMenu[0] };
         original_ = vtable.write_vfunc(0x4, &DBVO2LegacyCompatibility::ProcessMessageHook);
-        SKSE::log::info("Installed DBVO2 legacy compatibility experiment hook");
+        SKSE::log::info("Installed DBVO/DBReV compatibility hook");
     }
 
     RE::UI_MESSAGE_RESULTS DBVO2LegacyCompatibility::ProcessMessageHook(RE::UIMessage& message)
