@@ -63,11 +63,11 @@ function Read-IniLayer {
             if ($activeKind -eq 'Plugin' -and -not $activeHasTag) {
                 throw "Plugin section [$activePlugin] has no Tag in $resolvedPath"
             }
-            if ($line -notmatch '^\[([^]]+)\]$') {
+            if (-not $line.EndsWith(']')) {
                 throw "Malformed section header at $($resolvedPath):$lineNumber"
             }
-
-            $sectionName = $Matches[1].Trim()
+            
+            $sectionName = $line.Substring(1, $line.Length - 2).Trim()
             $activeProperties = [System.Collections.Generic.HashSet[string]]::new(
                 [System.StringComparer]::OrdinalIgnoreCase)
             $activeHasTag = $false
