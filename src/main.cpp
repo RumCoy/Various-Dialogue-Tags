@@ -1,4 +1,5 @@
 #include "Config.h"
+#include "DBVO2LegacyCompatibility.h"
 #include "DialogueMenuHook.h"
 #include "EmbeddedData.h"
 #include "Menu.h"
@@ -42,6 +43,7 @@ SKSEPluginLoad(const SKSE::LoadInterface* skse)
     SKSE::Init(skse);
 
     VariousDialogueTags::DialogueMenuHook::Install();
+    VariousDialogueTags::DBVO2LegacyCompatibility::Install();
 
     auto* messaging = SKSE::GetMessagingInterface();
     if (!messaging || !messaging->RegisterListener(OnSKSEMessage)) {
