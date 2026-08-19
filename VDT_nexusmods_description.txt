@@ -57,26 +57,31 @@ Expanded example:
 Adds the description [i]"A key to open or close the door to the Hall of Forgotten."[/i]
 ... to the otherwise description-less '[url=https://www.reddit.com/r/skyrimmods/comments/17n9m1p/legacy_of_the_dragonborn_hall_of_the_forgotten/]Magic Activation Crystal[/url]' given upon gamestart, used for the [url=https://www.reddit.com/r/skyrim/comments/17lp82w/i_have_no_idea_what_this_is/]Hall of Forgotten door[/url].
 
-... As you can tell, these were mostly incidental descriptions for my own modlist that I felt others using VDT might likewise enjoy![/spoiler][line]
+... As you can tell, these were mostly incidental descriptions from my personal modlist that I felt others using VDT might likewise enjoy!
+[/spoiler]
+[b][color=#f1c232][center]— [color=#a4c2f4]★[/color] —[/center][/color][/b]
+
 [font=Arial][size=5][b][color=#f1c232]Installation[/color][/b][/size][/font]
+[color=#f1c232][b][font=Verdana]✧[/font][/b][/color] [b]As a SKSE plugin, can be placed anywhere in load order.[/b]
 Install like any other mod. Requires [url=https://www.nexusmods.com/skyrimspecialedition/mods/30379]Skyrim Script Extender (SKSE64)[/url] and [url=https://www.nexusmods.com/skyrimspecialedition/mods/32444]Address Library for SKSE Plugins[/url]﻿.
 [url=https://www.nexusmods.com/skyrimspecialedition/mods/141632]Skyrim Autocorrect[/url] is [b][color=#a4c2f4]highly[/color][/b] recommended. During VDT development, I've seen SKAU fix [i]thousands[/i] of lines (not an exaggeration).
 [url=https://www.nexusmods.com/skyrimspecialedition/mods/105799]Description Framework[/url] is optional. For [url=https://www.nexusmods.com/skyrimspecialedition/mods/105799]Description Framework[/url] support to work, also requires [url=https://www.nexusmods.com/skyrimspecialedition/mods/51073]powerofthree's Tweaks[/url].
 [url=https://www.nexusmods.com/skyrimspecialedition/mods/120352]SKSE Menu Framework[/url] is optional. Allows you to change presence of tags while in-game.
 
-[color=#f1c232][b][font=Verdana]✧[/font][/b][/color] [b]As a SKSE plugin, can be placed anywhere in load order.[/b]
-
 
 [font=Arial][size=5][b][color=#f1c232]Compatibility[/color][/b][/size][/font]
-[color=#f1c232][b][font=Verdana]✧[/font][/b][/color] [color=#a4c2f4][b]Compatible with everything[/b][/color]. No performance impact.
-Yes, [b][color=#a4c2f4][i]everything[/i][/color][/b]. Compatible with [url=https://www.nexusmods.com/skyrimspecialedition/mods/84329]Dragonborn Voice Over (DBVO)[/url]. Compatible with [url=https://www.nexusmods.com/skyrimspecialedition/mods/184221]Dragonborn ReVoiced[/url]. Compatible with [url=https://www.nexusmods.com/skyrimspecialedition/mods/11802]Legacy of the Dragonborn (LotD)[/url].
+[color=#f1c232][b][font=Verdana]✧[/font][/b][/color] [b]Compatible with everything[/b]. No performance impact.
+Yes, [i]everything[/i]. Compatible with [url=https://www.nexusmods.com/skyrimspecialedition/mods/84329]Dragonborn Voice Over (DBVO)[/url]. Compatible with [url=https://www.nexusmods.com/skyrimspecialedition/mods/184221]Dragonborn ReVoiced[/url] (thank you, Raynor1511, for adding native [Tag] support). Compatible with [url=https://www.nexusmods.com/skyrimspecialedition/mods/11802]Legacy of the Dragonborn (LotD)[/url].
 
 Compatible with [url=https://www.nexusmods.com/skyrimspecialedition/mods/107676]Dynamic String Distributor (DSD)[/url] and other forms of translations.
 
 Compatible with [url=https://www.nexusmods.com/skyrimspecialedition/mods/135618]Dynamic Dialogue Replacer (DDR)[/url]. More information:[spoiler]
 [url=https://www.nexusmods.com/skyrimspecialedition/mods/135618]Dynamic Dialogue Replacer (DDR)[/url] users: Should be compatible with DDR and DDR-related mods. Note that testing suggests that [url=https://www.nexusmods.com/skyrimspecialedition/mods/107676]DSD[/url] applies its dialogue changes first, which are then overwritten by DDR changes (such as from [url=https://www.nexusmods.com/skyrimspecialedition/mods/141632]Skyrim Autocorrect - Dialogue Grammar Fixes[/url]), which are then tagged by VDT.[/spoiler]
 
-[line]
+
+
+[b][color=#f1c232][center]— [color=#a4c2f4]★[/color] —[/center][/color][/b]
 [center]
 Any (archived) ESP is flagged as [color=#f1c232]ESL[/color].
-Feedback is always welcome. DMs are always open![/center]
+Feedback is always welcome. DMs are always open!
+[/center]
