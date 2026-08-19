@@ -1,9 +1,10 @@
 VDT 5.3.1
-5 mods (5 added, 0 removed, 0 changed, 1 migrated out) for Curated VDT List:
+6 mods (6 added, 0 removed, 0 changed, 1 migrated out) for Curated VDT List:
 Added {2026-08-10} The Children of Forelhost [Forelhost]: ChildrenOfForelhost.esp (https://www.nexusmods.com/skyrimspecialedition/mods/187285)
 Added {2026-08-10} Olava The Seer - Dialogue Addon - Cut Content Restoration [The Seer]: Olava The Seer.esp (https://www.nexusmods.com/skyrimspecialedition/mods/186364)
 Added {2026-08-10} PrismaUI Teleport Menu Integration Addon [Teleport Menu]: PrismaUITeleportMenuIntegration.esp (https://www.nexusmods.com/skyrimspecialedition/mods/188003)
 Added {2026-08-11} UndeathFixes - Guest Of Volkihar [Undeath]: UndeathFixes - Guest Of Volkihar.esp
+Added {2026-08-15} Immersive Dialogue Expansion - Dawnguard and Vigilants [IDE]: IDE Dawnguard Vigilants.esp (https://www.nexusmods.com/skyrimspecialedition/mods/188486)
 Migrated out {2026-08-11} from Curated VDT List [Undeath] + Curated VBT List (Undeath) to SharedParentList [Undeath]: Undeath.esp
 Added 18+ {2026-08-10} Amorous Adventures OSA - Even More Sequences [AA]: AA_OStim_EvenMoreSequences.esp (https://www.nexusmods.com/skyrimspecialedition/mods/187834)
 
