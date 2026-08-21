@@ -2,6 +2,7 @@
 
 #include <SKSE/SKSE.h>
 
+#include <algorithm>
 #include <string>
 #include <vector>
 
@@ -48,8 +49,26 @@ namespace VariousDialogueTags
 
         const auto result = original_(this, message);
 
-        for (const auto& snapshot : snapshots) {
-            snapshot.option->topicText = snapshot.text;
+        if (!snapshots.empty()) {
+            if (auto* topicManager = RE::MenuTopicManager::GetSingleton();
+                topicManager && topicManager->dialogueList) {
+                for (auto* option : *topicManager->dialogueList) {
+                    if (!option) {
+                        continue;
+                    }
+
+                    const auto snapshot = std::find_if(
+                        snapshots.begin(),
+                        snapshots.end(),
+                        [option](const TopicTextSnapshot& entry) {
+                            return entry.option == option;
+                        });
+
+                    if (snapshot != snapshots.end()) {
+                        option->topicText = snapshot->text;
+                    }
+                }
+            }
         }
 
         return result;

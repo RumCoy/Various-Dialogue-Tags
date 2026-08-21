@@ -22,6 +22,8 @@ env:
   VCPKG_DEFAULT_TRIPLET: x64-windows-static-md
   VCPKG_FEATURE_FLAGS: manifests,registries,binarycaching
   VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}\vcpkg-binary-cache
+  SCCACHE_GHA_ENABLED: "true"
+  SCCACHE_IGNORE_SERVER_IO_ERROR: "1"
 
 jobs:
   build-windows:
@@ -102,6 +104,9 @@ jobs:
           path: build/release/lib/commonlibsse-ng/.prebuilt
           key: commonlibsse-prebuilt-${{ runner.os }}-${{ steps.dependency-versions.outputs.commonlibsse }}
 
+      - name: Set up sccache
+        uses: mozilla-actions/sccache-action@v0.0.11
+
       - name: Merge and validate layered internal data
         shell: pwsh
         run: |
@@ -113,12 +118,13 @@ jobs:
             -OutputPath $mergedPath
 
       - name: Configure CMake
-        shell: pwsh
+        shell: cmd
         env:
           VCPKG_ROOT: ${{ github.workspace }}\vcpkg
         run: |
-          $mergedPath = Join-Path $env:GITHUB_WORKSPACE "build/layered-data/VariousDialogueTags_InternalData.ini"
-          cmake --preset release "-DVDT_INTERNAL_DATA_PREMERGED_PATH=$mergedPath"
+          for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set "VSINSTALL=%%i"
+          call "%VSINSTALL%\Common7\Tools\VsDevCmd.bat" -arch=x64 -host_arch=x64
+          cmake -S . -B build/release -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake" -DCMAKE_CXX_COMPILER_LAUNCHER=sccache -DCMAKE_DISABLE_PRECOMPILE_HEADERS=ON -DVDT_INTERNAL_DATA_PREMERGED_PATH="%GITHUB_WORKSPACE%\build\layered-data\VariousDialogueTags_InternalData.ini"
 
       - name: Save vcpkg binary cache
         if: steps.vcpkg-cache.outputs.cache-hit != 'true'
@@ -128,10 +134,14 @@ jobs:
           key: ${{ steps.vcpkg-cache.outputs.cache-primary-key }}
 
       - name: Build DLL
-        shell: pwsh
+        shell: cmd
         env:
           VCPKG_ROOT: ${{ github.workspace }}\vcpkg
-        run: cmake --build --preset release
+        run: |
+          for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set "VSINSTALL=%%i"
+          call "%VSINSTALL%\Common7\Tools\VsDevCmd.bat" -arch=x64 -host_arch=x64
+          cmake --build build/release --parallel
+          sccache --show-stats
 
       - name: Create mod staging folders
         shell: pwsh
