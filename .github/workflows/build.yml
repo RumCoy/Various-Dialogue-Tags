@@ -88,7 +88,15 @@ jobs:
           path: vcpkg
           key: ${{ steps.vcpkg-tool-cache.outputs.cache-primary-key }}
 
+      - name: Restore vcpkg installed tree
+        id: vcpkg-installed-cache
+        uses: actions/cache/restore@v6
+        with:
+          path: build/release/vcpkg_installed
+          key: vcpkg-installed-ninja-release-${{ runner.os }}-${{ steps.runner-version.outputs.version }}-x64-windows-static-md-ee12231b20c95013c6638d845d04c91559a1d1ff-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json', '.gitmodules', 'lib/commonlibsse-ng/vcpkg.json', 'cmake/vcpkg-triplets/x64-windows-static-md.cmake') }}
+
       - name: Restore vcpkg binary cache
+        if: steps.vcpkg-installed-cache.outputs.cache-hit != 'true'
         id: vcpkg-cache
         uses: actions/cache/restore@v6
         with:
@@ -96,6 +104,7 @@ jobs:
           key: vcpkg-binary-ninja-release-${{ runner.os }}-${{ steps.runner-version.outputs.version }}-x64-windows-static-md-ee12231b20c95013c6638d845d04c91559a1d1ff-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json', '.gitmodules', 'lib/commonlibsse-ng/vcpkg.json', 'cmake/vcpkg-triplets/x64-windows-static-md.cmake') }}
 
       - name: Ensure vcpkg binary cache directory exists
+        if: steps.vcpkg-installed-cache.outputs.cache-hit != 'true'
         shell: pwsh
         run: New-Item -ItemType Directory -Force -Path $env:VCPKG_DEFAULT_BINARY_CACHE | Out-Null
 
@@ -122,17 +131,25 @@ jobs:
         shell: cmd
         env:
           VCPKG_ROOT: ${{ github.workspace }}\vcpkg
+          VCPKG_MANIFEST_INSTALL: ${{ steps.vcpkg-installed-cache.outputs.cache-hit == 'true' && 'OFF' || 'ON' }}
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set "VSINSTALL=%%i"
           call "%VSINSTALL%\Common7\Tools\VsDevCmd.bat" -arch=x64 -host_arch=x64
-          cmake -S . -B build/release -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake" -DCMAKE_CXX_COMPILER_LAUNCHER=sccache -DVDT_PRECOMPILE_HEADERS=OFF -DVDT_INTERNAL_DATA_PREMERGED_PATH="%GITHUB_WORKSPACE%\build\layered-data\VariousDialogueTags_InternalData.ini"
+          cmake -S . -B build/release -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake" -DVCPKG_MANIFEST_INSTALL=%VCPKG_MANIFEST_INSTALL% -DCMAKE_CXX_COMPILER_LAUNCHER=sccache -DVDT_PRECOMPILE_HEADERS=OFF -DVDT_INTERNAL_DATA_PREMERGED_PATH="%GITHUB_WORKSPACE%\build\layered-data\VariousDialogueTags_InternalData.ini"
 
       - name: Save vcpkg binary cache
-        if: steps.vcpkg-cache.outputs.cache-hit != 'true'
+        if: steps.vcpkg-installed-cache.outputs.cache-hit != 'true' && steps.vcpkg-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v6
         with:
           path: vcpkg-binary-cache
           key: ${{ steps.vcpkg-cache.outputs.cache-primary-key }}
+
+      - name: Save vcpkg installed tree
+        if: steps.vcpkg-installed-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: build/release/vcpkg_installed
+          key: ${{ steps.vcpkg-installed-cache.outputs.cache-primary-key }}
 
       - name: Build DLL
         shell: cmd
