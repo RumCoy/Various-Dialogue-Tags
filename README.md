@@ -4,6 +4,6 @@
 [Changelog: Curated Tags for VDT](docs/changelog_CuratedVDT.txt)
 
 
-You are currently in **Dialogue**.
-[Various Dialogue Tags](https://github.com/RumCoy/Various-Dialogue-Tags)
+You are currently in **Dialogue**.<br>
+[Various Dialogue Tags](https://github.com/RumCoy/Various-Dialogue-Tags) **(Currently here)**<br>
 [Various Book Tags](https://github.com/RumCoy/Various-Book-Tags)
