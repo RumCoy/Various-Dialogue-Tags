@@ -1,5 +1,5 @@
 VDT 5.3.1
-19 mods (19 added, 0 removed, 0 changed, 1 migrated out, 1 migrated in) for Curated VDT List:
+21 mods (21 added, 0 removed, 0 changed, 1 migrated out, 1 migrated in) for Curated VDT List:
 Added {2026-08-10} The Children of Forelhost [Forelhost]: ChildrenOfForelhost.esp (https://www.nexusmods.com/skyrimspecialedition/mods/187285)
 Added {2026-08-10} Olava The Seer - Dialogue Addon - Cut Content Restoration [The Seer]: Olava The Seer.esp (https://www.nexusmods.com/skyrimspecialedition/mods/186364)
 Added {2026-08-10} PrismaUI Teleport Menu Integration Addon [Teleport Menu]: PrismaUITeleportMenuIntegration.esp (https://www.nexusmods.com/skyrimspecialedition/mods/188003)
@@ -13,6 +13,8 @@ Added {2026-08-19} Flow-TG and ValSerano [Plus Plus]: Flow-TG and ValSerano.esp
 Added {2026-08-19} Flow-TG02 [Plus Plus]: Flow-TG02.esp
 Added {2026-08-19} Flow-TG03 [Plus Plus]: Flow-TG03.esp
 Added {2026-08-19} Skoomaquestmod [Skooma Dilemma]: Skoomaquestmod.esp
+Added {2026-08-21} Growl - Werebeasts of Skyrim [Growl]: Growl - Werebeasts of Skyrim.esp
+Added {2026-08-21} Reliquary of Myth [Reliquary]: Reliquary of Myth.esp
 Migrated out {2026-08-11} from Curated VDT List [Undeath] + Curated VBT List (Undeath) to SharedParentList [Undeath]: Undeath.esp
 Migrated in {2026-08-19} from SharedParentList [Rescue Missions] to Curated VDT List [Rescue Missions]: RescueMissions.esp
 Added 18+ {2026-08-10} Amorous Adventures OSA - Even More Sequences [AA]: AA_OStim_EvenMoreSequences.esp (https://www.nexusmods.com/skyrimspecialedition/mods/187834)
