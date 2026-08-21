@@ -264,6 +264,26 @@ namespace
                topicInfo != state.selectedTopicInfo;
     }
 
+    bool IsVisibleSelection(
+        const RE::MenuTopicManager& topicManager,
+        const RE::MenuTopicManager::Dialogue* selection)
+    {
+        if (!selection || !selection->parentTopic || !topicManager.dialogueList) {
+            return false;
+        }
+
+        for (auto* option : *topicManager.dialogueList) {
+            if (!option || !option->parentTopic) {
+                continue;
+            }
+            if (option->parentTopic == selection->parentTopic &&
+                !IsBlank(option->topicText.c_str())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     bool IsTopLevelCandidate(const RE::MenuTopicManager& topicManager)
     {
         if (!topicManager.dialogueList) {
@@ -297,7 +317,6 @@ namespace
         std::string text;
         std::string cacheKey;
         TagResolution tag;
-        bool sameBranchTag{};
     };
 
     struct CachedOption
@@ -366,9 +385,10 @@ namespace VariousDialogueTags
             SetObservedSelection(conversation, topicManager->lastSelectedDialogue);
         } else if (SelectionChanged(conversation, topicManager->lastSelectedDialogue)) {
             auto* selected = topicManager->lastSelectedDialogue;
+            const bool visibleSelection = IsVisibleSelection(*topicManager, selected);
             SetObservedSelection(conversation, selected);
-            conversation.pendingOrigin = selected != nullptr;
-            conversation.pendingOriginTag = selected ?
+            conversation.pendingOrigin = visibleSelection;
+            conversation.pendingOriginTag = visibleSelection ?
                 ResolveTag(config, selected->parentTopic, selected->parentTopicInfo,
                     globalPluginNameFallback).tag : std::string{};
         }
@@ -378,7 +398,6 @@ namespace VariousDialogueTags
         std::vector<PendingOption> pending;
         std::unordered_set<std::string> visibleContexts;
         std::unordered_set<std::string> visibleTags;
-        std::unordered_map<const RE::TESTopic*, std::string> branchTags;
         std::string menuSignature;
         for (auto* option : *topicManager->dialogueList) {
             if (!option || !option->parentTopic) {
@@ -402,21 +421,6 @@ namespace VariousDialogueTags
             menuSignature.push_back('\0');
             auto tag = ResolveTag(
                 config, option->parentTopic, topicInfo, globalPluginNameFallback);
-            bool sameBranchTag = false;
-            auto* branch = option->parentTopic->ownerBranch;
-            if (branch && branch->startingTopic &&
-                branch->startingTopic != option->parentTopic) {
-                const auto* startingText = branch->startingTopic->GetFullName();
-                if (startingText && !IsBlank(startingText)) {
-                    auto [branchTag, inserted] = branchTags.try_emplace(
-                        branch->startingTopic);
-                    if (inserted) {
-                        branchTag->second = ResolveTag(config, branch->startingTopic,
-                            nullptr, globalPluginNameFallback).tag;
-                    }
-                    sameBranchTag = !tag.tag.empty() && tag.tag == branchTag->second;
-                }
-            }
             visibleContexts.insert(tag.tag);
             if (!tag.tag.empty()) {
                 visibleTags.insert(tag.tag);
@@ -426,8 +430,7 @@ namespace VariousDialogueTags
                 .topicFormID = topicFormID,
                 .text = currentText,
                 .cacheKey = std::move(cacheKey),
-                .tag = std::move(tag),
-                .sameBranchTag = sameBranchTag
+                .tag = std::move(tag)
             });
         }
 
@@ -471,9 +474,8 @@ namespace VariousDialogueTags
         for (auto& item : pending) {
             const bool redundantTag = !conversation.originTag.empty() &&
                 item.tag.tag == conversation.originTag;
-            const bool redundantBranchTag = !mainMenu && item.sameBranchTag;
             const bool shouldTag = !item.tag.tag.empty() &&
-                !redundantTag && !redundantBranchTag && !immersiveMode;
+                !redundantTag && !immersiveMode;
             if (const auto cached = cache.find(item.cacheKey);
                 cached != cache.end() && cached->second.source == item.text &&
                 cached->second.tag == item.tag.tag && cached->second.tagged == shouldTag) {
