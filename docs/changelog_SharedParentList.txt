@@ -1,4 +1,4 @@
-SharedParentList 5.3.1
+SharedParentList 5.4.0
 12 mods (11 added, 0 removed, 1 changed, 1 migrated out, 2 migrated in) for SharedParentList:
 Added {2026-08-10} The Children of Forelhost [Children of Forelhost]: ChildrenOfForelhost.esp (https://www.nexusmods.com/skyrimspecialedition/mods/187285)
 Added {2026-08-10} A Thief's Last Secret [Thief's Last Secret]: HTPlug.esp (https://www.nexusmods.com/skyrimspecialedition/mods/187685)
