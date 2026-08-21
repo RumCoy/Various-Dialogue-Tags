@@ -62,8 +62,7 @@ Adds the description [i]"A key to open or close the door to the Hall of Forgotte
 [b][color=#f1c232][center]— [color=#a4c2f4]★[/color] —[/center][/color][/b]
 
 [font=Arial][size=5][b][color=#f1c232]Installation[/color][/b][/size][/font]
-[color=#f1c232][b][font=Verdana]✧[/font][/b][/color] [b]As a SKSE plugin, can be placed anywhere in load order.[/b]
-Install like any other mod. Requires [url=https://www.nexusmods.com/skyrimspecialedition/mods/30379]Skyrim Script Extender (SKSE64)[/url] and [url=https://www.nexusmods.com/skyrimspecialedition/mods/32444]Address Library for SKSE Plugins[/url]﻿.
+[color=#f1c232][b][font=Verdana]✧[/font][/b][/color] [b]Install like any other mod.[/b] Requires [url=https://www.nexusmods.com/skyrimspecialedition/mods/30379]Skyrim Script Extender (SKSE64)[/url] and [url=https://www.nexusmods.com/skyrimspecialedition/mods/32444]Address Library for SKSE Plugins[/url]﻿.
 [url=https://www.nexusmods.com/skyrimspecialedition/mods/141632]Skyrim Autocorrect[/url] is [b][color=#a4c2f4]highly[/color][/b] recommended. During VDT development, I've seen SKAU fix [i]thousands[/i] of lines (not an exaggeration).
 [url=https://www.nexusmods.com/skyrimspecialedition/mods/105799]Description Framework[/url] is optional. For [url=https://www.nexusmods.com/skyrimspecialedition/mods/105799]Description Framework[/url] support to work, also requires [url=https://www.nexusmods.com/skyrimspecialedition/mods/51073]powerofthree's Tweaks[/url].
 [url=https://www.nexusmods.com/skyrimspecialedition/mods/120352]SKSE Menu Framework[/url] is optional. Allows you to change presence of tags while in-game.
