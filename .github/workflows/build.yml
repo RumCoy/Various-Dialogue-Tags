@@ -85,15 +85,7 @@ jobs:
           path: vcpkg
           key: ${{ steps.vcpkg-tool-cache.outputs.cache-primary-key }}
 
-      - name: Restore vcpkg installed tree
-        id: vcpkg-installed-cache
-        uses: actions/cache/restore@v6
-        with:
-          path: build/release/vcpkg_installed
-          key: vcpkg-installed-${{ runner.os }}-${{ steps.runner-version.outputs.version }}-x64-windows-static-md-ee12231b20c95013c6638d845d04c91559a1d1ff-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json', '.gitmodules', 'lib/commonlibsse-ng/vcpkg.json') }}
-
       - name: Restore vcpkg binary cache
-        if: steps.vcpkg-installed-cache.outputs.cache-hit != 'true'
         id: vcpkg-cache
         uses: actions/cache/restore@v6
         with:
@@ -101,7 +93,6 @@ jobs:
           key: vcpkg-binary-${{ runner.os }}-${{ steps.runner-version.outputs.version }}-x64-windows-static-md-ee12231b20c95013c6638d845d04c91559a1d1ff-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json', '.gitmodules', 'lib/commonlibsse-ng/vcpkg.json') }}
 
       - name: Ensure vcpkg binary cache directory exists
-        if: steps.vcpkg-installed-cache.outputs.cache-hit != 'true'
         shell: pwsh
         run: New-Item -ItemType Directory -Force -Path $env:VCPKG_DEFAULT_BINARY_CACHE | Out-Null
 
@@ -127,22 +118,14 @@ jobs:
           VCPKG_ROOT: ${{ github.workspace }}\vcpkg
         run: |
           $mergedPath = Join-Path $env:GITHUB_WORKSPACE "build/layered-data/VariousDialogueTags_InternalData.ini"
-          $manifestInstall = if ("${{ steps.vcpkg-installed-cache.outputs.cache-hit }}" -eq "true") { "OFF" } else { "ON" }
-          cmake --preset release "-DVDT_INTERNAL_DATA_PREMERGED_PATH=$mergedPath" "-DVCPKG_MANIFEST_INSTALL=$manifestInstall"
+          cmake --preset release "-DVDT_INTERNAL_DATA_PREMERGED_PATH=$mergedPath"
 
       - name: Save vcpkg binary cache
-        if: steps.vcpkg-installed-cache.outputs.cache-hit != 'true' && steps.vcpkg-cache.outputs.cache-hit != 'true'
+        if: steps.vcpkg-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v6
         with:
           path: vcpkg-binary-cache
           key: ${{ steps.vcpkg-cache.outputs.cache-primary-key }}
-
-      - name: Save vcpkg installed tree
-        if: steps.vcpkg-installed-cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v6
-        with:
-          path: build/release/vcpkg_installed
-          key: ${{ steps.vcpkg-installed-cache.outputs.cache-primary-key }}
 
       - name: Build DLL
         shell: pwsh
