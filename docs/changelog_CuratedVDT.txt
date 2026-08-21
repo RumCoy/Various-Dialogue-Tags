@@ -1,4 +1,4 @@
-VDT 5.3.1
+VDT 5.4.0
 21 mods (21 added, 0 removed, 0 changed, 1 migrated out, 1 migrated in) for Curated VDT List:
 Added {2026-08-10} The Children of Forelhost [Forelhost]: ChildrenOfForelhost.esp (https://www.nexusmods.com/skyrimspecialedition/mods/187285)
 Added {2026-08-10} Olava The Seer - Dialogue Addon - Cut Content Restoration [The Seer]: Olava The Seer.esp (https://www.nexusmods.com/skyrimspecialedition/mods/186364)
