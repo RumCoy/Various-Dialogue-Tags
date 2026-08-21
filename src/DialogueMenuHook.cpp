@@ -406,13 +406,16 @@ namespace VariousDialogueTags
             auto* branch = option->parentTopic->ownerBranch;
             if (branch && branch->startingTopic &&
                 branch->startingTopic != option->parentTopic) {
-                auto [branchTag, inserted] = branchTags.try_emplace(
-                    branch->startingTopic);
-                if (inserted) {
-                    branchTag->second = ResolveTag(config, branch->startingTopic,
-                        nullptr, globalPluginNameFallback).tag;
+                const auto* startingText = branch->startingTopic->GetFullName();
+                if (startingText && !IsBlank(startingText)) {
+                    auto [branchTag, inserted] = branchTags.try_emplace(
+                        branch->startingTopic);
+                    if (inserted) {
+                        branchTag->second = ResolveTag(config, branch->startingTopic,
+                            nullptr, globalPluginNameFallback).tag;
+                    }
+                    sameBranchTag = !tag.tag.empty() && tag.tag == branchTag->second;
                 }
-                sameBranchTag = !tag.tag.empty() && tag.tag == branchTag->second;
             }
             visibleContexts.insert(tag.tag);
             if (!tag.tag.empty()) {
