@@ -32,29 +32,75 @@ jobs:
       - name: Check out project
         uses: actions/checkout@v6
         with:
-          submodules: recursive
+          submodules: true
+          persist-credentials: false
+
+      - name: Get dependency versions
+        id: dependency-versions
+        shell: pwsh
+        run: |
+          "commonlibsse=$(git rev-parse HEAD:lib/commonlibsse-ng)" >> $env:GITHUB_OUTPUT
+
+      - name: Get runner version
+        id: runner-version
+        shell: pwsh
+        run: |
+          $version = $env:ImageVersion
+          if ([string]::IsNullOrWhiteSpace($version)) {
+            $vswhere = Join-Path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vswhere.exe"
+            $installationPath = & $vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+            if ([string]::IsNullOrWhiteSpace($installationPath)) {
+              throw "Visual Studio installation not found"
+            }
+            $toolsetFile = Join-Path $installationPath "VC\Auxiliary\Build\Microsoft.VCToolsVersion.default.txt"
+            $version = "msvc-" + (Get-Content -Raw -LiteralPath $toolsetFile).Trim()
+          }
+          "version=$version" >> $env:GITHUB_OUTPUT
+
+      - name: Restore vcpkg tool
+        id: vcpkg-tool-cache
+        uses: actions/cache/restore@v6
+        with:
+          path: vcpkg
+          key: vcpkg-tool-${{ runner.os }}-ee12231b20c95013c6638d845d04c91559a1d1ff
 
       - name: Check out vcpkg
+        if: steps.vcpkg-tool-cache.outputs.cache-hit != 'true'
         uses: actions/checkout@v6
         with:
           repository: microsoft/vcpkg
           ref: ee12231b20c95013c6638d845d04c91559a1d1ff
           path: vcpkg
+          persist-credentials: false
 
       - name: Bootstrap vcpkg
+        if: steps.vcpkg-tool-cache.outputs.cache-hit != 'true'
         shell: pwsh
         run: .\vcpkg\bootstrap-vcpkg.bat -disableMetrics
+
+      - name: Save vcpkg tool
+        if: steps.vcpkg-tool-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: vcpkg
+          key: ${{ steps.vcpkg-tool-cache.outputs.cache-primary-key }}
 
       - name: Restore vcpkg binary cache
         id: vcpkg-cache
         uses: actions/cache/restore@v6
         with:
           path: vcpkg-binary-cache
-          key: vcpkg-${{ runner.os }}-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json', '.gitmodules', 'lib/commonlibsse-ng/vcpkg.json') }}
+          key: vcpkg-binary-${{ runner.os }}-${{ steps.runner-version.outputs.version }}-x64-windows-static-md-ee12231b20c95013c6638d845d04c91559a1d1ff-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json', '.gitmodules', 'lib/commonlibsse-ng/vcpkg.json') }}
 
       - name: Ensure vcpkg binary cache directory exists
         shell: pwsh
         run: New-Item -ItemType Directory -Force -Path $env:VCPKG_DEFAULT_BINARY_CACHE | Out-Null
+
+      - name: Cache CommonLibSSE prebuilt
+        uses: actions/cache@v6
+        with:
+          path: build/release/lib/commonlibsse-ng/.prebuilt
+          key: commonlibsse-prebuilt-${{ runner.os }}-${{ steps.dependency-versions.outputs.commonlibsse }}
 
       - name: Merge and validate layered internal data
         shell: pwsh
@@ -75,7 +121,7 @@ jobs:
           cmake --preset release "-DVDT_INTERNAL_DATA_PREMERGED_PATH=$mergedPath"
 
       - name: Save vcpkg binary cache
-        if: always() && steps.vcpkg-cache.outputs.cache-hit != 'true'
+        if: steps.vcpkg-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v6
         with:
           path: vcpkg-binary-cache
