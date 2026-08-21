@@ -229,7 +229,11 @@ namespace
         const RE::MenuTopicManager::Dialogue* selectedDialogue{};
         RE::FormID selectedTopic{};
         RE::FormID selectedTopicInfo{};
-        std::string activeTag;
+        std::string originTag;
+        bool pendingOrigin{};
+        std::string pendingOriginTag;
+        bool mainMenuKnown{};
+        std::unordered_set<RE::FormID> mainMenuTopics;
         bool hasPreviousMenu{};
         bool previousMenuUniform{};
         std::string previousMenuSignature;
@@ -260,7 +264,7 @@ namespace
                topicInfo != state.selectedTopicInfo;
     }
 
-    bool IsTopLevelMenu(const RE::MenuTopicManager& topicManager)
+    bool IsTopLevelCandidate(const RE::MenuTopicManager& topicManager)
     {
         if (!topicManager.dialogueList) {
             return false;
@@ -289,6 +293,7 @@ namespace
     struct PendingOption
     {
         RE::MenuTopicManager::Dialogue* option{};
+        RE::FormID topicFormID{};
         std::string text;
         std::string cacheKey;
         TagResolution tag;
@@ -354,33 +359,21 @@ namespace VariousDialogueTags
             return original_(this, message);
         }
 
-        bool contextUpdated = false;
         if (!conversation.initialized || conversation.speaker != topicManager->speaker) {
             conversation = {};
             conversation.initialized = true;
             conversation.speaker = topicManager->speaker;
             SetObservedSelection(conversation, topicManager->lastSelectedDialogue);
-        } else {
-            if (SelectionChanged(conversation, topicManager->lastSelectedDialogue)) {
-                auto* selected = topicManager->lastSelectedDialogue;
-                SetObservedSelection(conversation, selected);
-                if (selected) {
-                    conversation.activeTag = ResolveTag(config, selected->parentTopic,
-                        selected->parentTopicInfo, globalPluginNameFallback).tag;
-                    contextUpdated = true;
-                }
-            } else if (rootChanged && topicManager->rootTopicInfo) {
-                auto* root = topicManager->rootTopicInfo;
-                conversation.activeTag = ResolveTag(config, root->parentTopic, root,
-                    globalPluginNameFallback).tag;
-                contextUpdated = true;
-            }
+        } else if (SelectionChanged(conversation, topicManager->lastSelectedDialogue)) {
+            auto* selected = topicManager->lastSelectedDialogue;
+            SetObservedSelection(conversation, selected);
+            conversation.pendingOrigin = selected != nullptr;
+            conversation.pendingOriginTag = selected ?
+                ResolveTag(config, selected->parentTopic, selected->parentTopicInfo,
+                    globalPluginNameFallback).tag : std::string{};
         }
 
-        const bool topLevelMenu = IsTopLevelMenu(*topicManager);
-        if (topLevelMenu) {
-            conversation.activeTag.clear();
-        }
+        const bool topLevelCandidate = IsTopLevelCandidate(*topicManager);
 
         std::vector<PendingOption> pending;
         std::unordered_set<std::string> visibleContexts;
@@ -427,6 +420,7 @@ namespace VariousDialogueTags
             }
             pending.push_back(PendingOption{
                 .option = option,
+                .topicFormID = topicFormID,
                 .text = currentText,
                 .cacheKey = std::move(cacheKey),
                 .tag = std::move(tag),
@@ -434,19 +428,49 @@ namespace VariousDialogueTags
             });
         }
 
+        bool mainMenu = false;
+        if (topLevelCandidate) {
+            if (!conversation.mainMenuKnown) {
+                mainMenu = true;
+            } else {
+                for (const auto& option : pending) {
+                    if (conversation.mainMenuTopics.contains(option.topicFormID)) {
+                        mainMenu = true;
+                        break;
+                    }
+                }
+            }
+        }
+        if (mainMenu) {
+            conversation.mainMenuKnown = true;
+            for (const auto& option : pending) {
+                conversation.mainMenuTopics.insert(option.topicFormID);
+            }
+        }
+
         const bool menuChanged = conversation.hasPreviousMenu &&
             menuSignature != conversation.previousMenuSignature;
-        if (!topLevelMenu && !contextUpdated && menuChanged &&
-            conversation.previousMenuUniform) {
-            conversation.activeTag = conversation.previousMenuTag;
+        if (menuChanged) {
+            if (mainMenu) {
+                conversation.originTag.clear();
+                conversation.pendingOrigin = false;
+                conversation.pendingOriginTag.clear();
+            } else if (conversation.pendingOrigin) {
+                conversation.originTag = std::move(conversation.pendingOriginTag);
+                conversation.pendingOrigin = false;
+                conversation.pendingOriginTag.clear();
+            } else if (conversation.previousMenuUniform) {
+                conversation.originTag = conversation.previousMenuTag;
+            }
         }
 
         const bool immersiveMode = config.ImmersiveMode() && visibleTags.size() <= 1;
         for (auto& item : pending) {
-            const bool sameContext = !conversation.activeTag.empty() &&
-                item.tag.tag == conversation.activeTag;
+            const bool redundantTag = !conversation.originTag.empty() &&
+                item.tag.tag == conversation.originTag;
+            const bool redundantBranchTag = !mainMenu && item.sameBranchTag;
             const bool shouldTag = !item.tag.tag.empty() &&
-                !sameContext && !item.sameBranchTag && !immersiveMode;
+                !redundantTag && !redundantBranchTag && !immersiveMode;
             if (const auto cached = cache.find(item.cacheKey);
                 cached != cache.end() && cached->second.source == item.text &&
                 cached->second.tag == item.tag.tag && cached->second.tagged == shouldTag) {
