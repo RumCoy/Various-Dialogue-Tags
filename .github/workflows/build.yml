@@ -22,6 +22,7 @@ env:
   VCPKG_DEFAULT_TRIPLET: x64-windows-static-md
   VCPKG_FEATURE_FLAGS: manifests,registries,binarycaching
   VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}\vcpkg-binary-cache
+  VCPKG_OVERLAY_TRIPLETS: ${{ github.workspace }}\cmake\vcpkg-triplets
   SCCACHE_GHA_ENABLED: "true"
   SCCACHE_IGNORE_SERVER_IO_ERROR: "1"
 
@@ -92,7 +93,7 @@ jobs:
         uses: actions/cache/restore@v6
         with:
           path: vcpkg-binary-cache
-          key: vcpkg-binary-${{ runner.os }}-${{ steps.runner-version.outputs.version }}-x64-windows-static-md-ee12231b20c95013c6638d845d04c91559a1d1ff-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json', '.gitmodules', 'lib/commonlibsse-ng/vcpkg.json') }}
+          key: vcpkg-binary-ninja-release-${{ runner.os }}-${{ steps.runner-version.outputs.version }}-x64-windows-static-md-ee12231b20c95013c6638d845d04c91559a1d1ff-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json', '.gitmodules', 'lib/commonlibsse-ng/vcpkg.json', 'cmake/vcpkg-triplets/x64-windows-static-md.cmake') }}
 
       - name: Ensure vcpkg binary cache directory exists
         shell: pwsh
@@ -124,7 +125,7 @@ jobs:
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set "VSINSTALL=%%i"
           call "%VSINSTALL%\Common7\Tools\VsDevCmd.bat" -arch=x64 -host_arch=x64
-          cmake -S . -B build/release -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake" -DCMAKE_CXX_COMPILER_LAUNCHER=sccache -DCMAKE_DISABLE_PRECOMPILE_HEADERS=ON -DVDT_INTERNAL_DATA_PREMERGED_PATH="%GITHUB_WORKSPACE%\build\layered-data\VariousDialogueTags_InternalData.ini"
+          cmake -S . -B build/release -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake" -DCMAKE_CXX_COMPILER_LAUNCHER=sccache -DVDT_PRECOMPILE_HEADERS=OFF -DVDT_INTERNAL_DATA_PREMERGED_PATH="%GITHUB_WORKSPACE%\build\layered-data\VariousDialogueTags_InternalData.ini"
 
       - name: Save vcpkg binary cache
         if: steps.vcpkg-cache.outputs.cache-hit != 'true'
@@ -141,6 +142,10 @@ jobs:
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set "VSINSTALL=%%i"
           call "%VSINSTALL%\Common7\Tools\VsDevCmd.bat" -arch=x64 -host_arch=x64
           cmake --build build/release --parallel
+          if errorlevel 1 (
+            sccache --show-stats
+            exit /b 1
+          )
           sccache --show-stats
 
       - name: Create mod staging folders
@@ -153,7 +158,7 @@ jobs:
           $descriptorSource = Join-Path $resourceSource "aaaRumCoy_DESC.ini"
           $userConfigSource = Join-Path $resourceSource "VariousDialogueTags_UserConfig.ini"
 
-          cmake --install build/release --config Release --prefix package/Data
+          cmake --install build/release --prefix package/Data
           if (!(Test-Path package/Data/SKSE/Plugins/00_VariousDialogueTags.dll)) {
             throw "Expected packaged DLL was not produced: 00_VariousDialogueTags.dll"
           }

@@ -95,7 +95,12 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/lib/skse-menu-framework/resources")
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE NOMINMAX WIN32_LEAN_AND_MEAN)
-target_precompile_headers(${PROJECT_NAME} PRIVATE src/PCH.h)
+option(VDT_PRECOMPILE_HEADERS "Use precompiled headers" ON)
+if(VDT_PRECOMPILE_HEADERS)
+    target_precompile_headers(${PROJECT_NAME} PRIVATE src/PCH.h)
+elseif(MSVC)
+    target_compile_options(${PROJECT_NAME} PRIVATE /FI"${CMAKE_CURRENT_SOURCE_DIR}/src/PCH.h")
+endif()
 if(MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE /W4 /permissive- /EHsc /utf-8)
 endif()
