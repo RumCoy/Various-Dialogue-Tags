@@ -2,3 +2,8 @@
 
 [Changelog: Tags Master List](docs/changelog_SharedParentList.txt)<br>
 [Changelog: Curated Tags for VDT](docs/changelog_CuratedVDT.txt)
+
+
+You are currently in **Dialogue**.
+[Various Dialogue Tags](https://github.com/RumCoy/Various-Dialogue-Tags)
+[Various Book Tags](https://github.com/RumCoy/Various-Book-Tags)
