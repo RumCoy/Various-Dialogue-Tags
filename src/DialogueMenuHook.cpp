@@ -235,9 +235,7 @@ namespace
         bool mainMenuKnown{};
         std::unordered_set<RE::FormID> mainMenuTopics;
         bool hasPreviousMenu{};
-        bool previousMenuUniform{};
         std::string previousMenuSignature;
-        std::string previousMenuTag;
     };
 
     void SetObservedSelection(
@@ -396,7 +394,6 @@ namespace VariousDialogueTags
         const bool topLevelCandidate = IsTopLevelCandidate(*topicManager);
 
         std::vector<PendingOption> pending;
-        std::unordered_set<std::string> visibleContexts;
         std::unordered_set<std::string> visibleTags;
         std::string menuSignature;
         for (auto* option : *topicManager->dialogueList) {
@@ -421,7 +418,6 @@ namespace VariousDialogueTags
             menuSignature.push_back('\0');
             auto tag = ResolveTag(
                 config, option->parentTopic, topicInfo, globalPluginNameFallback);
-            visibleContexts.insert(tag.tag);
             if (!tag.tag.empty()) {
                 visibleTags.insert(tag.tag);
             }
@@ -465,8 +461,6 @@ namespace VariousDialogueTags
                 conversation.originTag = std::move(conversation.pendingOriginTag);
                 conversation.pendingOrigin = false;
                 conversation.pendingOriginTag.clear();
-            } else if (conversation.previousMenuUniform) {
-                conversation.originTag = conversation.previousMenuTag;
             }
         }
 
@@ -519,10 +513,7 @@ namespace VariousDialogueTags
         }
 
         conversation.hasPreviousMenu = !pending.empty();
-        conversation.previousMenuUniform = visibleContexts.size() == 1;
         conversation.previousMenuSignature = std::move(menuSignature);
-        conversation.previousMenuTag = conversation.previousMenuUniform ?
-            *visibleContexts.begin() : std::string{};
 
         return original_(this, message);
     }
