@@ -38,6 +38,10 @@ jobs:
           submodules: true
           persist-credentials: false
 
+      - name: Check out CommonLib OpenVR
+        shell: pwsh
+        run: git -C lib/commonlibsse-ng submodule update --init --depth 1 extern/openvr
+
       - name: Get dependency versions
         id: dependency-versions
         shell: pwsh
