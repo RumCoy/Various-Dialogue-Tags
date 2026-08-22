@@ -1,4 +1,4 @@
-[url=https://github.com/alandtse/CommonLibSSE-NG]SKSE plugin[/url] for [b][color=#f1c232]SE[/color][/b] 1.5.97, [b][color=#f1c232]AE[/color][/b] 1.6.x, and [b][color=#f1c232]VR[/color][/b]. Tested on 1.6.1170.
+[url=https://github.com/alandtse/CommonLibSSE-NG]SKSE plugin[/url] for [b][color=#f1c232]SE[/color][/b] 1.5.97, [b][color=#f1c232]AE[/color][/b] 1.6.x and 1.7.99, and [b][color=#f1c232]VR[/color][/b]. Tested on 1.6.1170.
 
 [b][color=#f1c232]Requirements[/color][/b]
 [font=Tahoma][color=#f1c232]   ﻿✧[/color][/font] [url=https://www.nexusmods.com/skyrimspecialedition/mods/30379]Skyrim Script Extender (SKSE64)[/url]﻿ [b][color=#f1c232](Required)[/color][/b]
