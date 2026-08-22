@@ -35,18 +35,25 @@ jobs:
       - name: Check out project
         uses: actions/checkout@v6
         with:
-          submodules: true
           persist-credentials: false
 
-      - name: Check out CommonLib OpenVR
+      - name: Check out dependencies
         shell: pwsh
-        run: git -C lib/commonlibsse-ng submodule update --init --depth 1 extern/openvr
+        run: git submodule update --init --depth 1 --jobs 2 lib/commonlibsse-ng lib/skse-menu-framework
 
       - name: Get dependency versions
         id: dependency-versions
         shell: pwsh
         run: |
           "commonlibsse=$(git rev-parse HEAD:lib/commonlibsse-ng)" >> $env:GITHUB_OUTPUT
+          "openvr=$(git -C lib/commonlibsse-ng rev-parse HEAD:extern/openvr)" >> $env:GITHUB_OUTPUT
+
+          $configuration = Get-Content -Raw -LiteralPath vcpkg-configuration.json | ConvertFrom-Json
+          $vcpkg = $configuration.'default-registry'.baseline
+          if ($vcpkg -notmatch '^[0-9a-fA-F]{40}$') {
+            throw "Expected a 40-character vcpkg baseline in vcpkg-configuration.json"
+          }
+          "vcpkg=$($vcpkg.ToLowerInvariant())" >> $env:GITHUB_OUTPUT
 
       - name: Get runner version
         id: runner-version
@@ -69,14 +76,14 @@ jobs:
         uses: actions/cache/restore@v6
         with:
           path: vcpkg
-          key: vcpkg-tool-${{ runner.os }}-ee12231b20c95013c6638d845d04c91559a1d1ff
+          key: vcpkg-tool-${{ runner.os }}-${{ steps.dependency-versions.outputs.vcpkg }}
 
       - name: Check out vcpkg
         if: steps.vcpkg-tool-cache.outputs.cache-hit != 'true'
         uses: actions/checkout@v6
         with:
           repository: microsoft/vcpkg
-          ref: ee12231b20c95013c6638d845d04c91559a1d1ff
+          ref: ${{ steps.dependency-versions.outputs.vcpkg }}
           path: vcpkg
           persist-credentials: false
 
@@ -97,7 +104,7 @@ jobs:
         uses: actions/cache/restore@v6
         with:
           path: build/release/vcpkg_installed
-          key: vcpkg-installed-ninja-release-${{ runner.os }}-${{ steps.runner-version.outputs.version }}-x64-windows-static-md-ee12231b20c95013c6638d845d04c91559a1d1ff-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json', '.gitmodules', 'lib/commonlibsse-ng/vcpkg.json', 'cmake/vcpkg-triplets/x64-windows-static-md.cmake') }}
+          key: vcpkg-installed-ninja-release-${{ runner.os }}-${{ steps.runner-version.outputs.version }}-x64-windows-static-md-${{ steps.dependency-versions.outputs.vcpkg }}-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json', '.gitmodules', 'lib/commonlibsse-ng/vcpkg.json', 'cmake/vcpkg-triplets/x64-windows-static-md.cmake') }}
 
       - name: Restore vcpkg binary cache
         if: steps.vcpkg-installed-cache.outputs.cache-hit != 'true'
@@ -105,7 +112,7 @@ jobs:
         uses: actions/cache/restore@v6
         with:
           path: vcpkg-binary-cache
-          key: vcpkg-binary-ninja-release-${{ runner.os }}-${{ steps.runner-version.outputs.version }}-x64-windows-static-md-ee12231b20c95013c6638d845d04c91559a1d1ff-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json', '.gitmodules', 'lib/commonlibsse-ng/vcpkg.json', 'cmake/vcpkg-triplets/x64-windows-static-md.cmake') }}
+          key: vcpkg-binary-ninja-release-${{ runner.os }}-${{ steps.runner-version.outputs.version }}-x64-windows-static-md-${{ steps.dependency-versions.outputs.vcpkg }}-${{ hashFiles('vcpkg.json', 'vcpkg-configuration.json', '.gitmodules', 'lib/commonlibsse-ng/vcpkg.json', 'cmake/vcpkg-triplets/x64-windows-static-md.cmake') }}
 
       - name: Ensure vcpkg binary cache directory exists
         if: steps.vcpkg-installed-cache.outputs.cache-hit != 'true'
@@ -113,10 +120,28 @@ jobs:
         run: New-Item -ItemType Directory -Force -Path $env:VCPKG_DEFAULT_BINARY_CACHE | Out-Null
 
       - name: Cache CommonLibSSE prebuilt
+        id: commonlib-prebuilt-cache
         uses: actions/cache@v6
         with:
           path: build/release/lib/commonlibsse-ng/.prebuilt
-          key: commonlibsse-prebuilt-${{ runner.os }}-${{ steps.dependency-versions.outputs.commonlibsse }}
+          key: commonlibsse-prebuilt-v2-${{ runner.os }}-${{ steps.dependency-versions.outputs.commonlibsse }}
+          restore-keys: |
+            commonlibsse-prebuilt-${{ runner.os }}-${{ steps.dependency-versions.outputs.commonlibsse }}
+
+      - name: Locate cached CommonLibSSE prebuilt
+        id: commonlib-prebuilt
+        if: steps.commonlib-prebuilt-cache.outputs.cache-hit == 'true'
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:GITHUB_WORKSPACE "build/release/lib/commonlibsse-ng/.prebuilt"
+          $bundle = Get-ChildItem -LiteralPath $root -Directory -ErrorAction SilentlyContinue |
+            Where-Object { Test-Path -LiteralPath (Join-Path $_.FullName "lib/CommonLibSSE.lib") } |
+            Select-Object -First 1
+          if ($bundle) {
+            "dir=$($bundle.FullName)" >> $env:GITHUB_OUTPUT
+          } else {
+            "dir=" >> $env:GITHUB_OUTPUT
+          }
 
       - name: Set up sccache
         uses: mozilla-actions/sccache-action@v0.0.11
@@ -125,7 +150,7 @@ jobs:
         shell: pwsh
         run: |
           $mergedPath = Join-Path $env:GITHUB_WORKSPACE "build/layered-data/VariousDialogueTags_InternalData.ini"
-          powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/Merge-TagLayers.ps1 `
+          & ./scripts/Merge-TagLayers.ps1 `
             -Product VDT `
             -BasePath resources/SharedParentList_Base.ini `
             -CuratedPath resources/VariousDialogueTags_Curated.ini `
@@ -136,10 +161,58 @@ jobs:
         env:
           VCPKG_ROOT: ${{ github.workspace }}\vcpkg
           VCPKG_MANIFEST_INSTALL: ${{ steps.vcpkg-installed-cache.outputs.cache-hit == 'true' && 'OFF' || 'ON' }}
+          COMMONLIB_PREBUILT_DIR: ${{ steps.commonlib-prebuilt.outputs.dir }}
         run: |
           for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set "VSINSTALL=%%i"
           call "%VSINSTALL%\Common7\Tools\VsDevCmd.bat" -arch=x64 -host_arch=x64
-          cmake -S . -B build/release -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake" -DVCPKG_MANIFEST_INSTALL=%VCPKG_MANIFEST_INSTALL% -DCMAKE_CXX_COMPILER_LAUNCHER=sccache -DVDT_PRECOMPILE_HEADERS=OFF -DVDT_INTERNAL_DATA_PREMERGED_PATH="%GITHUB_WORKSPACE%\build\layered-data\VariousDialogueTags_InternalData.ini"
+          cmake -S . -B build/release -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake" -DVCPKG_MANIFEST_INSTALL=%VCPKG_MANIFEST_INSTALL% -DCMAKE_CXX_COMPILER_LAUNCHER=sccache -DCOMMONLIB_PREBUILT_DIR="%COMMONLIB_PREBUILT_DIR%" -DVDT_PRECOMPILE_HEADERS=OFF -DVDT_INTERNAL_DATA_PREMERGED_PATH="%GITHUB_WORKSPACE%\build\layered-data\VariousDialogueTags_InternalData.ini"
+
+      - name: Check CommonLibSSE build mode
+        id: commonlib-build-mode
+        shell: pwsh
+        run: |
+          $ninja = Get-Content -Raw -LiteralPath build/release/build.ninja
+          $prebuilt = $ninja -match '[\\/]\.prebuilt[\\/].*[\\/]lib[\\/]CommonLibSSE\.lib'
+          "prebuilt=$($prebuilt.ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
+
+      - name: Trim CommonLibSSE prebuilt cache
+        if: steps.commonlib-build-mode.outputs.prebuilt == 'true'
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:GITHUB_WORKSPACE "build/release/lib/commonlibsse-ng/.prebuilt"
+          $before = (Get-ChildItem -LiteralPath $root -Recurse -File -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum
+          Get-ChildItem -LiteralPath $root -File -ErrorAction SilentlyContinue |
+            Where-Object { $_.Extension -in '.zip', '.sha256' } |
+            Remove-Item -Force
+          Get-ChildItem -LiteralPath $root -Directory -ErrorAction SilentlyContinue |
+            Where-Object { $_.Name.EndsWith('.x') } |
+            Remove-Item -Recurse -Force
+          $after = (Get-ChildItem -LiteralPath $root -Recurse -File -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum
+          "CommonLibSSE prebuilt cache payload: {0:N1} MB -> {1:N1} MB" -f ($before / 1MB), ($after / 1MB)
+
+      - name: Restore CommonLib OpenVR
+        if: steps.commonlib-build-mode.outputs.prebuilt != 'true'
+        id: openvr-cache
+        uses: actions/cache/restore@v6
+        with:
+          path: |
+            lib/commonlibsse-ng/extern/openvr/headers
+            lib/commonlibsse-ng/extern/openvr/lib/win64
+          key: commonlib-openvr-${{ runner.os }}-${{ steps.dependency-versions.outputs.openvr }}
+
+      - name: Check out CommonLib OpenVR
+        if: steps.commonlib-build-mode.outputs.prebuilt != 'true' && steps.openvr-cache.outputs.cache-hit != 'true'
+        shell: pwsh
+        run: git -C lib/commonlibsse-ng submodule update --init --depth 1 extern/openvr
+
+      - name: Save CommonLib OpenVR
+        if: steps.commonlib-build-mode.outputs.prebuilt != 'true' && steps.openvr-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: |
+            lib/commonlibsse-ng/extern/openvr/headers
+            lib/commonlibsse-ng/extern/openvr/lib/win64
+          key: ${{ steps.openvr-cache.outputs.cache-primary-key }}
 
       - name: Save vcpkg binary cache
         if: steps.vcpkg-installed-cache.outputs.cache-hit != 'true' && steps.vcpkg-cache.outputs.cache-hit != 'true'
