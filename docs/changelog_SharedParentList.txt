@@ -1,3 +1,9 @@
+SharedParentList 5.4.3
+3 mods (3 added, 0 removed, 0 changed) for SharedParentList:
+Added 18+ {2026-08-22} Hearts of Darkness and Vine - Witch Hunter Adventures Custom Followers Weapons Powers Combat Creatures Player Homes [Hearts of Darkness]: Hearts of Darkness Hunted.esp (https://www.nexusmods.com/skyrimspecialedition/mods/121613)
+Added 18+ {2026-08-22} Hearts of Darkness and Vine - Witch Hunter Adventures Custom Followers Weapons Powers Combat Creatures Player Homes [Hearts of Darkness]: Hearts of Darkness Hunter.esp (https://www.nexusmods.com/skyrimspecialedition/mods/121613)
+Added 18+ {2026-08-22} Hearts of Darkness and Vine - Witch Hunter Adventures Custom Followers Weapons Powers Combat Creatures Player Homes [Hearts of Darkness]: MVC Hearts of Darkness and Vine.esp (https://www.nexusmods.com/skyrimspecialedition/mods/121613)
+
 SharedParentList 5.4.0
 12 mods (11 added, 0 removed, 1 changed, 1 migrated out, 2 migrated in) for SharedParentList:
 Added {2026-08-10} The Children of Forelhost [Children of Forelhost]: ChildrenOfForelhost.esp (https://www.nexusmods.com/skyrimspecialedition/mods/187285)

@@ -1,3 +1,7 @@
+VDT 5.4.3
+1 mods (1 added, 0 removed, 0 changed) for Curated VDT List:
+Added {2026-08-22} SeranaDialogueExpansion - Romance [SDE]: SeranaDialogueExpansion - Romance.esp
+
 VDT 5.4.0
 21 mods (21 added, 0 removed, 0 changed, 1 migrated out, 1 migrated in) for Curated VDT List:
 Added {2026-08-10} The Children of Forelhost [Forelhost]: ChildrenOfForelhost.esp (https://www.nexusmods.com/skyrimspecialedition/mods/187285)
