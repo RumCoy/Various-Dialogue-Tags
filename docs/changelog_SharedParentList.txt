@@ -1,13 +1,22 @@
 SharedParentList 5.4.3
-10 mods (10 added, 0 removed, 0 changed, 3 migrated out, 1 migrated in) for SharedParentList:
+12 mods (11 added, 0 removed, 1 changed, 8 migrated out, 3 migrated in) for SharedParentList:
 Added {2026-08-23} LoanSharksOfSkyrim [Loan Sharks]: LoanSharksOfSkyrim.esp
 Added {2026-08-24} FDE Aela Part 2 [FDE]: FDE Aela Part 2.esp
-Added {2026-08-24} Flow-TG05 [Plus Plus]: Flow-TG05.esp
 Added {2026-08-24} GORE [Gore]: GORE.esp
 Added {2026-08-24} MrissiTailOfTroubles [Mrissi]: MrissiTailOfTroubles.esp
 Added {2026-08-24} Recorder Follower Base [Recorder]: Recorder Follower Base.esp
+Added {2026-08-25} [Dampened Spirits Plus]: Flow-TG03.esp
+Added {2026-08-25} [Inigo]: Inigo.esp
+Changed {2026-08-25} [Taking Care of Business] to [Taking Care of Business Plus]: Flow-TG01.esp
 Migrated out {2026-08-23} from SharedParentList [test1x] to Curated VDT List [test2x]: LoanSharksOfSkyrim.esp
 Migrated out {2026-08-24} from SharedParentList [Triple Triad] to Curated VDT List [Triple Triad] + Curated VBT List (Triple Triad): Triple Triad Skyrim.esp
+Migrated out {2026-08-25} from SharedParentList [Plus Plus] to Curated VDT List [Plus Plus]: Flow-TG.esp
+Migrated out {2026-08-25} from SharedParentList [Plus Plus] to Curated VDT List [Plus Plus]: Flow-TG00.esp
+Migrated out {2026-08-25} from SharedParentList [Plus Plus] to Curated VDT List [Plus Plus]: Flow-TG04.esp
+Migrated out {2026-08-25} from SharedParentList [Plus Plus] to Curated VDT List [Plus Plus]: Flow-TG05.esp
+Migrated out {2026-08-25} from SharedParentList [Lucien] to Curated VDT List [Lucien]: Lucien.esp
+Migrated in {2026-08-25} from Curated VDT List [Remi] to SharedParentList [Remi]: HLIORemi.esp
+Migrated in {2026-08-25} from Curated VDT List [Lola] to SharedParentList [Lola]: submissivelola_est.esp
 Added 18+ {2026-08-22} Hearts of Darkness and Vine - Witch Hunter Adventures Custom Followers Weapons Powers Combat Creatures Player Homes [Hearts of Darkness]: Hearts of Darkness Hunted.esp (https://www.nexusmods.com/skyrimspecialedition/mods/121613)
 Added 18+ {2026-08-22} Hearts of Darkness and Vine - Witch Hunter Adventures Custom Followers Weapons Powers Combat Creatures Player Homes [Hearts of Darkness]: Hearts of Darkness Hunter.esp (https://www.nexusmods.com/skyrimspecialedition/mods/121613)
 Added 18+ {2026-08-22} Hearts of Darkness and Vine - Witch Hunter Adventures Custom Followers Weapons Powers Combat Creatures Player Homes [Hearts of Darkness]: MVC Hearts of Darkness and Vine.esp (https://www.nexusmods.com/skyrimspecialedition/mods/121613)

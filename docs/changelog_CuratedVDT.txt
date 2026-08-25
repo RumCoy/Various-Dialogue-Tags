@@ -1,29 +1,43 @@
 VDT 5.4.3
-24 mods (22 added, 1 removed, 1 changed, 1 migrated out, 2 migrated in) for Curated VDT List:
+31 mods (23 added, 2 removed, 6 changed, 3 migrated out, 7 migrated in) for Curated VDT List:
 Added {2026-08-22} SeranaDialogueExpansion - Romance [SDE]: SeranaDialogueExpansion - Romance.esp
 Added {2026-08-23} AamonTrinaMod [Spirits Wake]: AamonTrinaMod.esp
-Added {2026-08-24} AA_OStim_Sequences [AA]: AA_OStim_Sequences.esp
 Added {2026-08-24} Alchemical Appraisal Services [Alchemical Appraisal]: Alchemical Appraisal Services.esp
-Added {2026-08-24} Blood and OStim [Blood]: Blood and OStim.esp
 Added {2026-08-24} DragonsKeep - ASLAL Patch [Dragons Keep]: DragonsKeep - ASLAL Patch.esp
 Added {2026-08-24} Enthralled Simple Slavery++ Patch [Enthralled]: Enthralled Simple Slavery++ Patch.esp
 Added {2026-08-24} Environs - Hroggars House - Denizens of Morthal Patch [Environs][Denizens]: Environs - Hroggars House - Denizens of Morthal Patch.esp
 Added {2026-08-24} FDE Jenassa Part 2 [FDE]: FDE Jenassa Part 2.esp
 Added {2026-08-24} Flow-MiscMjoll [Plus Plus]: Flow-MiscMjoll.esp
 Added {2026-08-24} Flow-TG01 [Plus Plus]: Flow-TG01.esp
-Added {2026-08-24} Licenses - Sometimes Enslaved [Licenses]: Licenses - Sometimes Enslaved.esp
 Added {2026-08-24} MissivesExpansion [Missives]: MissivesExpansion.esp
 Added {2026-08-24} shadowman_newstart_azura [SM][Azura]: shadowman_newstart_azura.esp
 Added {2026-08-24} SkyforgeImmersionAddon [Skyforge Immersion]: SkyforgeImmersionAddon.esp
 Added {2026-08-24} SpouseWearWeddingDress [Wedding Dress]: SpouseWearWeddingDress.esp
 Added {2026-08-24} ThanedomDialogueAssets [Thanedom]: ThanedomDialogueAssets.esp
-Added {2026-08-24} Triple Triad Sex Tweaks [Triple Triad]: Triple Triad Sex Tweaks.esp
+Added {2026-08-25} [Pilgrim]: Pilgrim.esp
 Changed {2026-08-24} [Games][Triad] to [Triple Triad]: Triple Triad Tamriel.esp
+Changed {2026-08-25} [Games][Triad] to [Triple Triad]: Auri - TripleTriad Patch.esp
+Changed {2026-08-25} [Games][Toss] to [Coin Toss]: cointoss.esl
+Changed {2026-08-25} [Games][Simple Gambling] to [Simple Gambling]: Really Simple Gambling SSE.esp
+Changed {2026-08-25} [Games][Tavern] to [Tavern Games]: TavernGames.esp
+Changed {2026-08-25} [Games][Triad] to [Triple Triad]: TripleTriad Patch Primer.esp
+Migrated out {2026-08-25} from Curated VDT List [Remi] to SharedParentList [Remi]: HLIORemi.esp
+Migrated out {2026-08-25} from Curated VDT List [Lola] to SharedParentList [Lola]: submissivelola_est.esp
 Migrated in {2026-08-24} from SharedParentList [Triple Triad] to Curated VDT List [Triple Triad] + Curated VBT List (Triple Triad): Triple Triad Skyrim.esp
+Migrated in {2026-08-25} from SharedParentList [Plus Plus] to Curated VDT List [Plus Plus]: Flow-TG.esp
+Migrated in {2026-08-25} from SharedParentList [Plus Plus] to Curated VDT List [Plus Plus]: Flow-TG00.esp
+Migrated in {2026-08-25} from SharedParentList [Plus Plus] to Curated VDT List [Plus Plus]: Flow-TG04.esp
+Migrated in {2026-08-25} from SharedParentList [Plus Plus] to Curated VDT List [Plus Plus]: Flow-TG05.esp
+Migrated in {2026-08-25} from SharedParentList [Lucien] to Curated VDT List [Lucien]: Lucien.esp
+Removed {2026-08-25} [Inigo]: Inigo.esp
+Added 18+ {2026-08-24} AA_OStim_Sequences [AA]: AA_OStim_Sequences.esp
 Added 18+ {2026-08-24} BBLS-ASLAL [BBLS]: BBLS-ASLAL.esp
+Added 18+ {2026-08-24} Blood and OStim [Blood]: Blood and OStim.esp
 Added 18+ {2026-08-24} Licenses - Dialogue Patch [Licenses]: Licenses - Dialogue Patch.esp
+Added 18+ {2026-08-24} Licenses - Sometimes Enslaved [Licenses]: Licenses - Sometimes Enslaved.esp
 Added 18+ {2026-08-24} Pahe_AltStartLAL [PAH]: Pahe_AltStartLAL.esp
 Added 18+ {2026-08-24} paradise_halls_farengars_study [PAH]: paradise_halls_farengars_study.esp
+Added 18+ {2026-08-24} Triple Triad Sex Tweaks [Triple Triad]: Triple Triad Sex Tweaks.esp
 Migrated out 18+ {2026-08-24} from Curated VDT List [Secret to Hide] to SharedParentList [Secret to Hide]: AsecretToHide.esp
 Migrated in 18+ {2026-08-24} from SharedParentList [AA] to Curated VDT List [AA]: AmorousPlayerDialogueRewritten.esp
 Removed 18+ {2026-08-24} [AA]: AmorousAdventuresPlus.esp
@@ -74,7 +88,6 @@ Changed {2026-08-01} [[Faralda]] to [FDE]: FDE Faralda.esp
 Changed {2026-08-01} [[MTS]] to [MTS]: moretodo.esp
 Changed {2026-08-01} [POP] to [Prison Alternative]: PamaPrisonAlternative.esm
 Changed {2026-08-05} [[Kaidan]] to [Kaidan]: 0Kaidan.esp
-Changed {2026-08-05} [[Evening with Angi]] to [Evening With Angi]: An Evening With Angi.esp
 Changed {2026-08-07} [Auri][Vigilant] to [Auri]: 018AuriVIGILANTpatch.esp
 Removed {2026-08-01} [Prison Alternative]: PamaPrisonAlternative.esm
 Removed {2026-08-05} [What Remains]: FoxQuestMod.esp
@@ -101,4 +114,5 @@ Added 18+ {2026-08-06} Vampiric Cum Addiction [Vampiric Cum]: Vampiric Cum Addic
 Added 18+ {2026-08-07} PetTheFreakingDogAlready [Pet]: PetTheFreakingDogAlready.esp
 Added 18+ {2026-08-07} SLDragons [SL][Dragons]: SLDragons.esp
 Changed 18+ {2026-08-02} [[DOM]] to [DOM]: DiaryOfMine.esm
+Changed 18+ {2026-08-05} [[Evening with Angi]] to [Evening With Angi]: An Evening With Angi.esp
 Changed 18+ {2026-08-05} [Roses of Riverwood] to [Roses][Riverwood]: RosesOfRiverwoodDialogueAddon.esp
