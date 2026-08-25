@@ -1,8 +1,19 @@
 SharedParentList 5.4.3
-3 mods (3 added, 0 removed, 0 changed) for SharedParentList:
+10 mods (10 added, 0 removed, 0 changed, 3 migrated out, 1 migrated in) for SharedParentList:
+Added {2026-08-23} LoanSharksOfSkyrim [Loan Sharks]: LoanSharksOfSkyrim.esp
+Added {2026-08-24} FDE Aela Part 2 [FDE]: FDE Aela Part 2.esp
+Added {2026-08-24} Flow-TG05 [Plus Plus]: Flow-TG05.esp
+Added {2026-08-24} GORE [Gore]: GORE.esp
+Added {2026-08-24} MrissiTailOfTroubles [Mrissi]: MrissiTailOfTroubles.esp
+Added {2026-08-24} Recorder Follower Base [Recorder]: Recorder Follower Base.esp
+Migrated out {2026-08-23} from SharedParentList [test1x] to Curated VDT List [test2x]: LoanSharksOfSkyrim.esp
+Migrated out {2026-08-24} from SharedParentList [Triple Triad] to Curated VDT List [Triple Triad] + Curated VBT List (Triple Triad): Triple Triad Skyrim.esp
 Added 18+ {2026-08-22} Hearts of Darkness and Vine - Witch Hunter Adventures Custom Followers Weapons Powers Combat Creatures Player Homes [Hearts of Darkness]: Hearts of Darkness Hunted.esp (https://www.nexusmods.com/skyrimspecialedition/mods/121613)
 Added 18+ {2026-08-22} Hearts of Darkness and Vine - Witch Hunter Adventures Custom Followers Weapons Powers Combat Creatures Player Homes [Hearts of Darkness]: Hearts of Darkness Hunter.esp (https://www.nexusmods.com/skyrimspecialedition/mods/121613)
 Added 18+ {2026-08-22} Hearts of Darkness and Vine - Witch Hunter Adventures Custom Followers Weapons Powers Combat Creatures Player Homes [Hearts of Darkness]: MVC Hearts of Darkness and Vine.esp (https://www.nexusmods.com/skyrimspecialedition/mods/121613)
+Added 18+ {2026-08-24} FameCommentsReloaded [Fame Comments]: FameCommentsReloaded.esp
+Migrated out 18+ {2026-08-24} from SharedParentList [AA] to Curated VDT List [AA]: AmorousPlayerDialogueRewritten.esp
+Migrated in 18+ {2026-08-24} from Curated VDT List [Secret to Hide] to SharedParentList [Secret to Hide]: AsecretToHide.esp
 
 SharedParentList 5.4.0
 12 mods (11 added, 0 removed, 1 changed, 1 migrated out, 2 migrated in) for SharedParentList:

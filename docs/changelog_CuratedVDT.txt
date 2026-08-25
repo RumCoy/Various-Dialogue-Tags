@@ -1,6 +1,32 @@
 VDT 5.4.3
-1 mods (1 added, 0 removed, 0 changed) for Curated VDT List:
+24 mods (22 added, 1 removed, 1 changed, 1 migrated out, 2 migrated in) for Curated VDT List:
 Added {2026-08-22} SeranaDialogueExpansion - Romance [SDE]: SeranaDialogueExpansion - Romance.esp
+Added {2026-08-23} AamonTrinaMod [Spirits Wake]: AamonTrinaMod.esp
+Added {2026-08-24} AA_OStim_Sequences [AA]: AA_OStim_Sequences.esp
+Added {2026-08-24} Alchemical Appraisal Services [Alchemical Appraisal]: Alchemical Appraisal Services.esp
+Added {2026-08-24} Blood and OStim [Blood]: Blood and OStim.esp
+Added {2026-08-24} DragonsKeep - ASLAL Patch [Dragons Keep]: DragonsKeep - ASLAL Patch.esp
+Added {2026-08-24} Enthralled Simple Slavery++ Patch [Enthralled]: Enthralled Simple Slavery++ Patch.esp
+Added {2026-08-24} Environs - Hroggars House - Denizens of Morthal Patch [Environs][Denizens]: Environs - Hroggars House - Denizens of Morthal Patch.esp
+Added {2026-08-24} FDE Jenassa Part 2 [FDE]: FDE Jenassa Part 2.esp
+Added {2026-08-24} Flow-MiscMjoll [Plus Plus]: Flow-MiscMjoll.esp
+Added {2026-08-24} Flow-TG01 [Plus Plus]: Flow-TG01.esp
+Added {2026-08-24} Licenses - Sometimes Enslaved [Licenses]: Licenses - Sometimes Enslaved.esp
+Added {2026-08-24} MissivesExpansion [Missives]: MissivesExpansion.esp
+Added {2026-08-24} shadowman_newstart_azura [SM][Azura]: shadowman_newstart_azura.esp
+Added {2026-08-24} SkyforgeImmersionAddon [Skyforge Immersion]: SkyforgeImmersionAddon.esp
+Added {2026-08-24} SpouseWearWeddingDress [Wedding Dress]: SpouseWearWeddingDress.esp
+Added {2026-08-24} ThanedomDialogueAssets [Thanedom]: ThanedomDialogueAssets.esp
+Added {2026-08-24} Triple Triad Sex Tweaks [Triple Triad]: Triple Triad Sex Tweaks.esp
+Changed {2026-08-24} [Games][Triad] to [Triple Triad]: Triple Triad Tamriel.esp
+Migrated in {2026-08-24} from SharedParentList [Triple Triad] to Curated VDT List [Triple Triad] + Curated VBT List (Triple Triad): Triple Triad Skyrim.esp
+Added 18+ {2026-08-24} BBLS-ASLAL [BBLS]: BBLS-ASLAL.esp
+Added 18+ {2026-08-24} Licenses - Dialogue Patch [Licenses]: Licenses - Dialogue Patch.esp
+Added 18+ {2026-08-24} Pahe_AltStartLAL [PAH]: Pahe_AltStartLAL.esp
+Added 18+ {2026-08-24} paradise_halls_farengars_study [PAH]: paradise_halls_farengars_study.esp
+Migrated out 18+ {2026-08-24} from Curated VDT List [Secret to Hide] to SharedParentList [Secret to Hide]: AsecretToHide.esp
+Migrated in 18+ {2026-08-24} from SharedParentList [AA] to Curated VDT List [AA]: AmorousPlayerDialogueRewritten.esp
+Removed 18+ {2026-08-24} [AA]: AmorousAdventuresPlus.esp
 
 VDT 5.4.0
 21 mods (21 added, 0 removed, 0 changed, 1 migrated out, 1 migrated in) for Curated VDT List:
