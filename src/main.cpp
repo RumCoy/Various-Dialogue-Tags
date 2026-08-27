@@ -36,18 +36,10 @@ namespace
             SKSE::log::critical("Embedded internal-data resource is missing or empty");
         }
 
-        std::filesystem::path tempCachePath;
-        if (VariousDialogueTags::Menu::IsAvailable()) {
-            tempCachePath = "Data/SKSE/Plugins/VariousDialogueTags_tempCache.ini";
-        } else {
-            SKSE::log::info(
-                "SKSE Menu Framework unavailable; existing temp cache will be ignored");
-        }
-
         VariousDialogueTags::Config::GetSingleton().Load(
             internalData,
             "Data/SKSE/Plugins/VariousDialogueTags_UserConfig.ini",
-            tempCachePath);
+            "Data/SKSE/Plugins/VariousDialogueTags_tempCache.ini");
 
         VariousDialogueTags::Menu::Register();
         SKSE::log::info("Configuration loaded");

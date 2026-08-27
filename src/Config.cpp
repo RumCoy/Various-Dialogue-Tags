@@ -14,6 +14,11 @@
 
 namespace
 {
+    constexpr std::string_view kDynamicPrefix = "variousdialoguetags_";
+    constexpr std::string_view kIniExtension = ".ini";
+    constexpr std::string_view kUserConfigName = "variousdialoguetags_userconfig.ini";
+    constexpr std::string_view kTempCacheName = "variousdialoguetags_tempcache.ini";
+
     std::string Trim(std::string value)
     {
         const auto notSpace = [](unsigned char ch) { return !std::isspace(ch); };
@@ -27,6 +32,23 @@ namespace
         std::transform(value.begin(), value.end(), value.begin(),
             [](unsigned char ch) { return static_cast<char>(std::tolower(ch)); });
         return value;
+    }
+
+    bool IsDefaultValue(std::string value)
+    {
+        return Lower(Trim(std::move(value))) == "default";
+    }
+
+    bool IsDynamicConfigFile(const std::filesystem::path& path)
+    {
+        const auto fileName = Lower(path.filename().string());
+        if (!fileName.starts_with(kDynamicPrefix) || !fileName.ends_with(kIniExtension)) {
+            return false;
+        }
+        if (fileName == kUserConfigName || fileName == kTempCacheName) {
+            return false;
+        }
+        return fileName.size() > kDynamicPrefix.size() + kIniExtension.size();
     }
 
     std::string NormalizeTag(std::string value)
@@ -70,7 +92,8 @@ namespace
             token.erase(0, 2);
         }
         std::uint32_t value{};
-        const auto [ptr, error] = std::from_chars(token.data(), token.data() + token.size(), value, 16);
+        const auto [ptr, error] = std::from_chars(
+            token.data(), token.data() + token.size(), value, 16);
         if (error != std::errc{} || ptr != token.data() + token.size()) {
             return std::nullopt;
         }
@@ -117,22 +140,29 @@ namespace VariousDialogueTags
         enabled_ = true;
         globalPluginNameFallback_ = false;
         immersiveMode_ = false;
+        userEnabledOverride_.reset();
+        userGlobalPluginNameFallbackOverride_.reset();
+        userImmersiveModeOverride_.reset();
         userConfigPath_ = userConfigPath;
         tempCachePath_ = tempCachePath;
 
         std::istringstream internalDataInput{ std::string(embeddedInternalData) };
         const bool loadedEmbeddedData = embeddedInternalData.empty() ?
-            false : LoadStream(internalDataInput, "embedded internal data", false);
+            false : LoadStream(internalDataInput, "embedded internal data", false, true, false);
         const bool loadedTempCache = LoadTempCache(tempCachePath_);
         const bool loadedUserConfig = LoadUserFile(userConfigPath_);
+        if (loadedUserConfig && !SyncUserGeneralSettingsToTempCache()) {
+            SKSE::log::error("Failed to synchronize one or more explicit user settings to temp cache");
+        }
+        const auto dynamicConfigCount = LoadDynamicFiles(userConfigPath_.parent_path());
 
         SKSE::log::info(
             "Configuration complete: {} dialogue-tag rule(s); enabled={}; "
             "globalPluginNameFallback={}; immersiveMode={}; embeddedData={}; "
-            "userConfig={}; tempCache={}",
+            "userConfig={}; tempCache={}; dynamicConfigs={}",
             rules_.size(), enabled_, globalPluginNameFallback_, immersiveMode_,
-            loadedEmbeddedData, loadedUserConfig, loadedTempCache);
-        return loadedEmbeddedData || loadedUserConfig || loadedTempCache;
+            loadedEmbeddedData, loadedUserConfig, loadedTempCache, dynamicConfigCount);
+        return loadedEmbeddedData || loadedUserConfig || loadedTempCache || dynamicConfigCount > 0;
     }
 
     bool Config::LoadUserFile(const std::filesystem::path& path)
@@ -143,7 +173,7 @@ namespace VariousDialogueTags
             return false;
         }
 
-        return LoadStream(input, path.filename().string(), true);
+        return LoadStream(input, path.filename().string(), true, true, true);
     }
 
     bool Config::LoadTempCache(const std::filesystem::path& path)
@@ -157,10 +187,67 @@ namespace VariousDialogueTags
             return false;
         }
 
-        return LoadStream(input, path.filename().string(), true);
+        return LoadStream(input, path.filename().string(), true, false, false);
     }
 
-    bool Config::LoadStream(std::istream& input, std::string sourceName, bool userOverride)
+    std::size_t Config::LoadDynamicFiles(const std::filesystem::path& directory)
+    {
+        if (directory.empty()) {
+            return 0;
+        }
+
+        std::error_code error;
+        std::filesystem::directory_iterator iterator(directory, error);
+        if (error) {
+            SKSE::log::warn("Unable to scan dynamic configuration directory {}: {}",
+                directory.string(), error.message());
+            return 0;
+        }
+
+        std::vector<std::filesystem::path> paths;
+        const std::filesystem::directory_iterator end;
+        for (; iterator != end; iterator.increment(error)) {
+            if (error) {
+                break;
+            }
+            std::error_code typeError;
+            if (!iterator->is_regular_file(typeError) || typeError) {
+                continue;
+            }
+            if (IsDynamicConfigFile(iterator->path())) {
+                paths.push_back(iterator->path());
+            }
+        }
+        if (error) {
+            SKSE::log::warn("Dynamic configuration scan stopped in {}: {}",
+                directory.string(), error.message());
+        }
+
+        std::sort(paths.begin(), paths.end(), [](const auto& left, const auto& right) {
+            const auto leftName = Lower(left.filename().string());
+            const auto rightName = Lower(right.filename().string());
+            if (leftName != rightName) {
+                return leftName < rightName;
+            }
+            return left.filename().string() < right.filename().string();
+        });
+
+        std::size_t loadedFiles = 0;
+        for (const auto& path : paths) {
+            std::ifstream input(path);
+            if (!input) {
+                SKSE::log::warn("Unable to open dynamic configuration: {}", path.string());
+                continue;
+            }
+            if (LoadStream(input, path.filename().string(), false, true, true)) {
+                ++loadedFiles;
+            }
+        }
+        return loadedFiles;
+    }
+
+    bool Config::LoadStream(std::istream& input, std::string sourceName,
+        bool loadGeneralSettings, bool loadPluginRules, bool userOverride)
     {
         struct ParsedRule
         {
@@ -186,13 +273,13 @@ namespace VariousDialogueTags
 
             if (line.front() == '[' && line.back() == ']') {
                 auto section = Trim(line.substr(1, line.size() - 2));
+                const auto lowered = Lower(section);
                 activeSection = Section::kOther;
                 activeRule = nullptr;
-                constexpr std::string_view prefix = "Plugin:";
-                if (Lower(section) == "general") {
+                constexpr std::string_view prefix = "plugin:";
+                if (loadGeneralSettings && lowered == "general") {
                     activeSection = Section::kGeneral;
-                } else if (section.size() >= prefix.size() &&
-                           Lower(section.substr(0, prefix.size())) == "plugin:") {
+                } else if (loadPluginRules && lowered.starts_with(prefix)) {
                     auto pluginName = Trim(section.substr(prefix.size()));
                     if (!pluginName.empty()) {
                         const auto key = Lower(std::move(pluginName));
@@ -208,8 +295,7 @@ namespace VariousDialogueTags
 
             const auto separator = line.find('=');
             if (separator == std::string::npos) {
-                SKSE::log::warn("Ignored malformed line {} in {}",
-                    lineNumber, sourceName);
+                SKSE::log::warn("Ignored malformed line {} in {}", lineNumber, sourceName);
                 continue;
             }
 
@@ -217,12 +303,30 @@ namespace VariousDialogueTags
             auto value = Trim(line.substr(separator + 1));
 
             if (activeSection == Section::kGeneral) {
+                if (IsDefaultValue(value)) {
+                    continue;
+                }
                 if (key == "enabled") {
-                    enabled_ = ParseBool(value, enabled_);
+                    if (const auto parsed = ParseBoolValue(value)) {
+                        enabled_ = *parsed;
+                        if (userOverride) {
+                            userEnabledOverride_ = *parsed;
+                        }
+                    }
                 } else if (key == "globalpluginnamefallback") {
-                    globalPluginNameFallback_ = ParseBool(value, globalPluginNameFallback_);
+                    if (const auto parsed = ParseBoolValue(value)) {
+                        globalPluginNameFallback_ = *parsed;
+                        if (userOverride) {
+                            userGlobalPluginNameFallbackOverride_ = *parsed;
+                        }
+                    }
                 } else if (key == "immersivemode") {
-                    immersiveMode_ = ParseBool(value, immersiveMode_);
+                    if (const auto parsed = ParseBoolValue(value)) {
+                        immersiveMode_ = *parsed;
+                        if (userOverride) {
+                            userImmersiveModeOverride_ = *parsed;
+                        }
+                    }
                 }
                 continue;
             }
@@ -336,7 +440,7 @@ namespace VariousDialogueTags
     bool Config::PersistMenuSetting(std::string_view key, std::string_view value) const
     {
         bool saved = true;
-        if (!SaveTempCache()) {
+        if (!UpdateGeneralSetting(tempCachePath_, key, value, true)) {
             SKSE::log::error("Failed to save SKSE Menu Framework setting {} to temp cache: {}",
                 key, tempCachePath_.string());
             saved = false;
@@ -352,7 +456,7 @@ namespace VariousDialogueTags
         }
 
         if (userConfigExists &&
-            !UpdateUserConfigSetting(key, value)) {
+            !UpdateGeneralSetting(userConfigPath_, key, value, false)) {
             SKSE::log::error(
                 "Failed to save SKSE Menu Framework setting {} to user configuration: {}",
                 key, userConfigPath_.string());
@@ -362,44 +466,52 @@ namespace VariousDialogueTags
         return saved;
     }
 
-    bool Config::SaveTempCache() const
+    bool Config::SyncUserGeneralSettingsToTempCache() const
     {
-        if (tempCachePath_.empty()) {
-            return false;
-        }
+        bool saved = true;
+        const auto sync = [this, &saved](
+                              std::string_view key, const std::optional<bool>& setting) {
+            if (!setting.has_value()) {
+                return;
+            }
+            if (!UpdateGeneralSetting(
+                    tempCachePath_, key, *setting ? "true" : "false", true)) {
+                saved = false;
+            }
+        };
 
-        std::ofstream output(tempCachePath_, std::ios::trunc);
-        if (!output) {
-            return false;
-        }
-
-        output
-            << "[General]\n"
-            << "Enabled = " << (Enabled() ? "true" : "false") << '\n'
-            << "GlobalPluginNameFallback = "
-            << (GlobalPluginNameFallback() ? "true" : "false") << '\n'
-            << "ImmersiveMode = " << (ImmersiveMode() ? "true" : "false") << '\n';
-
-        return static_cast<bool>(output);
+        sync("Enabled", userEnabledOverride_);
+        sync("GlobalPluginNameFallback", userGlobalPluginNameFallbackOverride_);
+        sync("ImmersiveMode", userImmersiveModeOverride_);
+        return saved;
     }
 
-    bool Config::UpdateUserConfigSetting(std::string_view key, std::string_view value) const
+    bool Config::UpdateGeneralSetting(const std::filesystem::path& path,
+        std::string_view key, std::string_view value, bool createIfMissing) const
     {
-        if (userConfigPath_.empty()) {
+        if (path.empty()) {
             return false;
         }
 
-        std::ifstream input(userConfigPath_, std::ios::binary);
-        if (!input) {
+        std::error_code error;
+        const bool exists = std::filesystem::exists(path, error);
+        if (error || (!exists && !createIfMissing)) {
             return false;
         }
 
-        std::ostringstream buffer;
-        buffer << input.rdbuf();
-        if (input.bad()) {
-            return false;
+        std::string contents;
+        if (exists) {
+            std::ifstream input(path, std::ios::binary);
+            if (!input) {
+                return false;
+            }
+            std::ostringstream buffer;
+            buffer << input.rdbuf();
+            if (input.bad()) {
+                return false;
+            }
+            contents = buffer.str();
         }
-        const std::string contents = buffer.str();
 
         struct TextLine
         {
@@ -438,10 +550,10 @@ namespace VariousDialogueTags
         const auto normalizedKey = Lower(std::string(key));
         bool inGeneral = false;
         bool foundGeneral = false;
-        bool updated = false;
-        std::size_t lastGeneralHeader = lines.size();
-        std::size_t enabledLine = lines.size();
-        std::size_t globalFallbackLine = lines.size();
+        bool trackingLastGeneral = false;
+        bool foundSetting = false;
+        bool changed = false;
+        std::size_t lastGeneralEnd = lines.size();
 
         for (std::size_t i = 0; i < lines.size(); ++i) {
             auto parsedLine = Trim(lines[i].text);
@@ -450,14 +562,17 @@ namespace VariousDialogueTags
             }
 
             if (!parsedLine.empty() && parsedLine.front() == '[' && parsedLine.back() == ']') {
+                if (trackingLastGeneral) {
+                    lastGeneralEnd = i;
+                    trackingLastGeneral = false;
+                }
                 const auto sectionName = Lower(Trim(
                     parsedLine.substr(1, parsedLine.size() - 2)));
                 inGeneral = sectionName == "general";
                 if (inGeneral) {
                     foundGeneral = true;
-                    lastGeneralHeader = i;
-                    enabledLine = lines.size();
-                    globalFallbackLine = lines.size();
+                    trackingLastGeneral = true;
+                    lastGeneralEnd = lines.size();
                 }
                 continue;
             }
@@ -468,19 +583,12 @@ namespace VariousDialogueTags
             }
 
             const auto separator = lines[i].text.find('=');
-            if (separator == std::string::npos) {
-                continue;
-            }
-            const auto lineKey = Lower(Trim(lines[i].text.substr(0, separator)));
-            if (lineKey == "enabled") {
-                enabledLine = i;
-            } else if (lineKey == "globalpluginnamefallback") {
-                globalFallbackLine = i;
-            }
-            if (lineKey != normalizedKey) {
+            if (separator == std::string::npos ||
+                Lower(Trim(lines[i].text.substr(0, separator))) != normalizedKey) {
                 continue;
             }
 
+            foundSetting = true;
             std::size_t valueStart = separator + 1;
             while (valueStart < lines[i].text.size() &&
                    std::isspace(static_cast<unsigned char>(lines[i].text[valueStart]))) {
@@ -500,37 +608,31 @@ namespace VariousDialogueTags
                 --valueEnd;
             }
 
-            lines[i].text.replace(valueStart, valueEnd - valueStart, value);
-            updated = true;
+            if (lines[i].text.substr(valueStart, valueEnd - valueStart) != value) {
+                lines[i].text.replace(valueStart, valueEnd - valueStart, value);
+                changed = true;
+            }
         }
 
-        if (!updated) {
+        if (trackingLastGeneral) {
+            lastGeneralEnd = lines.size();
+        }
+
+        if (!foundSetting) {
             TextLine settingLine{
                 std::string(key) + " = " + std::string(value),
                 preferredLineEnding
             };
 
             if (foundGeneral) {
-                std::size_t insertionIndex = lastGeneralHeader + 1;
-                if (normalizedKey == "globalpluginnamefallback" &&
-                    enabledLine != lines.size()) {
-                    insertionIndex = enabledLine + 1;
-                } else if (normalizedKey == "immersivemode") {
-                    if (globalFallbackLine != lines.size()) {
-                        insertionIndex = globalFallbackLine + 1;
-                    } else if (enabledLine != lines.size()) {
-                        insertionIndex = enabledLine + 1;
-                    }
-                }
-
-                if (insertionIndex == lines.size()) {
+                if (lastGeneralEnd == lines.size()) {
                     if (!lines.empty() && lines.back().ending.empty()) {
                         lines.back().ending = preferredLineEnding;
                     }
                     settingLine.ending = hadFinalNewline ? preferredLineEnding : std::string{};
                     lines.push_back(std::move(settingLine));
                 } else {
-                    lines.insert(lines.begin() + static_cast<std::ptrdiff_t>(insertionIndex),
+                    lines.insert(lines.begin() + static_cast<std::ptrdiff_t>(lastGeneralEnd),
                         std::move(settingLine));
                 }
             } else {
@@ -542,17 +644,30 @@ namespace VariousDialogueTags
                         lines.push_back({ {}, preferredLineEnding });
                     }
                 }
-
                 lines.push_back({ "[General]", preferredLineEnding });
                 lines.push_back({
                     std::string(key) + " = " + std::string(value),
                     (hadFinalNewline || contents.empty()) ? preferredLineEnding : std::string{}
                 });
             }
+            changed = true;
         }
 
-        input.close();
-        std::ofstream output(userConfigPath_, std::ios::binary | std::ios::trunc);
+        if (exists && !changed) {
+            return true;
+        }
+
+        if (!exists) {
+            const auto parent = path.parent_path();
+            if (!parent.empty()) {
+                std::filesystem::create_directories(parent, error);
+                if (error) {
+                    return false;
+                }
+            }
+        }
+
+        std::ofstream output(path, std::ios::binary | std::ios::trunc);
         if (!output) {
             return false;
         }

@@ -2,6 +2,7 @@ name: Build Various Dialogue Tags
 
 on:
   workflow_dispatch:
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -203,7 +204,7 @@ jobs:
           path: |
             lib/commonlibsse-ng/extern/openvr/headers
             lib/commonlibsse-ng/extern/openvr/lib/win64
-          key: ${{ steps.openvr-cache.outputs.cache-primary-key }}
+          key: commonlib-openvr-${{ runner.os }}-${{ steps.dependency-versions.outputs.openvr }}
 
       - name: Save vcpkg binary cache
         if: steps.vcpkg-installed-cache.outputs.cache-hit != 'true' && steps.vcpkg-cache.outputs.cache-hit != 'true'
@@ -241,11 +242,14 @@ jobs:
           $resourceSource = "resources"
           $internalDataSource = "build/release/VariousDialogueTags_InternalData.ini"
           $descriptorSource = Join-Path $resourceSource "aaaRumCoy_DESC.ini"
-          $userConfigSource = Join-Path $resourceSource "VariousDialogueTags_UserConfig.ini"
+          $packagedUserConfig = "package/Data/SKSE/Plugins/VariousDialogueTags_UserConfig.ini"
 
           cmake --install build/release --prefix package/Data
           if (!(Test-Path package/Data/SKSE/Plugins/00_VariousDialogueTags.dll)) {
             throw "Expected packaged DLL was not produced: 00_VariousDialogueTags.dll"
+          }
+          if (!(Test-Path -LiteralPath $packagedUserConfig)) {
+            throw "Expected packaged user configuration was not produced: $packagedUserConfig"
           }
           $dllBytes = [System.IO.File]::ReadAllBytes(
             "package/Data/SKSE/Plugins/00_VariousDialogueTags.dll")
@@ -296,24 +300,11 @@ jobs:
           Add-LicenseSection "rapidcsv license notices" "build/release/vcpkg_installed/x64-windows-static-md/share/rapidcsv/copyright"
           Add-LicenseSection "spdlog license notices" "build/release/vcpkg_installed/x64-windows-static-md/share/spdlog/copyright"
 
-          if (!(Test-Path -LiteralPath $userConfigSource)) {
-            throw "Expected user-config template was not found: $userConfigSource"
-          }
-          New-Item -ItemType Directory -Force -Path user-config-package/Data/SKSE/Plugins | Out-Null
-          Copy-Item -LiteralPath $userConfigSource -Destination user-config-package/Data/SKSE/Plugins/VariousDialogueTags_UserConfig.ini
-
       - name: Upload ready-to-install mod package
         uses: actions/upload-artifact@v6
         with:
           name: Various Dialogue Tags
           path: package/
-          if-no-files-found: error
-
-      - name: Upload optional user-config template
-        uses: actions/upload-artifact@v6
-        with:
-          name: Various Dialogue Tags Config
-          path: user-config-package/
           if-no-files-found: error
 
       - name: Upload build logs on failure
