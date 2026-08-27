@@ -2,15 +2,6 @@ name: Build Various Dialogue Tags
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main, master]
-    paths-ignore:
-      - 'docs/**'
-      - 'README.md'
-  pull_request:
-    paths-ignore:
-    - 'docs/**'
-    - 'README.md'
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
