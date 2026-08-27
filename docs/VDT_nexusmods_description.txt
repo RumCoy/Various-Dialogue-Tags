@@ -25,10 +25,11 @@ Once a mod/source context has been established by an originating dialogue branch
 By default, VDT only tags mods explicitly supported by the curated built-in list, by the [b]User Config[/b], or by user-generated [b]VariousDialogueTags_*.ini[/b] files. The UserConfig also allows you to [color=#a4c2f4][b]automatically tag every mod-added dialogue option[/b][/color] (this is disabled by default). Alternatively, [url=https://www.nexusmods.com/skyrimspecialedition/mods/120352]SKSE Menu Framework[/url] allows you to control the presence of tags (including auto-generated tags and "Immersive" Mode) without manually editing the Config file.
 
 [center][img]https://staticdelivery.nexusmods.com/mods/1704/images/63625/63625-1676996774-1699634888.png[/img][/center]
-VDT is an SKSE plugin, with [url=https://github.com/RumCoy/Various-Dialogue-Tags]source code available on GitHub[/url]. While it comes with its own curated built-in list of 800+ mods, players can override, change, or otherwise add additional mods via [b]VariousDialogueTags_UserConfig.ini[/b]. For update-safe custom rules, create a file named [b]VariousDialogueTags_*.ini[/b], replacing * with any name you want. Only include the [i][Plugin: ...][/i] sections you want to add or change.
+VDT is an SKSE plugin, with [url=https://github.com/RumCoy/Various-Dialogue-Tags]source code available on GitHub[/url]. While it comes with its own curated built-in list of 800+ mods, players can override, change, or otherwise add additional mods via [b]VariousDialogueTags_UserConfig.ini[/b]. For update-safe custom rules, create a file named [b]VariousDialogueTags_*.ini[/b], replacing * with any name you want.
 [color=#a4c2f4][b]VariousDialogueTags_*.ini example:[/b][/color][b]
 [color=#a4c2f4][spoiler][color=#ffffff][quote]
-[b]This would be the whole file for VariousDialogueTags_MyTags.ini:[code]
+[b]Only include the [i][Plugin: ...][/i] sections you want to add or change.
+This is the whole file for VariousDialogueTags_MyTags_Example.ini:[code]
 [Plugin:RandoMod.esp]
 Tag=My Custom Tag
 IncludeForms=12345,67890
