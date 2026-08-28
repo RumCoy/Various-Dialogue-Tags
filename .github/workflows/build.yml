@@ -245,14 +245,14 @@ jobs:
           $packagedUserConfig = "package/Data/SKSE/Plugins/VariousDialogueTags_UserConfig.ini"
 
           cmake --install build/release --prefix package/Data
-          if (!(Test-Path package/Data/SKSE/Plugins/00_VariousDialogueTags.dll)) {
-            throw "Expected packaged DLL was not produced: 00_VariousDialogueTags.dll"
+          if (!(Test-Path package/Data/SKSE/Plugins/VariousDialogueTags.dll)) {
+            throw "Expected packaged DLL was not produced: VariousDialogueTags.dll"
           }
           if (!(Test-Path -LiteralPath $packagedUserConfig)) {
             throw "Expected packaged user configuration was not produced: $packagedUserConfig"
           }
           $dllBytes = [System.IO.File]::ReadAllBytes(
-            "package/Data/SKSE/Plugins/00_VariousDialogueTags.dll")
+            "package/Data/SKSE/Plugins/VariousDialogueTags.dll")
           $dllText = [System.Text.Encoding]::Latin1.GetString($dllBytes)
           $internalDataMarker = Get-Content -LiteralPath $internalDataSource |
             Where-Object { $_ -match '^\[Plugin:.+\]$' } |
@@ -261,7 +261,7 @@ jobs:
             throw "Expected a plugin marker in $internalDataSource"
           }
           if (!$dllText.Contains($internalDataMarker)) {
-            throw "Embedded internal-data marker was not found in 00_VariousDialogueTags.dll: $internalDataMarker"
+            throw "Embedded internal-data marker was not found in VariousDialogueTags.dll: $internalDataMarker"
           }
           if (Test-Path package/Data/SKSE/Plugins/VariousDialogueTags_InternalData.ini) {
             throw "Internal data must be embedded in the DLL, not packaged as a separate INI"
