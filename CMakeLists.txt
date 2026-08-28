@@ -89,6 +89,8 @@ add_commonlibsse_plugin(${PROJECT_NAME}
         "${CMAKE_CURRENT_BINARY_DIR}/VariousDialogueTags.rc"
 )
 
+set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "00_VariousDialogueTags")
+
 target_include_directories(${PROJECT_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/lib/skse-menu-framework/resources")
 
