@@ -2,13 +2,23 @@ name: Build Various Dialogue Tags
 
 on:
   workflow_dispatch:
+    inputs:
+      create_release:
+        description: Create versioned GitHub release
+        required: false
+        type: boolean
+        default: false
+      version:
+        description: Version (used only when creating a release; e.g. 1.0.0 or v1.0.0)
+        required: false
+        type: string
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
 
 env:
   VCPKG_DEFAULT_TRIPLET: x64-windows-static-md
@@ -28,6 +38,36 @@ jobs:
         uses: actions/checkout@v6
         with:
           persist-credentials: false
+
+      - name: Resolve release version
+        id: release
+        shell: pwsh
+        env:
+          CREATE_RELEASE: ${{ inputs.create_release }}
+          VERSION_INPUT: ${{ inputs.version }}
+        run: |
+          $createRelease = $env:CREATE_RELEASE -eq 'true'
+          $version = $env:VERSION_INPUT.Trim()
+
+          if (!$createRelease) {
+            "version=" >> $env:GITHUB_OUTPUT
+            exit 0
+          }
+
+          if ([string]::IsNullOrWhiteSpace($version)) {
+            throw "A version is required when Create versioned GitHub release is checked."
+          }
+
+          if (!$version.StartsWith('v')) {
+            $version = "v$version"
+          }
+
+          if ($version -notmatch '^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$') {
+            throw "Version must use X.Y.Z or vX.Y.Z format."
+          }
+
+          "version=$version" >> $env:GITHUB_OUTPUT
+          "Release version: $version"
 
       - name: Check out dependencies
         shell: pwsh
@@ -306,6 +346,31 @@ jobs:
           name: Various Dialogue Tags
           path: package/
           if-no-files-found: error
+
+      - name: Create versioned release archive
+        if: ${{ inputs.create_release }}
+        id: release-archive
+        shell: pwsh
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          $archive = "Various-Dialogue-Tags-$env:VERSION.zip"
+          Compress-Archive -Path package/* -DestinationPath $archive
+          "archive=$archive" >> $env:GITHUB_OUTPUT
+
+      - name: Create GitHub release
+        if: ${{ inputs.create_release }}
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.release.outputs.version }}
+          ARCHIVE: ${{ steps.release-archive.outputs.archive }}
+        run: |
+          gh release create $env:VERSION $env:ARCHIVE `
+            --repo $env:GITHUB_REPOSITORY `
+            --target $env:GITHUB_SHA `
+            --title $env:VERSION `
+            --generate-notes
 
       - name: Upload build logs on failure
         if: failure()
