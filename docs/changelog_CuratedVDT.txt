@@ -1,5 +1,5 @@
 VDT 5.4.3
-31 mods (23 added, 2 removed, 6 changed, 3 migrated out, 7 migrated in) for Curated VDT List:
+31 mods (24 added, 0 removed, 6 changed, 3 migrated out, 7 migrated in) for Curated VDT List:
 Added {2026-08-22} SeranaDialogueExpansion - Romance [SDE]: SeranaDialogueExpansion - Romance.esp
 Added {2026-08-23} AamonTrinaMod [Spirits Wake]: AamonTrinaMod.esp
 Added {2026-08-24} Alchemical Appraisal Services [Alchemical Appraisal]: Alchemical Appraisal Services.esp
@@ -29,7 +29,6 @@ Migrated in {2026-08-25} from SharedParentList [Plus Plus] to Curated VDT List [
 Migrated in {2026-08-25} from SharedParentList [Plus Plus] to Curated VDT List [Plus Plus]: Flow-TG04.esp
 Migrated in {2026-08-25} from SharedParentList [Plus Plus] to Curated VDT List [Plus Plus]: Flow-TG05.esp
 Migrated in {2026-08-25} from SharedParentList [Lucien] to Curated VDT List [Lucien]: Lucien.esp
-Removed {2026-08-25} [Inigo]: Inigo.esp
 Added 18+ {2026-08-24} AA_OStim_Sequences [AA]: AA_OStim_Sequences.esp
 Added 18+ {2026-08-24} BBLS-ASLAL [BBLS]: BBLS-ASLAL.esp
 Added 18+ {2026-08-24} Blood and OStim [Blood]: Blood and OStim.esp
@@ -38,9 +37,9 @@ Added 18+ {2026-08-24} Licenses - Sometimes Enslaved [Licenses]: Licenses - Some
 Added 18+ {2026-08-24} Pahe_AltStartLAL [PAH]: Pahe_AltStartLAL.esp
 Added 18+ {2026-08-24} paradise_halls_farengars_study [PAH]: paradise_halls_farengars_study.esp
 Added 18+ {2026-08-24} Triple Triad Sex Tweaks [Triple Triad]: Triple Triad Sex Tweaks.esp
+Added 18+ {2026-08-28} [AA]: AmorousAdventuresPlus.esp
 Migrated out 18+ {2026-08-24} from Curated VDT List [Secret to Hide] to SharedParentList [Secret to Hide]: AsecretToHide.esp
 Migrated in 18+ {2026-08-24} from SharedParentList [AA] to Curated VDT List [AA]: AmorousPlayerDialogueRewritten.esp
-Removed 18+ {2026-08-24} [AA]: AmorousAdventuresPlus.esp
 
 VDT 5.4.0
 21 mods (21 added, 0 removed, 0 changed, 1 migrated out, 1 migrated in) for Curated VDT List:
