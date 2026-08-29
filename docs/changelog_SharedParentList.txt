@@ -1,5 +1,5 @@
 SharedParentList 5.4.3
-12 mods (11 added, 0 removed, 1 changed, 7 migrated out, 3 migrated in) for SharedParentList:
+12 mods (11 added, 0 removed, 1 changed, 7 migrated out, 5 migrated in) for SharedParentList:
 Added {2026-08-23} LoanSharksOfSkyrim [Loan Sharks]: LoanSharksOfSkyrim.esp
 Added {2026-08-24} FDE Aela Part 2 [FDE]: FDE Aela Part 2.esp
 Added {2026-08-24} GORE [Gore]: GORE.esp
@@ -14,6 +14,8 @@ Migrated out {2026-08-25} from SharedParentList [Plus Plus] to Curated VDT List 
 Migrated out {2026-08-25} from SharedParentList [Plus Plus] to Curated VDT List [Plus Plus]: Flow-TG04.esp
 Migrated out {2026-08-25} from SharedParentList [Plus Plus] to Curated VDT List [Plus Plus]: Flow-TG05.esp
 Migrated out {2026-08-25} from SharedParentList [Lucien] to Curated VDT List [Lucien]: Lucien.esp
+Migrated in {2026-08-24} from Curated VDT List [Kaidan] to SharedParentList [Kaidan]: 0Kaidan.esp
+Migrated in {2026-08-24} from Curated VDT List [Auri] to SharedParentList [Auri]: 018Auri.esp
 Migrated in {2026-08-25} from Curated VDT List [Remi] to SharedParentList [Remi]: HLIORemi.esp
 Migrated in {2026-08-25} from Curated VDT List [Lola] to SharedParentList [Lola]: submissivelola_est.esp
 Added 18+ {2026-08-22} Hearts of Darkness and Vine - Witch Hunter Adventures Custom Followers Weapons Powers Combat Creatures Player Homes [Hearts of Darkness]: Hearts of Darkness Hunted.esp (https://www.nexusmods.com/skyrimspecialedition/mods/121613)

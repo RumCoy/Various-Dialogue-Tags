@@ -1,5 +1,5 @@
 VDT 5.4.3
-31 mods (24 added, 0 removed, 6 changed, 3 migrated out, 7 migrated in) for Curated VDT List:
+30 mods (24 added, 0 removed, 6 changed, 5 migrated out, 7 migrated in) for Curated VDT List:
 Added {2026-08-22} SeranaDialogueExpansion - Romance [SDE]: SeranaDialogueExpansion - Romance.esp
 Added {2026-08-23} AamonTrinaMod [Spirits Wake]: AamonTrinaMod.esp
 Added {2026-08-24} Alchemical Appraisal Services [Alchemical Appraisal]: Alchemical Appraisal Services.esp
@@ -21,6 +21,8 @@ Changed {2026-08-25} [Games][Toss] to [Coin Toss]: cointoss.esl
 Changed {2026-08-25} [Games][Simple Gambling] to [Simple Gambling]: Really Simple Gambling SSE.esp
 Changed {2026-08-25} [Games][Tavern] to [Tavern Games]: TavernGames.esp
 Changed {2026-08-25} [Games][Triad] to [Triple Triad]: TripleTriad Patch Primer.esp
+Migrated out {2026-08-24} from Curated VDT List [Kaidan] to SharedParentList [Kaidan]: 0Kaidan.esp
+Migrated out {2026-08-24} from Curated VDT List [Auri] to SharedParentList [Auri]: 018Auri.esp
 Migrated out {2026-08-25} from Curated VDT List [Remi] to SharedParentList [Remi]: HLIORemi.esp
 Migrated out {2026-08-25} from Curated VDT List [Lola] to SharedParentList [Lola]: submissivelola_est.esp
 Migrated in {2026-08-24} from SharedParentList [Triple Triad] to Curated VDT List [Triple Triad] + Curated VBT List (Triple Triad): Triple Triad Skyrim.esp
